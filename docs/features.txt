@@ -1,0 +1,91 @@
+PMS
+-	HQ: Company-wide announcements and stuff everyone needs to know.
+-	Teams: group people by role.
+-	Projects: teams or the client working on project.
+
+Inside every category
+-	Todo Lists: work to do, assign tasks, and set due dates, and follow up on overdue tasks.
+o	assign to-dos to one or more people
+o	add notes and file attachments
+o	comment directly on tasks and lists
+o	track progress and/with charting 
+
+-	Message Boards: Keep the entire conversation about a specific topic together on a single page.
+o	customize with your own post types
+o	embed images or files into your message
+o	Boost messages and comments you like.
+o	share with everyone or select individuals 
+
+-	Schedules: displays any dated to-dos and events for that project. Everyone on the project can see it.
+o	add events with dates, times, and date ranges
+o	subscribe with Google Calendar
+o	discuss events on their own page
+o	add people to notify them when things change 
+
+-	Documents & File Storage: space to share documents, files, and images. Since everyone on the project has access.
+o	link Google Docs and discuss them in Basecamp
+o	simple drag and drop upload
+o	every file includes a complete version history
+o	reorder and color code files to keep things tidy 
+
+-	Real-time Group Chat: ask quick questions and get equally quick answers.
+o	every project includes its own chat room
+o	@mention people to get their attention
+o	attach files, quotes, and code samples
+o	have fun with sounds, video, and emoji 
+
+-	Check-in Questions: Checkins let you ask your team questions on a regular basis, with all the replies rolled up in one easy-to-digest thread.
+o	ask questions daily, weekly, or monthly
+o	ask the whole team or specific people
+o	pick the time of day you want to ask
+o	comment directly on individual answers 
+
+-	Client Access:
+
+-	Direct Messages (Pings): private conversation with a coworker
+o	have private 1-1 or small group conversations
+o	search your conversation history
+o	attach files, quotes, and code samples
+o	have fun with sounds, video, and emoji! 
+
+
+
+-	Email Forwards: private conversation with a coworker
+o	each project includes a unique forward address
+o	discuss forwarded emails privately
+o	respond to the sender when you’re ready
+o	have fun with sounds, video, and emoji! 
+
+-	Reports: every team and project to give you quick insight into exactly where things stand
+o	see what’s overdue or due soon
+o	see all the tasks assigned to someone
+o	see what's coming up
+o	see what’s been completed today! 
+
+-	Notifications: every team and project to give you quick insight into exactly where things stand
+•	optionally get notified by email
+•	temporarily disable notifications
+•	set the hours that you can be notified within
+•	@mention anyone to send them a notification
+-	Search : every team and project to give you quick insight into exactly where things stand
+search everywhere or one specific Basecamp
+search by keyword or person
+search for images and files only
+search your Ping history
+________________________________________
+Everything else
+•	Customize every project. Pick the tools you need and name them what you want.
+•	Embed YouTube videos, Tweets, and more in messages or comments by pasting their link.
+•	See your assigned tasks for every project in one place, ordered by due date.
+•	Themes! Change the color of Basecamp’s interface to make it yours.
+•	Get a digest of daily activity delivered to your inbox every morning.
+•	Bookmark important messages, to-do lists and more for quick and easy reference.
+•	Create public links to share with people who aren’t on your Basecamp.
+•	See an agenda of everything you’ve got coming up across all projects.
+•	Notification schedules help you to keep work from creeping in to your weekend.
+•	View teams & projects as cards or in a condensed list view.
+
+
+
+
+

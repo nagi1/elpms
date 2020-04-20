@@ -1,0 +1,31 @@
+Project
+types:
+- HQ
+- Teams
+- Projects
+
+properties:
+- name
+- description (optional)
+- type [HQ, team, project]
+- added users
+
+Constrains:
+- there's only one HQ project
+- clients can only be added to Projects only not teams nor HQ.
+- (anyone) except (client) can edit everything inside a project.
+- change log is saved for every action
+-  projects visible only to the users added to it
+- any user added can add more members
+- any user added can create, update, soft delete any item, only admin can hard delete it.
+
+
+
+Inside every project:
+- message board
+- todos
+- docs
+- global chat
+- schedule
+- automatic checkin
+- email forwards

@@ -1,0 +1,80 @@
+Create account
+- email
+- password
+- company name
+- job title
+
+Profile
+- avatar
+- name
+- title
+- bio
+- theme
+- change login informaiton
+- timezone
+- first day of the week
+
+Admin:
+- view who is admin
+- add or remove people
+- change people access
+- add/remove admins
+- rename/delete company
+- enable types for eveyone
+- change global message categories
+
+
+Owner:
+add owners
+rename account 
+view global trash
+access any project or team
+export data
+delete account
+
+
+Message board
+- view messages by categories
+- message list with [title, cateogry icon and name, creator, date, message, comments count]
+- if message borad is empty redirect to create new message.
+- if there board is empty and there is one message on darft show normal view and like to the draft
+
+[Create new message]
+- title
+- category
+- reach text body
+- notified users
+- save as draft, post
+
+[draft message]
+- copy 
+- move
+- send to the trash
+- bookmark
+
+[existing message]
+- title
+- creator info
+- time . notifed users count, when click get the thier data
+- message
+- boost
+- comments
+
+[comments]
+- only creator can edit
+- anyone can delete it
+
+
+
+
+
+
+
+
+Project [any type]
+
+Project: HQ
+
+
+Project: Team
+Project: Project
