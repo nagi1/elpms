@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Account;
 
 class User extends Authenticatable
 {
@@ -39,4 +40,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function accounts()
+    {
+        $this->belongsToMany(Account::class);
+    }
+
+    public function projects()
+    {
+        $this->belongsToMany(Project::class);
+    }
 }

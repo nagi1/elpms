@@ -1,0 +1,15 @@
+User -> Account -> Project
+
+- User own more than one Account
+- User has many Project
+- User can be client on Project
+- Account can be owned by many User
+- Project Owned by one Account
+- Project has many users
+
+
+Project -> MessageBoard
+
+- belongsTo User
+- has comments
+- has many subscribers
