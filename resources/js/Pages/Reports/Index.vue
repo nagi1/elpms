@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <h1 class="mb-8 font-bold text-3xl">Reports</h1>
-  </div>
+    <div>
+        <h1 class="mb-8 font-bold text-3xl">Reports</h1>
+    </div>
 </template>
 
 <script>
-import Layout from '@/Shared/Layout'
+import Layout from "@/Shared/Layouts/Layout";
 
 export default {
-  metaInfo: { title: 'Reports' },
-  layout: Layout,
-}
+    metaInfo: { title: "Reports" },
+    layout: Layout
+};
 </script>

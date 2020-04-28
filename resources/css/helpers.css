@@ -1,0 +1,19 @@
+.debug {
+    @apply border-4 border-red-600;
+}
+
+.debug-blue {
+    @apply border-4 border-blue-600;
+}
+
+.divided {
+    display: flex;
+    align-items: center;
+}
+
+.divider {
+    flex-grow: 1;
+    margin: 5px;
+    border-width: 0.75px;
+    @apply border border-gray-400;
+}

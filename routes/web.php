@@ -5,8 +5,34 @@ Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->
 Route::post('login')->name('login.attempt')->uses('Auth\LoginController@login')->middleware('guest');
 Route::post('logout')->name('logout')->uses('Auth\LoginController@logout');
 
-// // Dashboard
-// Route::get('/')->name('dashboard')->uses('DashboardController')->middleware('auth');
+// Choose account
+Route::get('/accounts')->name('chooseAccount')->uses('ChooseAccountController')->middleware('auth');
+
+// index
+Route::get('/{account}')->name('index')->uses('IndexController')->middleware(['auth']);
+
+// create new project
+Route::post('{account}/projects')->name('projects.store')->uses('ProjectsController@store');
+
+// show project
+Route::get('{account}/projects/{project}')->name('projects.show')->uses('ProjectsController@show');
+
+// rename project
+Route::post('{account}/{project}/rename')->name('projects.rename')->uses('RenameProjectController');
+
+// pin project
+Route::post('{account}/{project}/pin')->name('projects.pin')->uses('PinProjectController');
+
+
+// message boards
+Route::get('{account}/{project}/message-boards/new')->name('messageBoards.create')->uses('MessageBoardsController@create');
+
+//index
+Route::get('{account}/{project}/message-boards')->name('messageBoards.index')->uses('MessageBoardsController@index');
+
+//store
+Route::post('{account}/{project}/message-boards/new')->name('messageBoards.store')->uses('MessageBoardsController@store');
+
 
 // // Users
 // Route::get('users')->name('users')->uses('UsersController@index')->middleware('remember', 'auth');

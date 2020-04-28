@@ -11,6 +11,7 @@
         "php": "^7.2.5",
         "ext-exif": "^7.4",
         "ext-gd": "^7.4",
+        "additionapps/flexible-presenter": "^1.3",
         "barryvdh/laravel-debugbar": "^3.2",
         "beyondcode/laravel-dump-server": "^1.4",
         "fideloper/proxy": "^4.2",
@@ -21,6 +22,9 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "reinink/remember-query-strings": "^0.1.0",
+        "spatie/laravel-model-states": "^1.6",
+        "staudenmeir/eloquent-has-many-deep": "^1.12",
+        "te7a-houdini/laravel-trix": "^2.0",
         "tightenco/ziggy": "^0.9.0"
     },
     "require-dev": {

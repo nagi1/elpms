@@ -1,61 +1,101 @@
 <template>
-  <div class="p-6 bg-indigo-800 min-h-screen flex justify-center items-center">
-    <div class="w-full max-w-md">
-      <logo class="block mx-auto w-full max-w-xs fill-white" height="50" />
-      <form class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden" @submit.prevent="submit">
-        <div class="px-10 py-12">
-          <h1 class="text-center font-bold text-3xl">Welcome Back!</h1>
-          <div class="mx-auto mt-6 w-24 border-b-2" />
-          <text-input v-model="form.email" :errors="$page.errors.email" class="mt-10" label="Email" type="email" autofocus autocapitalize="off" />
-          <text-input v-model="form.password" class="mt-6" label="Password" type="password" />
-          <label class="mt-6 select-none flex items-center" for="remember">
-            <input id="remember" v-model="form.remember" class="mr-1" type="checkbox">
-            <span class="text-sm">Remember Me</span>
-          </label>
+    <div class="p-6 min-h-screen flex justify-center items-center">
+        <div class="w-full max-w-md">
+            <logo class="block mx-auto w-full max-w-xs h-24 fill-current" />
+            <form
+                class="mt-2 bg-white rounded-lg shadow-xl border-2 overflow-hidden"
+                @submit.prevent="submit"
+            >
+                <div class="px-10 py-4">
+                    <h1 class="text-center text-xl">
+                        Log in to ELPMS
+                    </h1>
+
+                    <a
+                        class="btn-white text-lg block mt-5 rounded shadow border text-center"
+                        href="#"
+                    >
+                        Use my
+                        <img class="inline h-5" src="@/assets/Google.svg" />
+                        Account
+                    </a>
+
+                    <divider class="mt-8">
+                        <span
+                            class="text-lg tracking-wider text-gray-700 opacity-75 px-1"
+                            >Or, use my email address</span
+                        >
+                    </divider>
+
+                    <text-input
+                        v-model="form.email"
+                        :errors="$page.errors.email"
+                        class="mt-5"
+                        label="Email or username"
+                        type="email"
+                        autocapitalize="off"
+                    />
+                    <text-input
+                        v-model="form.password"
+                        class="mt-6"
+                        label="Password"
+                        type="password"
+                    />
+                </div>
+                <div class="px-10 pb-5">
+                    <loading-button
+                        :loading="sending"
+                        class="btn-green text-lg shadow border justify-center w-full"
+                        type="submit"
+                        >Login</loading-button
+                    >
+                </div>
+            </form>
+            <div class="mt-5 flex justify-center">
+                <a class="underline" tabindex="-1" href="#reset-password"
+                    >Forget your password?</a
+                >
+            </div>
         </div>
-        <div class="px-10 py-4 bg-gray-100 border-t border-gray-200 flex justify-between items-center">
-          <a class="hover:underline" tabindex="-1" href="#reset-password">Forget password?</a>
-          <loading-button :loading="sending" class="btn-indigo" type="submit">Login</loading-button>
-        </div>
-      </form>
     </div>
-  </div>
 </template>
 
 <script>
-import LoadingButton from '@/Shared/LoadingButton'
-import Logo from '@/Shared/Logo'
-import TextInput from '@/Shared/TextInput'
+import LoadingButton from "@/Shared/LoadingButton";
+import Divider from "@/Shared/Divider";
+import Logo from "@/Shared/Logo";
+import TextInput from "@/Shared/TextInput";
 
 export default {
-  metaInfo: { title: 'Login' },
-  components: {
-    LoadingButton,
-    Logo,
-    TextInput,
-  },
-  props: {
-    errors: Object,
-  },
-  data() {
-    return {
-      sending: false,
-      form: {
-        email: 'johndoe@example.com',
-        password: 'secret',
-        remember: null,
-      },
-    }
-  },
-  methods: {
-    submit() {
-      this.sending = true
-      this.$inertia.post(this.route('login.attempt'), {
-        email: this.form.email,
-        password: this.form.password,
-        remember: this.form.remember,
-      }).then(() => this.sending = false)
+    metaInfo: { title: "Login" },
+    components: {
+        LoadingButton,
+        Logo,
+        Divider,
+        TextInput
     },
-  },
-}
+    props: {
+        errors: Object
+    },
+    data() {
+        return {
+            sending: false,
+            form: {
+                email: "test@gmail.com",
+                password: "password"
+            }
+        };
+    },
+    methods: {
+        submit() {
+            this.sending = true;
+            this.$inertia
+                .post(this.route("login.attempt"), {
+                    email: this.form.email,
+                    password: this.form.password
+                })
+                .then(() => (this.sending = false));
+        }
+    }
+};
 </script>

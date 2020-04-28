@@ -4,7 +4,10 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Account;
+use App\Models\Project;
+use App\Models\Pivots\ProjectUsers;
+use App\Models\Pivots\AccountUser;
+use App\Models\Account;
 
 class User extends Authenticatable
 {
@@ -41,14 +44,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class)
+            ->using(ProjectUsers::class)
+            ->as('projectUsers')
+            ->withTimestamps()
+            ->with('users');
+    }
 
     public function accounts()
     {
-        $this->belongsToMany(Account::class);
-    }
-
-    public function projects()
-    {
-        $this->belongsToMany(Project::class);
+        return $this->belongsToMany(Account::class)
+            ->using(AccountUser::class)
+            ->as('accountUsers')
+            ->withTimestamps()
+            ->with('users');
     }
 }

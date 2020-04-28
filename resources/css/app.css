@@ -3,10 +3,14 @@
 @import "reset";
 
 /* Components */
+@import "float-label-css";
+@import "colors";
 @import "tailwindcss/components";
+@import "helpers";
 @import "buttons";
 @import "form";
 @import "nprogress";
+@import "timeline";
 
 /* Utilities */
 @import "tailwindcss/utilities";

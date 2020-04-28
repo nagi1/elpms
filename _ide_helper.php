@@ -2,8 +2,8 @@
 // @formatter:off
 
 /**
- * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 7.4.0 on 2020-04-22 21:17:46.
+ * A helper file for Laravel, to provide autocomplete information to your IDE
+ * Generated for Laravel 7.8.1 on 2020-04-28 12:30:33.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -3066,6 +3066,8 @@ namespace Illuminate\Support\Facades {
     /**
      * 
      *
+     * @method static \Illuminate\Contracts\Cache\Lock lock(string $name, int $seconds = 0, mixed $owner = null)
+     * @method static \Illuminate\Contracts\Cache\Lock restoreLock(string $name, string $owner)
      * @see \Illuminate\Cache\CacheManager
      * @see \Illuminate\Cache\Repository
      */ 
@@ -6517,7 +6519,7 @@ namespace Illuminate\Support\Facades {
      *
      * @method static \Illuminate\Http\Client\PendingRequest asJson()
      * @method static \Illuminate\Http\Client\PendingRequest asForm()
-     * @method static \Illuminate\Http\Client\PendingRequest attach(string $name, string $contents, string|null $filename = null, array $headers)
+     * @method static \Illuminate\Http\Client\PendingRequest attach(string $name, string $contents, string|null $filename = null, array $headers = [])
      * @method static \Illuminate\Http\Client\PendingRequest asMultipart()
      * @method static \Illuminate\Http\Client\PendingRequest bodyFormat(string $format)
      * @method static \Illuminate\Http\Client\PendingRequest contentType(string $contentType)
@@ -6637,6 +6639,44 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Http\Client\Factory $instance */
                         $instance->assertSent($callback);
+        }
+        
+        /**
+         * Assert that a request / response pair was not recorded matching a given truth test.
+         *
+         * @param callable $callback
+         * @return void 
+         * @static 
+         */ 
+        public static function assertNotSent($callback)
+        {
+                        /** @var \Illuminate\Http\Client\Factory $instance */
+                        $instance->assertNotSent($callback);
+        }
+        
+        /**
+         * Assert that no request / response pair was recorded.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function assertNothingSent()
+        {
+                        /** @var \Illuminate\Http\Client\Factory $instance */
+                        $instance->assertNothingSent();
+        }
+        
+        /**
+         * Assert how many requests have been recorded.
+         *
+         * @param $count
+         * @return void 
+         * @static 
+         */ 
+        public static function assertSentCount($count)
+        {
+                        /** @var \Illuminate\Http\Client\Factory $instance */
+                        $instance->assertSentCount($count);
         }
         
         /**
@@ -8584,6 +8624,40 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Routing\Redirector $instance */
                         return $instance->route($route, $parameters, $status, $headers);
+        }
+        
+        /**
+         * Create a new redirect response to a signed named route.
+         *
+         * @param string $route
+         * @param mixed $parameters
+         * @param \DateTimeInterface|\DateInterval|int|null $expiration
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */ 
+        public static function signedRoute($route, $parameters = [], $expiration = null, $status = 302, $headers = [])
+        {
+                        /** @var \Illuminate\Routing\Redirector $instance */
+                        return $instance->signedRoute($route, $parameters, $expiration, $status, $headers);
+        }
+        
+        /**
+         * Create a new redirect response to a signed named route.
+         *
+         * @param string $route
+         * @param \DateTimeInterface|\DateInterval|int|null $expiration
+         * @param mixed $parameters
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */ 
+        public static function temporarySignedRoute($route, $expiration, $parameters = [], $status = 302, $headers = [])
+        {
+                        /** @var \Illuminate\Routing\Redirector $instance */
+                        return $instance->temporarySignedRoute($route, $expiration, $parameters, $status, $headers);
         }
         
         /**
@@ -11394,6 +11468,21 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Create a new Route object.
+         *
+         * @param array|string $methods
+         * @param string $uri
+         * @param mixed $action
+         * @return \Illuminate\Routing\Route 
+         * @static 
+         */ 
+        public static function newRoute($methods, $uri, $action)
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        return $instance->newRoute($methods, $uri, $action);
+        }
+        
+        /**
          * Return the response returned by the given route.
          *
          * @param string $name
@@ -12033,36 +12122,6 @@ namespace Illuminate\Support\Facades {
         public static function emailVerification()
         {
                         return \Illuminate\Routing\Router::emailVerification();
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function layout($layout)
-        {
-                        return \Illuminate\Routing\Router::layout($layout);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function section($section)
-        {
-                        return \Illuminate\Routing\Router::section($section);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function livewire($uri, $component = null)
-        {
-                        return \Illuminate\Routing\Router::livewire($uri, $component);
         }
         
         /**
@@ -13385,7 +13444,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */ 
-        public static function prepend($path, $data, $separator = '')
+        public static function prepend($path, $data, $separator = '
+')
         {
                         /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
                         return $instance->prepend($path, $data, $separator);
@@ -13400,7 +13460,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */ 
-        public static function append($path, $data, $separator = '')
+        public static function append($path, $data, $separator = '
+')
         {
                         /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
                         return $instance->append($path, $data, $separator);
@@ -16102,283 +16163,6 @@ namespace Facade\Ignition\Facades {
  
 }
 
-namespace Livewire { 
-
-    /**
-     * 
-     *
-     * @see \Livewire\LivewireManager
-     */ 
-    class Livewire {
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function component($alias, $viewClass)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->component($alias, $viewClass);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function componentResolver($callback)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->componentResolver($callback);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getComponentClass($alias)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->getComponentClass($alias);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function activate($component, $id)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->activate($component, $id);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function mount($name, $params = [])
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->mount($name, $params);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function dummyMount($id, $tagName)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->dummyMount($id, $tagName);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function test($name, $params = [])
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->test($name, $params);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function actingAs($user, $driver = null)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->actingAs($user, $driver);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function styles($options = [])
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->styles($options);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function scripts($options = [])
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->scripts($options);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function isLivewireRequest()
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->isLivewireRequest();
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function registerHydrationMiddleware($classes)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->registerHydrationMiddleware($classes);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function registerInitialHydrationMiddleware($callables)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->registerInitialHydrationMiddleware($callables);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function registerInitialDehydrationMiddleware($callables)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->registerInitialDehydrationMiddleware($callables);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function hydrate($instance, $request)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->hydrate($instance, $request);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function initialHydrate($instance, $request)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->initialHydrate($instance, $request);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function initialDehydrate($instance, $response)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->initialDehydrate($instance, $response);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function dehydrate($instance, $response)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->dehydrate($instance, $response);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getRootElementTagName($dom)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->getRootElementTagName($dom);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function dispatch($event, ...$params)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->dispatch($event, ...$params);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function listen($event, $callback)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->listen($event, $callback);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function isOnVapor()
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->isOnVapor();
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function isLaravel7()
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->isLaravel7();
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function resolveMethodDependencies($parameters, $reflector)
-        {
-                        /** @var \Livewire\LivewireManager $instance */
-                        return $instance->resolveMethodDependencies($parameters, $reflector);
-        }
-         
-    }
- 
-}
-
 
 namespace  { 
 
@@ -18548,7 +18332,7 @@ namespace  {
             /**
              * Add an "order by" clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|string $column
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Query\Expression|string $column
              * @param string $direction
              * @return \Illuminate\Database\Query\Builder 
              * @throws \InvalidArgumentException
@@ -19303,8 +19087,6 @@ namespace  {
     class Debugbar extends \Barryvdh\Debugbar\Facade {}
 
     class Flare extends \Facade\Ignition\Facades\Flare {}
-
-    class Livewire extends \Livewire\Livewire {}
  
 }
 
