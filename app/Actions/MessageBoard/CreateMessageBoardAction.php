@@ -4,7 +4,6 @@ namespace App\Actions\MessageBoard;
 
 use Auth;
 use App\User;
-use App\States\Project\Published;
 use App\Models\Project;
 use App\Models\MessageBoard;
 
@@ -23,7 +22,7 @@ class CreateMessageBoardAction
         $this->attributes = $attributes;
         $this->project = $project;
         $this->user = $user;
-        $this->mergeUser();
+        $this->normalizeAttributes();
     }
 
     public function execute(): MessageBoard
@@ -37,5 +36,13 @@ class CreateMessageBoardAction
     private function mergeUser()
     {
         $this->attributes = array_merge($this->attributes, ['user_id' => $this->user->id]);
+    }
+
+    private function normalizeAttributes()
+    {
+        $this->mergeUser();
+        if (empty($this->attributes['title'])) {
+            $this->attributes['title'] = 'Untitled';
+        }
     }
 }

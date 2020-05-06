@@ -33,15 +33,20 @@ module.exports = {
                     "300": "#b2b7ff",
                     "100": "#e6e8ff"
                 },
-                primary: "rgb(40, 60, 70)"
+                primary: "rgb(40, 60, 70)",
+                silver: {
+                    "100": "#4a4c4d",
+                    "200": "#3e3f40"
+                }
             },
             fill: theme => theme("colors")
         }
     },
     variants: {
         fill: ["responsive", "hover", "focus", "group-hover"],
-        textColor: ["responsive", "hover", "focus", "group-hover"],
-        zIndex: ["responsive", "focus"]
+        textColor: ["responsive", "hover", "focus", "group-hover", "active"],
+        zIndex: ["responsive", "focus"],
+        backgroundColor: ["responsive", "hover", "focus", "active"]
     },
-    plugins: []
+    plugins: [require("@tailwindcss/custom-forms")]
 };

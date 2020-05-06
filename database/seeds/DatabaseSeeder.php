@@ -5,10 +5,8 @@ use App\User;
 use App\States\Project\Team;
 use App\States\Project\Project as ProjectProject;
 use App\States\Project\Hq;
-use App\Models\Project;
-use App\Models\Account;
+use App\Actions\User\CreateUserAction;
 use App\Actions\Project\CreateProjectAction;
-use App\Actions\Project\AddPeopleToProjectAction;
 use App\Actions\Account\CreateAccountAction;
 
 class DatabaseSeeder extends Seeder
@@ -18,30 +16,32 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(CreateUserAction $createUserAction)
     {
         // $this->call(UserSeeder::class);
-        $user = factory(User::class)->create([
+        $user = $createUserAction->execute(factory(User::class)->raw([
             'email' => 'test@gmail.com',
-        ]);
-        $user2 = factory(User::class)->create();
+        ]));
+
+
+        $user2 = $createUserAction->execute(factory(User::class)->raw());
 
         /** @var App\Models\Account */
         $account = (new CreateAccountAction(['name' => 'Test Account']))->execute();
 
-        $hq = (new CreateProjectAction)->execute($account, [
+        $hq = (new CreateProjectAction($account, [
             'name' => "{$account->name} HQ",
             'type' => Hq::class
-        ], collect([$user]));
+        ], collect([$user, $user2])))->execute();
 
-        $team = (new CreateProjectAction)->execute($account, [
+        $team = (new CreateProjectAction($account, [
             'name' => "Team",
             'type' => Team::class
-        ], collect([$user]));
+        ], collect([$user, $user2])))->execute();
 
-        $project = (new CreateProjectAction)->execute($account, [
+        $project = (new CreateProjectAction($account, [
             'name' => "Project",
             'type' => ProjectProject::class
-        ], collect([$user2, $user]));
+        ], collect([$user, $user2])))->execute();
     }
 }

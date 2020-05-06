@@ -1,38 +1,94 @@
 <template>
     <main-white-layout>
-        <!-- options circule-->
-        <div class="absolute top-0 right-0 m-2">
-            <button class="rounded-full border border-gray-400 bg-white p-1">
+        <!-- options circle-->
+        <corner-options-button @opened="openOptions" />
+        <!-- /options circle-->
+
+        <corner-options-menu :open="options" @closed="closeOptions">
+            <inertia-link
+                href="#"
+                class="flex items-center transition-all duration-200 ease-in-out space-x-1 hover:bg-silver-200 text-white p-3"
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="fill-current h-6"
-                    viewBox="0 0 36 36"
+                    class="fill-white h-5"
+                    version="1.1"
+                    viewBox="0 0 24 24"
                 >
                     <path
-                        d="M9 15c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm18 0c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm-9 0c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+                        d="M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21"
                     />
                 </svg>
-            </button>
-        </div>
-        <!-- /options circule-->
+                <span>Stop following</span>
+            </inertia-link>
 
-        <!-- hedaer -->
+            <inertia-link
+                href="#"
+                class="flex items-center transition-all duration-200 ease-in-out space-x-1 hover:bg-silver-200 text-white px-3 py-2"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="fill-white h-5"
+                    version="1.1"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
+                    />
+                </svg>
+                <span>Edit name, description and type</span>
+            </inertia-link>
+
+            <inertia-link
+                href="#"
+                class="flex items-center transition-all duration-200 ease-in-out space-x-1 hover:bg-silver-200 text-white px-3 py-2"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="fill-white h-5"
+                    version="1.1"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        d="M3 3H21V7H3V3M4 21V8H20V21H4M14 14V11H10V14H7L12 19L17 14H14Z"
+                    />
+                </svg>
+
+                <span>Archive or delete</span>
+            </inertia-link>
+
+            <inertia-link
+                href="#"
+                class="flex items-center transition-all duration-200 ease-in-out space-x-1 hover:bg-silver-200 text-white px-3 py-2"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="fill-white h-5"
+                    version="1.1"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
+                    />
+                </svg>
+
+                <span>See items in the trash</span>
+            </inertia-link>
+        </corner-options-menu>
+        <!-- header -->
         <div class="text-center w-full">
-            <h1 class="font-bold text-3xl">Nagiworks HQ</h1>
+            <h1 class="font-bold text-3xl">{{ project.name }}</h1>
             <p class="mt-2 text-base tracking-wide text-center">
-                Company-wide announcements and stuff everyone needs to know.
+                {{ project.description }}
             </p>
             <div class="w-full flex justify-center items-center mt-5 space-x-3">
-                <div class="flex justify-center items-center">
+                <div class="flex justify-center items-center space-x-1">
                     <img
+                        v-for="user in project.users"
+                        :key="user.id"
                         class="rounded-full h-8"
-                        src="@/assets/images/avatar-64-x1.png"
-                        alt="avatar"
-                    />
-                    <img
-                        class="rounded-full h-8 ml-1"
-                        src="@/assets/images/avatar-64-x1.png"
-                        alt="avatar"
+                        :src="user.avatar64"
+                        :alt="user.name"
                     />
                 </div>
                 <button
@@ -50,12 +106,12 @@
         >
             <message-board-card
                 :link="
-                    route('messageBoards.create', {
+                    route('messageBoards.index', {
                         account: $page.account.id,
                         project: $page.project.id
                     })
                 "
-                :bucket="buckets.messageBoard"
+                :messageBoards="messageBoards"
             />
 
             <!-- card -->
@@ -298,7 +354,7 @@
                 <span class="divider"></span>
             </h2>
 
-            <!-- inner-activies -->
+            <!-- inner-activities -->
             <div class="">
                 <!-- day -->
                 <div class="timeline relative mt-5 px-8 w-full">
@@ -413,7 +469,7 @@
                     </div>
                 </div>
             </div>
-            <!-- /inner-activies -->
+            <!-- /inner-activities -->
         </div>
         <!-- /Activity -->
     </main-white-layout>
@@ -423,14 +479,31 @@
 import MainWhiteLayout from "@/Shared/Layouts/MainWhiteLayout";
 import Divider from "@/Shared/Divider";
 import MessageBoardCard from "@/Components/MessageBoardCard";
+import CornerOptionsMenu from "@/Shared/CornerOptionsMenu";
+import CornerOptionsButton from "@/Shared/Components/CornerOptionsButton";
 
 export default {
     metaInfo: { title: "Home" },
-    props: ["account", "project", "buckets"],
+    props: ["account", "project", "messageBoards"],
     components: {
         Divider,
         MessageBoardCard,
-        MainWhiteLayout
+        MainWhiteLayout,
+        CornerOptionsMenu,
+        CornerOptionsButton
+    },
+    data() {
+        return {
+            options: false
+        };
+    },
+    methods: {
+        openOptions() {
+            this.options = true;
+        },
+        closeOptions() {
+            this.options = false;
+        }
     }
 };
 </script>

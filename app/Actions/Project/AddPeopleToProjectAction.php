@@ -8,11 +8,20 @@ use App\Actions\Account\AddPeopleToAccountAction;
 
 class AddPeopleToProjectAction
 {
-    public function execute(Project $project, Collection $users): void
+    private Project $project;
+    private Collection $users;
+
+    public function __construct(Project $project, Collection $users)
     {
-        $users->each(function ($user) use ($project) {
-            $project->users()->syncWithoutDetaching($user);
-            (new AddPeopleToAccountAction)->execute($project->account, collect([$user]));
+        $this->project = $project;
+        $this->users = $users;
+    }
+
+    public function execute(): void
+    {
+        $this->users->each(function ($user) {
+            $this->project->users()->syncWithoutDetaching($user);
+            (new AddPeopleToAccountAction($this->project->account, collect([$user])))->execute();
         });
     }
 }

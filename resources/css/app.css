@@ -1,6 +1,7 @@
 /* Reset */
 @import "tailwindcss/base";
 @import "reset";
+@import "defaults";
 
 /* Components */
 @import "float-label-css";

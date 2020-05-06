@@ -20,6 +20,10 @@ class CreateMessageBoardsTable extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->string('title');
             $table->string('state');
+            $table->string('status');
+            $table->schemalessAttributes('meta');
+            $table->softDeletes();
+            $table->timestamp('archived_at')->nullable();
             $table->timestamps();
         });
     }

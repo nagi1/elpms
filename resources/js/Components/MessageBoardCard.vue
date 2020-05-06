@@ -1,10 +1,10 @@
 <template>
     <bucket-card :link="link" name="Message Board">
-        <div class="flex flex-col justify-center items-center mt-1 h-full">
-            <div
-                v-if="emptyBucket"
-                class="flex flex-col justify-center items-center h-full"
-            >
+        <div
+            v-if="empty"
+            class="flex flex-col justify-center items-center mt-1 h-full"
+        >
+            <div class="flex flex-col justify-center items-center h-full">
                 <div
                     class="rounded-full sm:h-20 sm:w-20 h-24 w-24 flex items-center justify-center bg-blue-600"
                 >
@@ -26,9 +26,26 @@
                     keep feedback on-topic.
                 </p>
             </div>
-
-            <div v-else>
-                Bitch!
+        </div>
+        <div class="flex flex-col space-y-2 mt-3 h-full overflow-hidden" v-else>
+            <div
+                class="flex space-x-1 truncate"
+                v-for="messageBoard in messageBoards"
+                :key="messageBoard.id"
+            >
+                <img
+                    class="h-6"
+                    :src="messageBoard.user.avatar64"
+                    :alt="messageBoard.user.name"
+                />
+                <div class="leading-4">
+                    <p class="text-xs font-bold">{{ messageBoard.title }}</p>
+                    <p class="text-xs">
+                        <span v-if="messageBoard.category"
+                            >{{ messageBoard.category.fullName }} &minus; </span
+                        >{{ messageBoard.cardExcerpt }}
+                    </p>
+                </div>
             </div>
         </div>
     </bucket-card>
@@ -41,10 +58,10 @@ export default {
     components: {
         BucketCard
     },
-    props: ["bucket", "link"],
+    props: ["messageBoards", "link"],
     computed: {
-        emptyBucket() {
-            return this.bucket.length === 0;
+        empty() {
+            return this.messageBoards.length === 0;
         }
     }
 };

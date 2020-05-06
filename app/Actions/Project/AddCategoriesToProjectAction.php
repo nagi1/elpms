@@ -3,11 +3,21 @@
 namespace App\Actions\Project;
 
 use App\Models\Project;
+use App\Actions\AddCategoriesTo;
 
-class AddCategoriesToProjectAction
+class AddCategoriesToProjectAction extends AddCategoriesTo
 {
-    public function execute(Project $project, array $categories): void
+    private Project $project;
+    private array $categories;
+
+    public function __construct(Project $project, array $categories)
     {
-        $project->categories()->saveMany($categories);
+        $this->project = $project;
+        $this->categories = $this->normalizeCategories($categories);
+    }
+
+    public function execute(): void
+    {
+        $this->project->categories()->saveMany($this->categories);
     }
 }

@@ -101,6 +101,7 @@
                         v-for="team in teams"
                         :key="team.id"
                         :project="team"
+                        class="w-56"
                     />
                     <!-- /card -->
                 </div>

@@ -3,12 +3,20 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use ReflectionClass;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\States\Status\Archived;
 use App\States\Project\Project as ProjectProject;
 use App\Models\Project;
+use App\Models\Concerns\Commentable;
 use App\Models\Account;
+use App\Actions\User\CreateUserAction;
+use App\Actions\Project\CreateProjectAction;
+use App\Actions\MessageBoard\CreateMessageBoardAction;
+use App\Actions\Account\CreateAccountAction;
 
 class AccountTest extends TestCase
 {
@@ -18,18 +26,28 @@ class AccountTest extends TestCase
     /** @test */
     public function a_user_can_join_an_account()
     {
-        $account = factory(Account::class)->create();
-        $user = factory(User::class)->create();
-        $project = Project::create([
-            'type' => ProjectProject::class,
-            'name' => 'Project',
-            'account_id' => $account->id,
-        ]);
+        $createUserAction = app(CreateUserAction::class);
+        $user = $createUserAction->execute(factory(User::class)->raw([
+            'email' => 'test@gmail.com',
+        ]));
 
-        $account->users()->attach($user);
+        $this->actingAs($user);
+        $account = (new CreateAccountAction([
+            'name' => 'Account'
+        ]))->execute();
 
-        $project->users()->attach($user);
+        $project = (new CreateProjectAction($account, [
+            'name' => 'project',
+            'type' => 'team'
+        ], collect([$user])))->execute();
 
-        dd($user->projects);
+        $message = (new CreateMessageBoardAction($project, [
+            'title' => 'some title'
+        ]))->execute();
+
+
+        $message->status->transitionTo(Archived::class);
+
+        dd($message);
     }
 }

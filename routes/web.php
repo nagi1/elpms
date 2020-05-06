@@ -18,21 +18,76 @@ Route::post('{account}/projects')->name('projects.store')->uses('ProjectsControl
 Route::get('{account}/projects/{project}')->name('projects.show')->uses('ProjectsController@show');
 
 // rename project
-Route::post('{account}/{project}/rename')->name('projects.rename')->uses('RenameProjectController');
+Route::post('{account}/projects/{project}/rename')->name('projects.rename')->uses('RenameProjectController');
 
 // pin project
-Route::post('{account}/{project}/pin')->name('projects.pin')->uses('PinProjectController');
+Route::post('{account}/projects/{project}/pin')->name('projects.pin')->uses('PinProjectController');
 
+// Default sort
+Route::put('{account}/projects/{project}/messagesSortBy')->name('projects.messagesSortBy')->uses('MessagesSortByController');
 
 // message boards
-Route::get('{account}/{project}/message-boards/new')->name('messageBoards.create')->uses('MessageBoardsController@create');
+Route::get('{account}/projects/{project}/message-boards/create')->name('messageBoards.create')->uses('MessageBoardsController@create')->middleware(['auth']);
 
 //index
-Route::get('{account}/{project}/message-boards')->name('messageBoards.index')->uses('MessageBoardsController@index');
+Route::get('{account}/projects/{project}/message-boards')->name('messageBoards.index')->uses('MessageBoardsController@index')->middleware(['auth']);
 
-//store
-Route::post('{account}/{project}/message-boards/new')->name('messageBoards.store')->uses('MessageBoardsController@store');
+//drafts
+Route::get('{account}/projects/{project}/message-boards/drafts')->name('messageBoards.draft.index')->uses('MessageBoardsDraftController@index')->middleware(['auth']);
 
+//delete drafts
+Route::delete('{account}/projects/{project}/message-boards/drafts/{messageBoard}')->name('messageBoards.draft.delete')->uses('MessageBoardsDraftController@delete')->middleware(['auth']);
+
+//drafts
+Route::get('{account}/projects/{project}/message-boards/drafts/{messageBoard}')->name('messageBoards.draft.show')->uses('MessageBoardsDraftController@show')->middleware(['auth']);
+
+//publish draft
+Route::put('{account}/projects/{project}/message-boards/drafts/{messageBoard}/publish')->name('messageBoards.draft.publish')->uses('PublishMessageBoardController')->middleware(['auth']);
+
+// new message board
+Route::post('{account}/projects/{project}/message-boards/create')->name('messageBoards.store')->uses('MessageBoardsController@store');
+
+// show message board
+Route::get('{account}/projects/{project}/message-boards/{messageBoard}')->name('messageBoards.show')->uses('ShowMessageBoardMessage');
+
+// edit message board
+Route::get('{account}/projects/{project}/message-boards/{messageBoard}/edit')->name('messageBoards.edit')->uses('EditMessageBoard@edit');
+
+// update message board
+Route::put('{account}/projects/{project}/message-boards/{messageBoard}/edit')->name('messageBoards.update')->uses('EditMessageBoard@update');
+
+
+// store category
+Route::post('categories')->name('categories.store')->uses('CategoriesController@store');
+
+// edit category
+Route::put('categories/{category}')->name('categories.update')->uses('CategoriesController@update');
+
+// delete category
+Route::delete('categories/{category}')->name('categories.destroy')->uses('CategoriesController@destroy');
+
+// Comments
+Route::post('{account}/projects/{project}/comments/')->name('comments.store')->uses('CommentsController@store');
+
+// Comments update
+Route::put('{account}/projects/{project}/comments/{comment}')->name('comments.update')->uses('CommentsController@update');
+
+// Comments delete
+Route::post('{account}/projects/{project}/comments/{comment}')->name('comments.delete')->uses('CommentsController@delete');
+
+// Boosts
+Route::post('{account}/projects/{project}/boosts/')->name('boosts.store')->uses('BoostsController@store');
+
+// Boosts delete
+Route::delete('{account}/projects/{project}/boosts/{boost}')->name('boosts.delete')->uses('BoostsController@delete');
+
+
+// Move
+Route::get('{account}/projects/{project}/move/{model}/{id}')->name('move.show')->uses('MoveController@show');
+Route::post('{account}/projects/{project}/move/{model}/{id}')->name('move.store')->uses('MoveController@store');
+
+// Archive
+Route::post('{account}/projects/{project}/archive}')->name('archive.store')->uses('ArchiveController@store');
 
 // // Users
 // Route::get('users')->name('users')->uses('UsersController@index')->middleware('remember', 'auth');

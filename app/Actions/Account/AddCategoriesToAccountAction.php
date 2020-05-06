@@ -3,11 +3,22 @@
 namespace App\Actions\Account;
 
 use App\Models\Account;
+use App\Actions\AddCategoriesTo;
 
-class AddCategoriesToAccountAction
+
+class AddCategoriesToAccountAction extends AddCategoriesTo
 {
-    public function execute(Account $account, array $categories): void
+    private Account $account;
+    private array $categories;
+
+    public function __construct(Account $account, array $categories)
     {
-        $account->categories()->saveMany($categories);
+        $this->account = $account;
+        $this->categories = $this->normalizeCategories($categories);
+    }
+
+    public function execute(): void
+    {
+        $this->account->categories()->saveMany($this->categories);
     }
 }

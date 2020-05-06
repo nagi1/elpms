@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use App\Presenters\UsersPresenter;
 use App\Observers\AccountObserver;
 use App\Models\Account;
 
@@ -38,10 +39,7 @@ class AppServiceProvider extends ServiceProvider
         Inertia::share([
             'auth' => function () {
                 return [
-                    'user' => Auth::user() ? [
-                        'id' => Auth::user()->id,
-                        'name' => Auth::user()->name,
-                    ] : null,
+                    'user' => Auth::user() ? UsersPresenter::make(Auth::user())->preset('AvatarWithData')->get() : null,
                 ];
             },
             'flash' => function () {

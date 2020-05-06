@@ -1,5 +1,10 @@
-input, select, textarea, button, div, a {
-  &:focus, &:active {
-    outline: none;
-  }
+input,
+select,
+textarea,
+button,
+div {
+    &:focus,
+    &:active {
+        outline: none;
+    }
 }

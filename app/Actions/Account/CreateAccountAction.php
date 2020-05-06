@@ -18,12 +18,17 @@ class CreateAccountAction
     {
         $account = Account::create($this->attributes);
 
-        (new AddCategoriesToAccountAction)->execute($account, [
+        (new AddCategoriesToAccountAction($account, $this->defaultCategories()))->execute();
+
+        return $account;
+    }
+
+    private function defaultCategories(): array
+    {
+        return [
             new Category(['icon' => '😂', 'name' => 'Account category 1']),
             new Category(['icon' => '😂', 'name' => 'Account category 2']),
             new Category(['icon' => '😂', 'name' => 'Account category 3']),
-        ]);
-
-        return $account;
+        ];
     }
 }

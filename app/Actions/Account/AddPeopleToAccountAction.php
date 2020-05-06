@@ -8,10 +8,19 @@ use App\Models\Account;
 
 class AddPeopleToAccountAction
 {
-    public function execute(Account $account, Collection $users): void
+    private Account $account;
+    private Collection $users;
+
+    public function __construct(Account $account, Collection $users)
     {
-        $users->each(function ($user) use ($account) {
-            $account->users()->syncWithoutDetaching($user);
+        $this->account = $account;
+        $this->users = $users;
+    }
+
+    public function execute(): void
+    {
+        $this->users->each(function ($user) {
+            $this->account->users()->syncWithoutDetaching($user);
         });
     }
 }

@@ -1,0 +1,7 @@
+.normal-link {
+    @apply underline;
+    color: #0051ff;
+    &:active {
+        color: #ff0000;
+    }
+}

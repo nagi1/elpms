@@ -11,6 +11,7 @@ use App\Models\Category;
 
 class Account extends Model
 {
+    protected $guarded = [];
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);

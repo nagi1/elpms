@@ -20,6 +20,7 @@ class CreateProjectsTable extends Migration
             $table->text('description')->nullable();
             $table->string('type');
             $table->boolean('pinned')->default(false);
+            $table->schemalessAttributes('meta');
             $table->timestamps();
         });
     }

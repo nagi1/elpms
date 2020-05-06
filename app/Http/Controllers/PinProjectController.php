@@ -10,11 +10,10 @@ use App\Actions\Project\PinProjectAction;
 
 class PinProjectController extends Controller
 {
-    public function __invoke(Request $request, Account $account, Project $project, PinProjectAction $pinProjectAction)
+    public function __invoke(Request $request, Account $account, Project $project)
     {
-        $pinProjectAction->execute($request->validate([
-            'pinned' => ['required']
-        ])['pinned'], $project);
+
+        (new PinProjectAction($project, $request->pinned))->execute();
 
         return Redirect::back();
     }

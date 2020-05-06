@@ -7,8 +7,8 @@
             <transition
                 @before-leave="backdropLeaving = true"
                 @after-leave="backdropLeaving = false"
-                enter-active-class="transition-all transition-fast ease-out-quad"
-                leave-active-class="transition-all transition-medium ease-in-quad"
+                enter-active-class="transition-all transition duration-150 ease-in-out"
+                leave-active-class="transition-all duration-200 ease-in-out"
                 enter-class="opacity-0"
                 enter-to-class="opacity-100"
                 leave-class="opacity-100"
@@ -26,15 +26,18 @@
             <transition
                 @before-leave="cardLeaving = true"
                 @after-leave="cardLeaving = false"
-                enter-active-class="transition-all transition-fast ease-out-quad"
-                leave-active-class="transition-all transition-medium ease-in-quad"
+                enter-active-class="transition-all duration-150 ease-in-out"
+                leave-active-class="transition-all duration-200 ease-in-out"
                 enter-class="opacity-0 scale-70"
                 enter-to-class="opacity-100 scale-100"
                 leave-class="opacity-100 scale-100"
                 leave-to-class="opacity-0 scale-70"
                 appear
             >
-                <div v-if="showContent" class="relative">
+                <div
+                    v-if="showContent"
+                    class="relative w-full max-w-2xl mx-8 sm:mx-0"
+                >
                     <slot></slot>
                 </div>
             </transition>

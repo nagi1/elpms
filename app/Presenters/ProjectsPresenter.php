@@ -14,8 +14,9 @@ class ProjectsPresenter extends FlexiblePresenter
             'description' => $this->description,
             'type' => $this->type->name(),
             'pinned' => (bool) $this->pinned,
-            'users' => $this->lazy($this->users->pluck('name')),
-            'categories' => $this->lazy(CategoriesPresenter::collection($this->categories)),
+            'MessageBoardMeta' => $this->lazy($this->meta->get('messageBoard')),
+            'users' => $this->lazy(UsersPresenter::collection($this->whenLoaded('users'))->preset('avatarWithData')),
+            'categories' => $this->lazy(CategoriesPresenter::collection($this->whenLoaded('categories'))->except('project_id')),
         ];
     }
 }

@@ -2,12 +2,12 @@
     <layout>
         <!-- breadcrumps -->
         <div
-            class="absolute top-0 max-w-3xl border flex flex-col justify-center bg-white w-full h-12 mt-1 px-3 rounded-lg shadow-xl"
+            class="absolute top-0 max-w-3xl border flex flex-col justify-center bg-white w-full h-12 mt-1 px-3 shadow-xl"
         >
             <div class="flex items-center justify-center space-x-1">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="fill-current text-gray-500 h-6 inline-block"
+                    class="fill-current text-gray-400 h-6 inline-block"
                     version="1.1"
                     viewBox="0 0 24 24"
                 >
@@ -22,6 +22,7 @@
                             class="text-blue-700 underline"
                             :key="index"
                             :href="breadcrump.link"
+                            :class="{ 'font-semibold': index == 0 }"
                         >
                             {{ breadcrump.text }}
                         </inertia-link>
@@ -30,6 +31,7 @@
                             v-if="index != Object.keys(breadcrumps).length - 1"
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-4 fill-gray-900"
+                            :key="breadcrump.link + index"
                             version="1.1"
                             viewBox="0 0 24 24"
                         >
@@ -44,7 +46,7 @@
         <!-- breadcrumps -->
 
         <div
-            class="relative panel border-2 border-gray-400  shadow-xl  max-w-4xl flex flex-col justify-center bg-white w-full py-10 mt-12 px-3 rounded-lg h-full"
+            class="relative panel border-2 border-gray-400  shadow-xl  max-w-4xl flex flex-col justify-center bg-white w-full py-10 mt-12 px-3  h-full overflow-hidden min-h-screen"
         >
             <slot />
         </div>

@@ -4,34 +4,36 @@ namespace App\Actions\Project;
 
 use Illuminate\Support\Collection;
 use App\Models\Project;
-use App\Models\Category;
 use App\Models\Account;
+use App\Actions\Project\SetMessagesSortByAction;
 use App\Actions\Project\AddPeopleToProjectAction;
 
 class CreateProjectAction
 {
+    private Account $account;
+    private array $data;
+    private Collection $users;
 
-    public function execute(Account $account, array $data, Collection $users): Project
+    public function __construct(Account $account, array $data, Collection $users)
     {
-        $project = $account->projects()->save(new Project(
+        $this->account = $account;
+        $this->data = $data;
+        $this->users = $users;
+    }
+
+
+    public function execute(): Project
+    {
+        $project = $this->account->projects()->save(new Project(
             [
-                'name' => $data['name'],
-                'type' => $data['type']
+                'name' => $this->data['name'],
+                'type' => $this->data['type'],
             ]
         ));
 
-        (new AddPeopleToProjectAction)->execute($project, $users);
-        (new AddCategoriesToProjectAction)->execute($project, $this->normalizeCategories($account->categories));
+        (new SetMessagesSortByAction)->execute($project);
+        (new AddPeopleToProjectAction($project, $this->users))->execute();
+        (new AddCategoriesToProjectAction($project, $this->account->categories->all()))->execute();
         return $project;
-    }
-
-    private function normalizeCategories(Collection $categories): array
-    {
-        return $categories->map(function ($category) {
-            return new Category([
-                'icon' => $category->icon,
-                'name' => $category->name
-            ]);
-        })->all();
     }
 }

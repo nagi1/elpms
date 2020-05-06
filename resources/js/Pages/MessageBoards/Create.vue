@@ -1,6 +1,23 @@
 <template>
-    <double-white-layout :breadcrumps="[{ link: '#', text: 'text' }]">
-        <div class="w-full h-full py-8 px-16">
+    <double-white-layout
+        :breadcrumps="[
+            {
+                link: route('projects.show', {
+                    account: account.id,
+                    project: project.id
+                }),
+                text: project.name
+            },
+            {
+                link: route('messageBoards.index', {
+                    account: account.id,
+                    project: project.id
+                }),
+                text: 'Message Board'
+            }
+        ]"
+    >
+        <div class="w-full h-full py-8 px-20">
             <form
                 :action="action"
                 method="post"
@@ -25,7 +42,7 @@
                                 :key="category.id"
                                 >{{ category.fullName }}</option
                             >
-                            <option @click="editCategories"
+                            <option @click="openEditCategories"
                                 >Edit categories</option
                             >
                         </select>
@@ -76,7 +93,7 @@
             </form>
         </div>
 
-        <modal :open="true">
+        <modal @close="close" :open="editCategories">
             <edit-project-categories :account="account" :project="project" />
         </modal>
     </double-white-layout>
@@ -106,18 +123,24 @@ export default {
             }),
             csrf: window.csrf,
             state: "published",
-            editCategoriesModal: true
+            editCategories: false
         };
     },
     mounted() {
-        console.log(this.categories);
+        document
+            .querySelector("trix-editor")
+            .classList.add("h-84", "border-none");
     },
     methods: {
         saveAsDraft() {
             this.state = "draft";
         },
-        editCategories() {
+        openEditCategories() {
             this.$refs.category.value = "";
+            this.editCategories = true;
+        },
+        close() {
+            this.editCategories = false;
         }
     }
 };

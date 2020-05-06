@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Spatie\ModelStates\HasStates;
 use PDO;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\States\Project\ProjectType;
@@ -11,6 +12,7 @@ use App\States\Project\ProjectState;
 use App\Scopes\Project\OrderScope;
 use App\Models\Pivots\ProjectUsers;
 use App\Models\MessageBoard;
+use App\Models\Concerns\HasMeta;
 use App\Models\Account;
 use App\Builders\ProjectBuilder;
 
@@ -20,10 +22,12 @@ use App\Builders\ProjectBuilder;
 class Project extends Model
 {
     use HasStates;
+    use HasMeta;
 
     protected $guarded = [];
     protected $casts = [
         'pinned' => 'boolean',
+        'meta' => 'array'
     ];
 
     protected static function booted()
@@ -64,7 +68,7 @@ class Project extends Model
         return $this->hasMany(Category::class);
     }
 
-    public function messageBoards()
+    public function messageBoards(): HasMany
     {
         return $this->hasMany(MessageBoard::class);
     }

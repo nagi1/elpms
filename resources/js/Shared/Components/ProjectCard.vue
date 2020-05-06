@@ -25,21 +25,13 @@
             >
                 {{ project.description }}
             </p>
-            <div style="justify-self: end;" class="mt-3 flex">
+            <div style="justify-self: end;" class="mt-3 flex space-x-1">
                 <img
+                    v-for="user in project.users"
+                    :key="user.id"
                     class="rounded-full h-6"
-                    src="@/assets/images/avatar-64-x1.png"
-                    alt="avatar"
-                />
-                <img
-                    class="rounded-full h-6 ml-2"
-                    src="@/assets/images/avatar-64-x1.png"
-                    alt="avatar"
-                />
-                <img
-                    class="rounded-full h-6 ml-2"
-                    src="@/assets/images/avatar-64-x1.png"
-                    alt="avatar"
+                    :src="user.avatar64"
+                    :alt="user.name"
                 />
             </div>
         </inertia-link>
