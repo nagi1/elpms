@@ -5,9 +5,15 @@ namespace App\Models;
 use Te7aHoudini\LaravelTrix\Traits\HasTrixRichText;
 use Spatie\ModelStates\HasStates;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\User;
+use App\States\Status\Trashed;
+use App\States\Status\StatusState;
+use App\States\Status\Restored;
+use App\States\Status\ArchivedToTrashed;
+use App\States\Status\Archived;
 use App\States\MessageBoard\Published;
 use App\States\MessageBoard\MessageBoardState;
 use App\States\MessageBoard\DraftToPublished;
@@ -20,8 +26,10 @@ use App\Models\Concerns\HasComments;
 use App\Models\Concerns\HasBoosts;
 use App\Models\Concerns\Commentable;
 use App\Models\Concerns\CanMoved;
+use App\Models\Concerns\CanArchived;
 use App\Models\Concerns\Boostable;
 use App\Models\Concerns\Archiveable;
+use App\Models\Category;
 
 class MessageBoard extends Model implements Commentable, Boostable, Moveable, Archiveable
 {
@@ -31,12 +39,16 @@ class MessageBoard extends Model implements Commentable, Boostable, Moveable, Ar
     use HasBoosts;
     use CanMoved;
     use HasMeta;
+    use HasStates;
+    use CanArchived;
+    use SoftDeletes;
     use HasStatus;
 
     protected $guarded = [];
 
     protected function registerStates(): void
     {
+        $this->registerStatus();
 
         $this->addState('state', MessageBoardState::class)
             ->default(Draft::class)

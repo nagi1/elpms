@@ -9,7 +9,7 @@ abstract class StatusState extends State
     public static $states = [
         Archived::class,
         Trashed::class,
-        Published::class,
+        Restored::class,
     ];
 
     abstract public function name(): string;

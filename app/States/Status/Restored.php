@@ -17,7 +17,7 @@ class ToPublished extends Transition
 
     public function handle(): Model
     {
-        $this->model->state = new Published($this->model);
+        $this->model->state = new Restored($this->model);
         $this->unarchive();
         $this->restore();
         $this->model->save();

@@ -4,9 +4,9 @@ namespace App\States\Status;
 
 use App\States\Status\StatusState;
 
-class Published extends StatusState
+class Restored extends StatusState
 {
-    public static $name = 'published';
+    public static $name = 'restored';
 
     public function name(): string
     {
