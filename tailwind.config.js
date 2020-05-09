@@ -36,7 +36,9 @@ module.exports = {
                 primary: "rgb(40, 60, 70)",
                 silver: {
                     "100": "#4a4c4d",
-                    "200": "#3e3f40"
+                    "200": "#3e3f40",
+                    "300": "#596568",
+                    "400": "rgba(255,255,255,0.25)"
                 }
             },
             fill: theme => theme("colors")

@@ -23,7 +23,7 @@ class CreateMessageBoardsTable extends Migration
             $table->string('status');
             $table->schemalessAttributes('meta');
             $table->softDeletes();
-            $table->timestamp('archived_at')->nullable();
+            $table->timestamp('archived_at', 0)->nullable();
             $table->timestamps();
         });
     }

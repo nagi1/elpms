@@ -10,7 +10,7 @@ class SetMessagesSortByAction
     {
     }
 
-    public function execute(Project $project, $method = 'date'): void
+    public function execute(Project $project, $method = 'created_at'): void
     {
         $project->meta->set([
             'messageBoard' => ['sortBy' => $method]

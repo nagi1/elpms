@@ -5,17 +5,16 @@ namespace App\Models\Concerns;
 use \Carbon\Carbon;
 use App\Scopes\ArchiveableScope;
 
-trait CanArchived
+trait ArchiveTrait
 {
 
-    public function initializeCanArchived()
+    public function initializeArchiveTrait()
     {
         $this->dates[] = 'archived_at';
     }
 
-    public static function bootCanArchived()
+    public static function bootArchiveTrait()
     {
-
         static::addGlobalScope(new ArchiveableScope);
     }
 

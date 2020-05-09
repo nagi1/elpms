@@ -2,21 +2,25 @@
 
 namespace App\Models\Concerns;
 
+use App\States\Status\Visible;
 use App\States\Status\Trashed;
-use App\States\Status\StatusState;
-use App\States\Status\Restored;
+use App\States\Status\ToVisible;
+use App\States\Status\ToTrashed;
+use App\States\Status\ToArchived;
+use App\States\Status\Status;
 use App\States\Status\ArchivedToTrashed;
 use App\States\Status\Archived;
-
 
 trait HasStatus
 {
 
     public function registerStatus()
     {
-        $this->addState('status', StatusState::class)
-            ->default(Restored::class)
+        $this->addState('status', Status::class)
+            ->default(Visible::class)
+            ->allowTransition(Visible::class, Archived::class, ToArchived::class)
+            ->allowTransition(Visible::class, Trashed::class, ToTrashed::class)
             ->allowTransition(Archived::class, Trashed::class, ArchivedToTrashed::class)
-            ->allowTransition([Archived::class, Trashed::class], Restored::class);
+            ->allowTransition(Archived::class, Visible::class, ToVisible::class);
     }
 }

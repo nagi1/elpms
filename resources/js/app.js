@@ -10,6 +10,7 @@ Vue.mixin({ methods: { route: window.route } });
 Vue.use(InertiaApp);
 Vue.use(PortalVue);
 Vue.use(VueMeta);
+Vue.component("Avatar", () => import("@/Components/Avatar"));
 
 let app = document.getElementById("app");
 
@@ -17,6 +18,7 @@ new Vue({
     metaInfo: {
         titleTemplate: title => (title ? `${title} - ELPMS` : "ELPMS")
     },
+
     render: h =>
         h(InertiaApp, {
             props: {

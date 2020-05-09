@@ -13,17 +13,20 @@ class UsersPresenter extends FlexiblePresenter
             'id' => $this->id,
             'name' => $this->name,
             'avatar64' => $this->lazy($this->getFirstMediaUrl('avatar', 'size-64')),
+            'avatar150' => $this->lazy($this->getFirstMediaUrl('avatar', 'size-150')),
             'avatar' => $this->lazy($this->getFirstMediaUrl('avatar')),
+            'company' => $this->company,
+            'title' => $this->title,
         ];
     }
 
     public function presetAvatar()
     {
-        return $this->only('avatar', 'avatar64');
+        return $this->only('avatar', 'avatar64', 'avatar150');
     }
 
     public function presetAvatarWithData()
     {
-        return $this->only('id', 'name', 'avatar', 'avatar64');
+        return $this->only('id', 'name', 'avatar', 'avatar64', 'avatar150', 'company', 'title');
     }
 }

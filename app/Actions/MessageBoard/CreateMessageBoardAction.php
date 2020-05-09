@@ -6,6 +6,8 @@ use Auth;
 use App\User;
 use App\Models\Project;
 use App\Models\MessageBoard;
+use App\Actions\Subscribable\SubscribeProjectSubscribersAction;
+use App\Actions\Notification\SubscribeAction;
 
 class CreateMessageBoardAction
 {
@@ -30,8 +32,12 @@ class CreateMessageBoardAction
         $messageBoard = $this->project
             ->messageBoards()
             ->save(new MessageBoard($this->attributes));
+
+        app(SubscribeProjectSubscribersAction::class)->execute($messageBoard);
         return $messageBoard;
     }
+
+
 
     private function mergeUser()
     {

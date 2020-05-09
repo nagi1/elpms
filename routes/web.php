@@ -26,6 +26,10 @@ Route::post('{account}/projects/{project}/pin')->name('projects.pin')->uses('Pin
 // Default sort
 Route::put('{account}/projects/{project}/messagesSortBy')->name('projects.messagesSortBy')->uses('MessagesSortByController');
 
+//Archived Messages
+Route::get('{account}/projects/{project}/message-boards/archive')->name('messageBoard.archive')->uses('MessageBoardArchiveController');
+
+
 // message boards
 Route::get('{account}/projects/{project}/message-boards/create')->name('messageBoards.create')->uses('MessageBoardsController@create')->middleware(['auth']);
 
@@ -86,8 +90,15 @@ Route::delete('{account}/projects/{project}/boosts/{boost}')->name('boosts.delet
 Route::get('{account}/projects/{project}/move/{model}/{id}')->name('move.show')->uses('MoveController@show');
 Route::post('{account}/projects/{project}/move/{model}/{id}')->name('move.store')->uses('MoveController@store');
 
+
+
 // Archive
-Route::post('{account}/projects/{project}/archive}')->name('archive.store')->uses('ArchiveController@store');
+Route::post('{account}/projects/{project}/archive')->name('archive.store')->uses('ArchiveController@store');
+
+//Subscription
+Route::put('{account}/projects/{project}/subscription/currentUser')->name('subscription.currentUser')->uses('UpdateCurrentUserSubscriptionController');
+
+Route::get('{account}/projects/{project}/subscriptions/{model}/{modelId}')->name('subscription.show')->uses('SubscriptionController@show');
 
 // // Users
 // Route::get('users')->name('users')->uses('UsersController@index')->middleware('remember', 'auth');

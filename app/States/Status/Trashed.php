@@ -3,9 +3,9 @@
 namespace App\States\Status;
 
 
-use App\States\Status\StatusState;
+use App\States\Status\Status;
 
-class Trashed extends StatusState
+class Trashed extends Status
 {
     public static $name = 'trashed';
 

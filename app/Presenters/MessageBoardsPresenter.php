@@ -4,15 +4,18 @@ namespace App\Presenters;
 
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\Presenters\Contracts\PreviewContract;
 use App\Presenters\CommentsPresenter;
 use App\Presenters\BoostsPresenter;
 use AdditionApps\FlexiblePresenter\FlexiblePresenter;
 
-class MessageBoardsPresenter extends FlexiblePresenter
+class MessageBoardsPresenter extends FlexiblePresenter implements PreviewContract
 {
     public function values(): array
     {
         return [
+            'modelName' => 'MessageBoard',
+            'path' => $this->lazy($this->path()),
             'id' => $this->id,
             'title' => $this->title,
             'category' => $this->lazy(CategoriesPresenter::make($this->whenLoaded('category'))->only('id', 'fullName')),
@@ -26,6 +29,7 @@ class MessageBoardsPresenter extends FlexiblePresenter
             'comments' => $this->lazy(CommentsPresenter::collection($this->whenLoaded('comments'))),
             'commentsCount' => $this->lazy($this->meta->get('comments_count')),
             'boosts' => $this->lazy(BoostsPresenter::collection($this->whenLoaded('boosts'))),
+            'subscribers' => $this->lazy(UsersPresenter::make($this->whenLoaded('subscribers'))->preset('avatarWithData')),
         ];
     }
 
@@ -59,6 +63,16 @@ class MessageBoardsPresenter extends FlexiblePresenter
 
     public function presetIndex()
     {
-        return $this->except('cardExcerpt', 'trixRichText');
+        return $this->except('cardExcerpt', 'trixRichText', 'comments');
+    }
+
+    public function presetPreviewCard()
+    {
+        return $this->only('id', 'title', 'cardExcerpt', 'user', 'modelName', 'path');
+    }
+
+    public function presetSubscribers()
+    {
+        return $this->only('subscribers');
     }
 }

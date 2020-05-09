@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Spatie\ModelStates\HasStates;
 use PDO;
+use Overtrue\LaravelSubscribe\Traits\Subscribable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
@@ -23,6 +24,8 @@ class Project extends Model
 {
     use HasStates;
     use HasMeta;
+    use Subscribable;
+
 
     protected $guarded = [];
     protected $casts = [
@@ -63,7 +66,7 @@ class Project extends Model
         return $this->belongsTo(Account::class);
     }
 
-    public function categories()
+    public function categories(): HasMany
     {
         return $this->hasMany(Category::class);
     }

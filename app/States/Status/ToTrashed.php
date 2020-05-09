@@ -5,7 +5,7 @@ namespace App\States\Status;
 use Spatie\ModelStates\Transition;
 use Illuminate\Database\Eloquent\Model;
 
-class ToPublished extends Transition
+class ToTrashed extends Transition
 {
 
     private Model $model;
@@ -17,9 +17,9 @@ class ToPublished extends Transition
 
     public function handle(): Model
     {
-        $this->model->state = new Restored($this->model);
-        $this->unarchive();
-        $this->restore();
+        $this->model->status = new Trashed($this->model);
+        $this->model->unarchive();
+        $this->model->delete();
         $this->model->save();
 
         return $this->model;

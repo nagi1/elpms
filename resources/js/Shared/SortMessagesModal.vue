@@ -10,13 +10,16 @@
         </h2>
 
         <div class="mt-5 w-full flex flex-col space-y-5">
-            <label class="flex items-start space-x-5 justify-start" for="date">
+            <label
+                class="flex items-start space-x-5 justify-start"
+                for="created_at"
+            >
                 <input
                     type="radio"
-                    value="date"
+                    value="created_at"
                     class="h-7 w-7 form-radio text-gray-900"
                     v-model="sortBy"
-                    id="date"
+                    id="created_at"
                 />
                 <div class="flex flex-col leading-5">
                     <span class="font-semibold text-lg"
@@ -30,14 +33,14 @@
             </label>
             <label
                 class="flex items-start space-x-5 justify-start"
-                for="comments"
+                for="last_comment"
             >
                 <input
                     type="radio"
-                    value="comments"
+                    value="last_comment"
                     class="h-7 w-7 form-radio text-gray-900"
                     v-model="sortBy"
-                    id="comments"
+                    id="last_comment"
                 />
                 <div class="flex flex-col leading-5">
                     <span class="font-semibold text-lg">By latest comment</span>
@@ -47,16 +50,13 @@
                     </p>
                 </div>
             </label>
-            <label
-                class="flex items-start space-x-5 justify-start"
-                for="alphabetical"
-            >
+            <label class="flex items-start space-x-5 justify-start" for="title">
                 <input
                     type="radio"
-                    value="alphabetical"
+                    value="title"
                     class="h-7 w-7 form-radio text-gray-900"
                     v-model="sortBy"
-                    id="alphabetical"
+                    id="title"
                 />
                 <div class="flex flex-col leading-5">
                     <span class="font-semibold text-lg"
@@ -64,6 +64,25 @@
                     >
                     <p class="text-xs">
                         Messages will be organized alphabetically by title.
+                    </p>
+                </div>
+            </label>
+            <label
+                class="flex items-start space-x-5 justify-start"
+                for="updated_at"
+            >
+                <input
+                    type="radio"
+                    value="updated_at"
+                    class="h-7 w-7 form-radio text-gray-900"
+                    v-model="sortBy"
+                    id="updated_at"
+                />
+                <div class="flex flex-col leading-5">
+                    <span class="font-semibold text-lg">Latest edited</span>
+                    <p class="text-xs">
+                        Messages will that been edited recently will be shown
+                        first.
                     </p>
                 </div>
             </label>

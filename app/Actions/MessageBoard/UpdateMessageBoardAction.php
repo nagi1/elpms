@@ -27,7 +27,9 @@ class UpdateMessageBoardAction
 
     public function execute(): bool
     {
-        return $this->messageBoard->update($this->attributes);
+        $updated = $this->messageBoard->update($this->attributes);
+        $this->messageBoard->touch();
+        return $updated;
     }
 
     private function normalizeAttributes()

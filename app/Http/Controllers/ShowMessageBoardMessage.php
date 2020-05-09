@@ -17,15 +17,14 @@ class ShowMessageBoardMessage extends Controller
     public function __invoke(Account $account, Project $project, MessageBoard $messageBoard)
     {
         // dd(MessageBoardsPresenter::make($messageBoard->load([
-        //     'user.media', 'category', 'trixRichText', 'comments.user.media', 'comments.boosts.user.media', 'comments.trixRichText', 'boosts.user.media'
+        //     'user.media', 'category', 'trixRichText', 'comments.user.media', 'comments.boosts.user.media', 'comments.trixRichText', 'boosts.user.media', 'subscribers.media'
         // ]))->get());
 
-        $messageBoard->path();
         return Inertia::render('MessageBoards/Show', [
             'account' => AccountsPresenter::make($account)->preset('basic')->get(),
             'project' => ProjectsPresenter::make($project)->only('id', 'name')->get(),
             'messageBoard' => MessageBoardsPresenter::make($messageBoard->load([
-                'user.media', 'category', 'trixRichText', 'comments.user.media', 'comments.boosts.user.media', 'comments.trixRichText', 'boosts.user.media'
+                'user.media', 'category', 'trixRichText', 'comments.user.media', 'comments.boosts.user.media', 'comments.trixRichText', 'boosts.user.media', 'subscribers.media'
             ]))->get(),
             'trix' => $this->trixEditor(),
         ]);

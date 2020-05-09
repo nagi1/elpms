@@ -4,6 +4,7 @@ namespace App;
 
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
+use Overtrue\LaravelSubscribe\Traits\Subscriber;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Scopes\User\MediaScope;
@@ -17,7 +18,7 @@ class User extends Authenticatable implements HasMedia
 
     use Notifiable;
     use InteractsWithMedia;
-
+    use Subscriber;
 
 
     protected $casts = [
@@ -37,6 +38,12 @@ class User extends Authenticatable implements HasMedia
             ->keepOriginalImageFormat()
             ->width(64)
             ->height(64)
+            ->performOnCollections('avatar');
+
+        $this->addMediaConversion('size-150')
+            ->keepOriginalImageFormat()
+            ->width(150)
+            ->height(150)
             ->performOnCollections('avatar');
     }
 

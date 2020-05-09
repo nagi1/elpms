@@ -29,6 +29,6 @@ class GetMessageBoardByCategoryAction
 
     private function query()
     {
-        return $this->project->messageBoards()->withoutArchived()->with(['user.media', 'trixRichText', 'category'])->SortBy($this->project->meta->get('messageBoard.sortBy'))->published()->limit(15);
+        return $this->project->messageBoards()->with(['user.media', 'trixRichText', 'category'])->withoutArchived()->SortBy($this->project->meta->get('messageBoard.sortBy'))->published()->limit(15);
     }
 }

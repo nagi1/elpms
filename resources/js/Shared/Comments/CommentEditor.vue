@@ -26,7 +26,7 @@
             />
             <div class="bg-white" v-if="isTrixShown" v-html="trix"></div>
 
-            <div class="flex items-center space-x-2 mt-5">
+            <div v-if="isTrixShown" class="flex items-center space-x-2 mt-5">
                 <button
                     class="rounded-full  p-3 bg-gray-700 text-gray-200 text-sm"
                     type="submit"
@@ -53,6 +53,10 @@ export default {
     },
 
     mounted() {
+        if (!this.csrf) {
+            location.reload();
+        }
+
         if (this.mode === "edit") {
             this.showTrix();
             this.$nextTick(() => {

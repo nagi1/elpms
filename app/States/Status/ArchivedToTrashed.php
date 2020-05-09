@@ -17,7 +17,7 @@ class ArchivedToTrashed extends Transition
 
     public function handle(): Model
     {
-        $this->model->state = new Trashed($this->model);
+        $this->model->status = new Trashed($this->model);
         $this->model->unarchive();
         $this->model->delete();
         $this->model->save();

@@ -4,12 +4,12 @@ namespace App\States\Status;
 
 use Spatie\ModelStates\State;
 
-abstract class StatusState extends State
+abstract class Status extends State
 {
     public static $states = [
+        Visible::class,
         Archived::class,
         Trashed::class,
-        Restored::class,
     ];
 
     abstract public function name(): string;

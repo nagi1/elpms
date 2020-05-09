@@ -26,7 +26,8 @@ class MessageBoardsController extends Controller
             'account' => AccountsPresenter::make($account)->preset('basic')->get(),
             'project' => ProjectsPresenter::make($project->load(['categories']))->only('id', 'name', 'categories', 'MessageBoardMeta')->get(),
             'messageBoards' => MessageBoardsPresenter::collection((new GetMessageBoardByCategoryAction($project, $category))->execute())->preset('index')->get(),
-            'draftsCount' => $project->messageBoards()->draft()->count(),
+            'draftsCount' => $project->messageBoards()->draft()->byUser(Auth::id())->count(),
+            'archivedCount' => $project->messageBoards()->onlyArchived()->count(),
             'categoryFilter' => (string) $category,
         ]);
     }

@@ -89,18 +89,19 @@
         </corner-options-menu>
 
         <div class="w-full h-full md:py-5 sm:px-20 overflow-hidden">
+            <archived-status-card
+                v-if="messageBoard.archived"
+                :model="messageBoard"
+                class="mb-10"
+            />
+
             <h1 class="text-3xl font-bold border-b pb-3">
                 {{ messageBoard.title }}
             </h1>
 
             <div class="mt-3 flex justify-between  border-b pb-3">
                 <div class="flex space-x-2">
-                    <img
-                        class="rounded-full h-12 w-12"
-                        :src="messageBoard.user.avatar"
-                        :alt="messageBoard.user.name"
-                    />
-
+                    <avatar-modal :user="messageBoard.user" />
                     <div class="leading-6">
                         <div class=" text-sm text-yellow-900 opacity-75 ">
                             <span v-if="messageBoard.category"
@@ -138,6 +139,14 @@
                 :commentsCount="messageBoard.commentsCount"
                 :trix="trix"
             />
+
+            <div class="mt-10 px-5">
+                <subscribe-section
+                    :subscribers="messageBoard.subscribers"
+                    model="MessageBoard"
+                    :modelId="messageBoard.id"
+                />
+            </div>
         </div>
     </double-white-layout>
 </template>
@@ -148,6 +157,7 @@ import CornerOptionsMenu from "@/Shared/CornerOptionsMenu";
 import LoadingButton from "@/Shared/LoadingButton";
 import CommentSection from "@/Shared/Comments/CommentSection";
 import Boosts from "@/Shared/Boosts/Boosts";
+import ArchivedStatusCard from "@/Shared/Components/ArchivedStatusCard";
 
 export default {
     components: {
@@ -155,7 +165,10 @@ export default {
         CornerOptionsMenu,
         LoadingButton,
         CommentSection,
-        Boosts
+        Boosts,
+        ArchivedStatusCard,
+        AvatarModal: () => import("@/Components/AvatarModal"),
+        SubscribeSection: () => import("@/Shared/Subscribe/SubscribeSection")
     },
 
     props: ["account", "project", "messageBoard", "trix"],

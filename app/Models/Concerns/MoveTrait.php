@@ -5,7 +5,7 @@ namespace App\Models\Concerns;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Project;
 
-trait CanMoved
+trait MoveTrait
 {
     public function moveTo(Project $project): Model
     {

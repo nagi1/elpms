@@ -2,9 +2,9 @@
 
 namespace App\States\Status;
 
-use App\States\Status\StatusState;
+use App\States\Status\Status;
 
-class Archived extends StatusState
+class Archived extends Status
 {
     public static $name = 'archived';
 

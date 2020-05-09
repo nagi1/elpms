@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Te7aHoudini\LaravelTrix\Traits\HasTrixRichText;
 use Spatie\ModelStates\HasStates;
+use Overtrue\LaravelSubscribe\Traits\Subscribable;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\User;
 use App\States\Status\Trashed;
-use App\States\Status\StatusState;
+use App\States\Status\Status;
 use App\States\Status\Restored;
 use App\States\Status\ArchivedToTrashed;
 use App\States\Status\Archived;
@@ -19,48 +21,66 @@ use App\States\MessageBoard\MessageBoardState;
 use App\States\MessageBoard\DraftToPublished;
 use App\States\MessageBoard\Draft;
 use App\Models\Project;
+use App\Models\Contracts\BucketContract;
 use App\Models\Concerns\Moveable;
+use App\Models\Concerns\MoveTrait;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasMeta;
 use App\Models\Concerns\HasComments;
 use App\Models\Concerns\HasBoosts;
 use App\Models\Concerns\Commentable;
-use App\Models\Concerns\CanMoved;
-use App\Models\Concerns\CanArchived;
 use App\Models\Concerns\Boostable;
 use App\Models\Concerns\Archiveable;
+use App\Models\Concerns\ArchiveTrait;
 use App\Models\Category;
+use App\Builders\MessageBoardBuilder;
 
-class MessageBoard extends Model implements Commentable, Boostable, Moveable, Archiveable
+class MessageBoard extends Model implements Commentable, Boostable, Moveable, Archiveable, BucketContract
 {
     use HasTrixRichText;
     use HasStates;
     use HasComments;
     use HasBoosts;
-    use CanMoved;
+    use MoveTrait;
     use HasMeta;
     use HasStates;
-    use CanArchived;
+    use ArchiveTrait;
     use SoftDeletes;
     use HasStatus;
+    use Subscribable;
+
+
 
     protected $guarded = [];
+
+    protected $touches = ['trixRichText'];
+
+
 
     protected function registerStates(): void
     {
         $this->registerStatus();
-
         $this->addState('state', MessageBoardState::class)
-            ->default(Draft::class)
+            ->default(Published::class)
             ->allowTransition(Draft::class, Published::class, DraftToPublished::class);
     }
 
-    public function user()
+    public static function query(): MessageBoardBuilder
+    {
+        return parent::query();
+    }
+
+    public function newEloquentBuilder($query)
+    {
+        return new MessageBoardBuilder($query);
+    }
+
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function project()
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
@@ -70,7 +90,7 @@ class MessageBoard extends Model implements Commentable, Boostable, Moveable, Ar
         return $this->belongsTo(Category::class);
     }
 
-    public function path()
+    public function path(): string
     {
         return route('messageBoards.show', [
             'account' => $this->load(['project.account'])->project->account,
@@ -79,31 +99,27 @@ class MessageBoard extends Model implements Commentable, Boostable, Moveable, Ar
         ]);
     }
 
-    public function scopePublished($query): Builder
+    public function indexPath(): string
     {
-        return $query->whereState('state', Published::class);
+        return route('messageBoards.index', [
+            'account' => $this->load(['project.account'])->project->account,
+            'project' => $this->project_id,
+        ]);
     }
 
-    public function scopeDraft($query): Builder
+    public function displayName(): string
     {
-        return $query->whereState('state', Draft::class);
+        return 'Message Board';
     }
 
-    public function scopeWhereCategory(Builder $query, string $category): Builder
+    public function displayField(): string
     {
-        return $query->where('category_id', $category)->limit(15);
+        return $this->title;
     }
 
-    public function scopeSortBy(Builder $query, string $sortBy): Builder
+    public function previewCard(): array
     {
-        if ($sortBy == "date") {
-            return $query->orderBy('created_at', 'desc');
-        } else if ($sortBy == 'alphabetical') {
-            return $query->orderBy('title');
-        } else {
-            $query->orderBy('id');
-        }
-
-        return $query;
+        $modelPresenter = getModelPresenter($this);
+        return $modelPresenter::make($this->load(['user.media', 'trixRichText']))->preset('previewCard')->get();
     }
 }

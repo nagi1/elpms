@@ -2,6 +2,9 @@
 
 namespace App\Actions\Archiveable;
 
+use Illuminate\Database\Eloquent\Model;
+use App\States\Status\Visible;
+use App\States\Status\Archived;
 use App\Models\Concerns\Archiveable;
 
 class ArchiveAction
@@ -16,18 +19,16 @@ class ArchiveAction
         // Prepare the action for execution, leveraging constructor injection.
     }
 
-    /**
-     * Execute the action.
-     *
-     * @return mixed
-     */
-    public function execute(Archiveable $model, bool $archive = true): void
+    public function execute(Model $model, bool $archive = true): void
     {
+
+
         if (!$archive) {
-            $model->unarchive();
+            $model->status->transitionTo(Visible::class);
             return;
         }
 
-        $model->archive();
+
+        $model->status->transitionTo(Archived::class);
     }
 }

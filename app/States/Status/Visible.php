@@ -2,11 +2,12 @@
 
 namespace App\States\Status;
 
-use App\States\Status\StatusState;
 
-class Restored extends StatusState
+use App\States\Status\Status;
+
+class Visible extends Status
 {
-    public static $name = 'restored';
+    public static $name = 'visible';
 
     public function name(): string
     {

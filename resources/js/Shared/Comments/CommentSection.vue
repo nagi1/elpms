@@ -27,12 +27,7 @@
         </div>
 
         <div class="mt-10 mx-5 flex items-start space-x-2">
-            <img
-                class="rounded-full h-12 w-12"
-                :src="$page.auth.user.avatar"
-                :alt="$page.auth.user.name"
-            />
-
+            <avatar-modal :user="$page.auth.user" />
             <comment-editor
                 mode="new"
                 :model="model"
@@ -52,7 +47,8 @@ export default {
     components: {
         LoadingButton,
         CommentEditor,
-        Comment
+        Comment,
+        AvatarModal: () => import("@/Components/AvatarModal")
     },
     props: {
         model: {
