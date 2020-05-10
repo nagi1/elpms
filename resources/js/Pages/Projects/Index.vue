@@ -345,133 +345,15 @@
             <!-- /card -->
         </div>
         <!-- /features cards -->
+        <h2 class="divided mt-5">
+            <span class="divider"></span>
+            <span class="text-xl font-bold px-1"
+                >{{ project.name }} Activity</span
+            >
+            <span class="divider"></span>
+        </h2>
 
-        <!-- Activity -->
-        <div class="mt-10">
-            <h2 class="divided">
-                <span class="divider"></span>
-                <span class="text-xl font-bold px-1">Company HQ Activity</span>
-                <span class="divider"></span>
-            </h2>
-
-            <!-- inner-activities -->
-            <div class="">
-                <!-- day -->
-                <div class="timeline relative mt-5 px-8 w-full">
-                    <h2 class="text-center font-bold text-lg pb-5">
-                        Today
-                    </h2>
-                    <div class="timeline-container w-1/2">
-                        <div class="timeline-card flex justify-between">
-                            <div class="flex justify-start">
-                                <img
-                                    class="rounded-full h-10"
-                                    src="@/assets/images/avatar-64-x1.png"
-                                    alt="avatar"
-                                />
-                                <div class="leading-tight ml-2">
-                                    <h3 class="font-bold text-xs">
-                                        CEO added a new message called
-                                    </h3>
-                                    <div class="text-xs">
-                                        <a class="underline" href="#"
-                                            >Message</a
-                                        >
-                                        <p>message contents</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-xs mr-2">8:00pm</p>
-                        </div>
-                    </div>
-                    <div class="timeline-container mt-5 w-1/2">
-                        <div class="timeline-card flex justify-between">
-                            <div class="flex justify-start">
-                                <img
-                                    class="rounded-full h-10"
-                                    src="@/assets/images/avatar-64-x1.png"
-                                    alt="avatar"
-                                />
-                                <div class="leading-tight ml-2">
-                                    <h3 class="font-bold text-xs">
-                                        CEO added a new message called
-                                    </h3>
-                                    <div class="text-xs">
-                                        <a class="underline" href="#"
-                                            >Message</a
-                                        >
-                                        <p>message contents</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-xs mr-2">8:00pm</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- /day -->
-
-                <!-- day -->
-                <div class="timeline relative mt-5 px-8 w-full">
-                    <h2 class="text-center font-bold text-lg pb-5">
-                        Wednesday, April 1
-                    </h2>
-                    <div
-                        style="left: 50%;"
-                        class="timeline-container relative w-1/2"
-                    >
-                        <div class="timeline-card flex justify-start">
-                            <p class="text-xs ml-2">8:00pm</p>
-                            <div class="ml-5 flex justify-start">
-                                <img
-                                    class="rounded-full h-10"
-                                    src="@/assets/images/avatar-64-x1.png"
-                                    alt="avatar"
-                                />
-                                <div class="leading-tight ml-2">
-                                    <h3 class="font-bold text-xs">
-                                        CEO added a new message called
-                                    </h3>
-                                    <div class="text-xs">
-                                        <a class="underline" href="#"
-                                            >Message</a
-                                        >
-                                        <p>message contents</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        style="left: 50%;"
-                        class="timeline-container mt-5 relative w-1/2"
-                    >
-                        <div class="timeline-card flex justify-start">
-                            <p class="text-xs ml-2">8:00pm</p>
-                            <div class="ml-5 flex justify-start">
-                                <img
-                                    class="rounded-full h-10"
-                                    src="@/assets/images/avatar-64-x1.png"
-                                    alt="avatar"
-                                />
-                                <div class="leading-tight ml-2">
-                                    <h3 class="font-bold text-xs">
-                                        CEO added a new message called
-                                    </h3>
-                                    <div class="text-xs">
-                                        <a class="underline" href="#"
-                                            >Message</a
-                                        >
-                                        <p>message contents</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /inner-activities -->
-        </div>
-        <!-- /Activity -->
+        <project-activity :activities="activities" class="mt-8" />
     </main-white-layout>
 </template>
 
@@ -481,16 +363,18 @@ import Divider from "@/Shared/Divider";
 import MessageBoardCard from "@/Components/MessageBoardCard";
 import CornerOptionsMenu from "@/Shared/CornerOptionsMenu";
 import CornerOptionsButton from "@/Shared/Components/CornerOptionsButton";
+import ProjectActivity from "@/Shared/Activities/ProjectActivity";
 
 export default {
     metaInfo: { title: "Home" },
-    props: ["account", "project", "messageBoards"],
+    props: ["account", "project", "messageBoards", "activities"],
     components: {
         Divider,
         MessageBoardCard,
         MainWhiteLayout,
         CornerOptionsMenu,
-        CornerOptionsButton
+        CornerOptionsButton,
+        ProjectActivity
     },
     data() {
         return {

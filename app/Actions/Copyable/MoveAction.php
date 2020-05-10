@@ -3,16 +3,11 @@
 namespace App\Actions\Copyable;
 
 use App\Models\Project;
-use App\Models\Concerns\Moveable;
+use App\Models\Contracts\MoveContract;
 
 class MoveAction
 {
-
-    public function __construct()
-    {
-    }
-
-    public function execute(Moveable $model, Project $destinationProject)
+    public function execute(MoveContract $model, Project $destinationProject)
     {
         $model->moveTo($destinationProject);
     }

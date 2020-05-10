@@ -3,21 +3,29 @@
         <div class="flex flex-col space-y-3 pb-3 border-b">
             <h2 class="font-semibold">Subscribers</h2>
             <span class="text-sm"
-                >{{ subscribersCount }} persons will be notified when someone
-                comments on this message.
+                >{{ subscribersCount > 0 ? subscribersCount : "No" }} persons
+                will be notified when someone comments on this message.
             </span>
             <div class="flex space-x-1 items-center">
                 <avatar-modal
                     v-for="user in subscribers"
                     :key="user.id"
-                    size="small"
+                    size="sm"
                     :user="user"
                 />
-                <button
+                <inertia-link
+                    :href="
+                        route('subscription.show', {
+                            account: $page.account.id,
+                            project: $page.project.id,
+                            model,
+                            modelId
+                        })
+                    "
                     class="flex items-center border border-gray-400 hover:bg-gray-200 shadow rounded-full bg-white py-2 px-3"
                 >
                     <span class="text-sm">Add/remove people</span>
-                </button>
+                </inertia-link>
             </div>
         </div>
         <div class="flex flex-col space-y-3 ">

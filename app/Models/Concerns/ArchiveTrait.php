@@ -22,11 +22,26 @@ trait ArchiveTrait
     {
         $this->{$this->getQualifiedArchivedAtColumn()} = Carbon::now();
         $this->save();
+        $this->updateArchiveCountMeta();
     }
 
     public function unarchive()
     {
         $this->{$this->getQualifiedArchivedAtColumn()} = null;
+        $this->save();
+        $this->updateArchiveCountMeta();
+    }
+
+    public function getArchivedCount(): int
+    {
+        return $this->onlyArchived()->count();
+    }
+
+    public function updateArchiveCountMeta(): void
+    {
+        $this->meta->set([
+            'archived_count' => $this->getArchivedCount(),
+        ]);
         $this->save();
     }
 

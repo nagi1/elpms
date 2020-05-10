@@ -27,7 +27,7 @@
         </div>
 
         <div class="mt-10 mx-5 flex items-start space-x-2">
-            <avatar-modal :user="$page.auth.user" />
+            <avatar-modal size="base" :user="$page.auth.user" />
             <comment-editor
                 mode="new"
                 :model="model"

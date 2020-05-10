@@ -15,6 +15,7 @@ class MessageBoardsPresenter extends FlexiblePresenter implements PreviewContrac
     {
         return [
             'modelName' => 'MessageBoard',
+            'modelDisplayName' => 'Message board',
             'path' => $this->lazy($this->path()),
             'id' => $this->id,
             'title' => $this->title,
@@ -68,7 +69,7 @@ class MessageBoardsPresenter extends FlexiblePresenter implements PreviewContrac
 
     public function presetPreviewCard()
     {
-        return $this->only('id', 'title', 'cardExcerpt', 'user', 'modelName', 'path');
+        return $this->only('id', 'title', 'cardExcerpt', 'user', 'modelName', 'modelDisplayName', 'path');
     }
 
     public function presetSubscribers()

@@ -11,6 +11,7 @@ Vue.use(InertiaApp);
 Vue.use(PortalVue);
 Vue.use(VueMeta);
 Vue.component("Avatar", () => import("@/Components/Avatar"));
+Vue.component("AvatarModal", () => import("@/Components/AvatarModal"));
 
 let app = document.getElementById("app");
 

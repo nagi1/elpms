@@ -5,7 +5,7 @@
     >
         <h3 class="font-semibold pb-3 border-b">{{ data.title }}</h3>
         <div class="flex space-x-2 items-center pb-3 border-b">
-            <avatar class="flex-shrink-0" size="small" :user="data.user" />
+            <avatar class="flex-shrink-0" size="md" :user="data.user" />
             <span class="text-sm">{{ data.user.name }}</span>
         </div>
         <div class="text-sm mt-1">

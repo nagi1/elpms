@@ -17,3 +17,7 @@
     border-width: 0.75px;
     @apply border border-gray-400;
 }
+
+.left-50 {
+    left: 50%;
+}

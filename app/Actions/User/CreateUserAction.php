@@ -16,7 +16,7 @@ class CreateUserAction
     public function execute(array $attributes): User
     {
         $user = User::create($attributes);
-        $this->generateAvatarFromNameAction->onQueue('avatars-generation')->execute($user);
+        $this->generateAvatarFromNameAction->onQueue('generate-avatars')->execute($user);
         return $user;
     }
 }

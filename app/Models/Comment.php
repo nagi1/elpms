@@ -5,17 +5,18 @@ namespace App\Models;
 use Te7aHoudini\LaravelTrix\Traits\HasTrixRichText;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
-use App\Models\Concerns\HasMeta;
-use App\Models\Concerns\HasComments;
-use App\Models\Concerns\HasBoosts;
-use App\Models\Concerns\Boostable;
+use App\Models\Contracts\CommentContract;
+use App\Models\Contracts\BoostContract;
+use App\Models\Concerns\MetaTrait;
+use App\Models\Concerns\CommentTrait;
+use App\Models\Concerns\BoostTrait;
 
-class Comment extends Model implements Boostable
+class Comment extends Model implements BoostContract, CommentContract
 {
     use HasTrixRichText;
-    use HasComments;
-    use HasMeta;
-    use HasBoosts;
+    use CommentTrait;
+    use MetaTrait;
+    use BoostTrait;
 
     protected $guarded = [];
 

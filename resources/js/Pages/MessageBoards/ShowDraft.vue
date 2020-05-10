@@ -1,6 +1,6 @@
 <template>
     <double-white-layout
-        :breadcrumps="[
+        :breadcrumbs="[
             {
                 link: route('projects.show', {
                     account: account.id,
@@ -80,11 +80,7 @@
             </h1>
 
             <div class="mt-3 flex items-center space-x-2 border-b pb-3">
-                <img
-                    class="rounded-full h-12 w-12"
-                    :src="messageBoard.user.avatar"
-                    :alt="messageBoard.user.name"
-                />
+                <avatar-modal size="base" :user="messageBoard.user" />
 
                 <div class="leading-6 ">
                     <span>{{ messageBoard.user.name }}</span>

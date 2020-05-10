@@ -1,6 +1,6 @@
 <template>
     <double-white-layout
-        :breadcrumps="[
+        :breadcrumbs="[
             {
                 link: route('projects.show', {
                     account: account.id,
@@ -9,12 +9,12 @@
                 text: project.name
             },
             {
-                link: breadcrumps.index.link,
-                text: breadcrumps.index.text
+                link: breadcrumbs.index.link,
+                text: breadcrumbs.index.text
             },
             {
-                link: breadcrumps.model.link,
-                text: breadcrumps.model.text
+                link: breadcrumbs.model.link,
+                text: breadcrumbs.model.text
             }
         ]"
     >
@@ -54,7 +54,7 @@
                                     class="block pb-2 border-b flex items-center justify-between"
                                 >
                                     <div class="flex items-center space-x-2">
-                                        <avatar :user="user" size="xsmall" />
+                                        <avatar :user="user" size="sm" />
                                         <div>
                                             <span class="font-bold">{{
                                                 user.name
@@ -75,6 +75,41 @@
                             </div>
                         </div>
 
+                        <div class="mt-10 flex flex-col space-y-2">
+                            <label
+                                for="dontNotifyNewPeople"
+                                class="flex items-center space-x-2"
+                            >
+                                <input
+                                    type="radio"
+                                    id="dontNotifyNewPeople"
+                                    :value="false"
+                                    v-model="notifyNewPeople"
+                                    class="form-radio text-gray-800 h-5 w-5 border border-gray-500"
+                                />
+                                <span class="text-base text-gray-900"
+                                    >Don't notify new people until the next
+                                    comment is posted
+                                </span>
+                            </label>
+                            <label
+                                for="NotifyNewPeople"
+                                class="flex items-center space-x-2"
+                            >
+                                <input
+                                    type="radio"
+                                    id="NotifyNewPeople"
+                                    :value="true"
+                                    v-model="notifyNewPeople"
+                                    class="form-radio text-gray-800 h-5 w-5 border border-gray-500"
+                                />
+                                <span class="text-base text-gray-900"
+                                    >Send new people the message with all
+                                    comments right now
+                                </span>
+                            </label>
+                        </div>
+
                         <div class="mt-8 flex space-x-1">
                             <LoadingButton
                                 class="rounded-full p-3 bg-gray-700 text-gray-200 text-sm font-semibold"
@@ -82,7 +117,7 @@
                                 :loading="loading"
                                 @click.native="submit"
                             >
-                                Move this to new location
+                                Save changes
                             </LoadingButton>
 
                             <inertia-link
@@ -113,13 +148,14 @@ export default {
         LoadingButton
     },
 
-    props: ["account", "project", "previewCard", "breadcrumps", "subscribers"],
+    props: ["account", "project", "previewCard", "breadcrumbs", "subscribers"],
 
     data() {
         return {
             loading: false,
             PreviewCardComponent: "",
-            selectedUsers: []
+            selectedUsers: [],
+            notifyNewPeople: false
         };
     },
 
@@ -153,6 +189,18 @@ export default {
     methods: {
         submit() {
             this.loading = true;
+            this.$inertia.put(
+                route("subscription.update", {
+                    account: this.account.id,
+                    project: this.project.id,
+                    model: this.previewCard.modelName,
+                    modelId: this.previewCard.id
+                }),
+                {
+                    selectedUsers: this.selectedUsers,
+                    notifyNewPeople: this.notifyNewPeople
+                }
+            );
         },
         alreadySubscribed(userId) {
             return this.subscribersIds.some(id => id === userId);

@@ -1,6 +1,6 @@
 <template>
     <img
-        class="rounded-full  cursor-pointer"
+        class="rounded-full flex-shrink-0 object-cover cursor-pointer"
         :class="image.class"
         :src="image.src"
         :alt="user.name"
@@ -13,26 +13,33 @@ export default {
     props: ["user", "size"],
     computed: {
         image() {
-            if (this.size == "small") {
-                return {
-                    src: this.user.avatar64,
-                    class: "w-10 h-10"
-                };
-            } else if (this.size == "normal") {
-                return {
-                    src: this.user.avatar,
-                    class: "w-12 h-12"
-                };
-            } else if (this.size == "xsmall") {
-                return {
-                    src: this.user.avatar64,
-                    class: "w-8 h-8"
-                };
-            } else {
-                return {
-                    src: this.user.avatar150,
-                    class: "w-16 h-16"
-                };
+            switch (this.size) {
+                case "xs":
+                    return {
+                        src: this.user.avatar64,
+                        class: "w-6 h-6"
+                    };
+                case "sm":
+                    return {
+                        src: this.user.avatar64,
+                        class: "w-8 h-8"
+                    };
+                case "md":
+                    return {
+                        src: this.user.avatar,
+                        class: "w-10 h-10"
+                    };
+                case "lg":
+                    return {
+                        src: this.user.avatar150,
+                        class: "w-16 h-16"
+                    };
+                default:
+                case "base":
+                    return {
+                        src: this.user.avatar,
+                        class: "w-12 h-12"
+                    };
             }
         }
     }

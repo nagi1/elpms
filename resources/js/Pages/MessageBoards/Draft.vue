@@ -1,6 +1,6 @@
 <template>
     <double-white-layout
-        :breadcrumps="[
+        :breadcrumbs="[
             {
                 link: route('projects.show', {
                     account: account.id,
@@ -32,7 +32,7 @@
             </div>
 
             <div class="mt-10 md:px-10 flex flex-col space-y-4">
-                <inertia-link
+                <a
                     v-for="messageBoard in messageBoards"
                     :key="messageBoard.id"
                     class="block flex justify-between border-b pb-3 overflow-x-hidden"
@@ -80,7 +80,7 @@
                             </svg>
                         </button>
                     </div>
-                </inertia-link>
+                </a>
             </div>
         </div>
     </double-white-layout>

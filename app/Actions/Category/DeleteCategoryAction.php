@@ -6,22 +6,16 @@ use App\Models\Category;
 
 class DeleteCategoryAction
 {
-    private Category $category;
 
-    public function __construct(Category $category)
+    public function execute(Category $category): void
     {
-        $this->category = $category;
+        $this->emptyMessageBoardsCategoryField($category);
+        $category->delete();
     }
 
-    public function execute(): void
+    private function emptyMessageBoardsCategoryField(Category $category)
     {
-        $this->emptyMessageBoardsCategory();
-        $this->category->delete();
-    }
-
-    private function emptyMessageBoardsCategory()
-    {
-        $this->category->messageBoards->each(function ($messageBoard) {
+        $category->load(['messageBoards'])->messageBoards->each(function ($messageBoard) {
             $messageBoard->update([
                 'category_id' => null,
             ]);

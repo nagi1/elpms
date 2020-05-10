@@ -8,17 +8,18 @@ use App\Actions\Account\AddCategoriesToAccountAction;
 
 class CreateAccountAction
 {
-    private array $attributes;
-    public function __construct(array $attributes)
+    private AddCategoriesToAccountAction $addCategoriesToAccountAction;
+
+    public function __construct(AddCategoriesToAccountAction $addCategoriesToAccountAction)
     {
-        $this->attributes = $attributes;
+        $this->addCategoriesToAccountAction = $addCategoriesToAccountAction;
     }
 
-    public function execute(): Account
+    public function execute(array $attributes): Account
     {
-        $account = Account::create($this->attributes);
+        $account = Account::create($attributes);
 
-        (new AddCategoriesToAccountAction($account, $this->defaultCategories()))->execute();
+        $this->addCategoriesToAccountAction->execute($account, $this->defaultCategories());
 
         return $account;
     }
@@ -26,9 +27,9 @@ class CreateAccountAction
     private function defaultCategories(): array
     {
         return [
-            new Category(['icon' => '😂', 'name' => 'Account category 1']),
-            new Category(['icon' => '😂', 'name' => 'Account category 2']),
-            new Category(['icon' => '😂', 'name' => 'Account category 3']),
+            new Category(['icon' => '😂', 'name' => 'AC1']),
+            new Category(['icon' => ':heart:', 'name' => 'AC2']),
+            new Category(['icon' => ':microphone:', 'name' => 'AC3']),
         ];
     }
 }

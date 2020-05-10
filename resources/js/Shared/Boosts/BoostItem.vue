@@ -3,11 +3,7 @@
         @click="showDelete = !showDelete"
         class="flex cursor-pointer items-center space-x-1 bg-white rounded-full py-1 px-2"
     >
-        <img
-            :src="boost.user.avatar64"
-            class="h-6 w-6 rounded-full"
-            :alt="boost.user.name"
-        />
+        <avatar-modal :user="boost.user" size="xs" />
         <span class="text-base">{{ boost.content }}</span>
 
         <svg

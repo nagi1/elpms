@@ -8,7 +8,7 @@
             >
                 <span
                     @click="close"
-                    class="absolute top-0 right-0 mt-3 cursor-pointer mr-3 text-white text-2xl"
+                    class="absolute top-0 right-0 mt-3 cursor-pointer mr-3 text-white text-3xl"
                     >&cross;</span
                 >
                 <img

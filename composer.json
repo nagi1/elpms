@@ -24,6 +24,7 @@
         "laravolt/avatar": "^3.2",
         "overtrue/laravel-subscribe": "^1.0",
         "reinink/remember-query-strings": "^0.1.0",
+        "spatie/laravel-activitylog": "^3.14",
         "spatie/laravel-medialibrary": "^8.0.0",
         "spatie/laravel-model-states": "^1.6",
         "spatie/laravel-queueable-action": "^2.5",

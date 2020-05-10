@@ -1,7 +1,7 @@
 <template>
     <div class="bg-orange-200 rounded-lg p-3 text-center">
-        This has been <span class="font-bold">archived</span> an
-        {{ model.archived }}, You can
+        This {{ model.modelDisplayName }} has been
+        <span class="font-bold">archived</span> {{ model.archived }}, You can
         <button @click="archive" class="normal-link">unarchive it</button> or
         <button class="normal-link">put it in the trash</button>.
     </div>
@@ -19,7 +19,7 @@ export default {
                     project: this.$page.project.id
                 }),
                 {
-                    model: this.model.name,
+                    model: this.model.modelName,
                     modelId: this.model.id
                 }
             );

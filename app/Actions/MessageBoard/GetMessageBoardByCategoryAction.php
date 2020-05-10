@@ -2,9 +2,7 @@
 
 namespace App\Actions\MessageBoard;
 
-
 use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Builder;
 use App\Models\Project;
 
 class GetMessageBoardByCategoryAction

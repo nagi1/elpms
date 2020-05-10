@@ -1,6 +1,6 @@
 <template>
     <double-white-layout
-        :breadcrumps="[
+        :breadcrumbs="[
             {
                 link: route('projects.show', {
                     account: account.id,
@@ -129,26 +129,24 @@
             </div>
 
             <div class="mt-10 md:px-10 flex flex-col space-y-4">
-                <a
+                <div
                     v-for="messageBoard in messageBoards"
                     :key="messageBoard.id"
                     class="block flex justify-between items-center border-b pb-3 overflow-x-hidden"
-                    :href="
-                        route('messageBoards.show', {
-                            account: account.id,
-                            project: project.id,
-                            messageBoard: messageBoard.id
-                        })
-                    "
                 >
-                    <div class="flex space-x-2">
-                        <img
-                            class="rounded-full h-12 w-12"
-                            :src="messageBoard.user.avatar"
-                            :alt="messageBoard.user.name"
-                        />
+                    <div class="flex space-x-2 flex-grow">
+                        <avatar-modal size="base" :user="messageBoard.user" />
 
-                        <div class="leading-6">
+                        <a
+                            :href="
+                                route('messageBoards.show', {
+                                    account: account.id,
+                                    project: project.id,
+                                    messageBoard: messageBoard.id
+                                })
+                            "
+                            class="leading-6 flex-grow "
+                        >
                             <h2 class="font-bold text-lg tracking-wide">
                                 {{ messageBoard.title }}
                             </h2>
@@ -170,14 +168,14 @@
                                     }}&rdquo;</span
                                 >
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <span
                         v-if="messageBoard.commentsCount > 0"
                         class="bg-gray-700  text-white font-bold flex items-center justify-center text-lg p-3 h-8 w-8 rounded-full"
                         >{{ messageBoard.commentsCount }}</span
                     >
-                </a>
+                </div>
             </div>
 
             <div
@@ -187,7 +185,7 @@
                     v-if="archivedCount > 0"
                     class="leading-5 tracking-wide text-sm flex space-x-1 items-center"
                     :href="
-                        route('messageBoard.archive', {
+                        route('messageBoards.archive', {
                             account: account.id,
                             project: project.id
                         })

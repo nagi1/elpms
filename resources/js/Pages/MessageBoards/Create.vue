@@ -1,6 +1,6 @@
 <template>
     <double-white-layout
-        :breadcrumps="[
+        :breadcrumbs="[
             {
                 link: route('projects.show', {
                     account: account.id,

@@ -1065,6 +1065,10 @@ input:focus,
   border-color: #cbd5e0;
 }
 
+.left-50 {
+  left: 50%;
+}
+
 .btn-white {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -1312,15 +1316,21 @@ input:focus,
   }
 }
 
-.timeline::after {
-  content: "";
-  position: absolute;
-  width: 1px;
-  background: #cbd5e0;
-  top: 2rem;
-  bottom: 0;
-  left: 50%;
-  z-index: 20;
+@media (min-width: 640px) {
+  .timeline::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    background: #cbd5e0;
+    top: 2rem;
+    bottom: 0;
+    left: 50%;
+    z-index: 20;
+  }
+
+  .timeline-left {
+    left: 50%;
+  }
 }
 
 /* Utilities */
@@ -96297,7 +96307,31 @@ input:focus,
     transition-delay: 1000ms;
   }
 }
-/* (ignored) */var map = {
+var map = {
+	"./CreateMessageBoardActivityCard.vue": [
+		"./resources/js/Shared/Activities/Cards/CreateMessageBoardActivityCard.vue",
+		25
+	]
+};
+function webpackAsyncContext(req) {
+	if(!__webpack_require__.o(map, req)) {
+		return Promise.resolve().then(function() {
+			var e = new Error("Cannot find module '" + req + "'");
+			e.code = 'MODULE_NOT_FOUND';
+			throw e;
+		});
+	}
+
+	var ids = map[req], id = ids[0];
+	return __webpack_require__.e(ids[1]).then(function() {
+		return __webpack_require__(id);
+	});
+}
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "./resources/js/Shared/Activities/Cards lazy recursive ^\\.\\/.*ActivityCard\\.vue$";
+module.exports = webpackAsyncContext;/* (ignored) */var map = {
 	"./MessageBoardPreviewCard.vue": [
 		"./resources/js/Shared/PreviewCards/MessageBoardPreviewCard.vue",
 		26

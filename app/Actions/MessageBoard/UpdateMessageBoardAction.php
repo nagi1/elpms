@@ -4,7 +4,6 @@ namespace App\Actions\MessageBoard;
 
 use Auth;
 use App\User;
-use App\Models\Project;
 use App\Models\MessageBoard;
 
 class UpdateMessageBoardAction

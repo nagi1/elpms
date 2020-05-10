@@ -1,6 +1,6 @@
 <template>
     <double-white-layout
-        :breadcrumps="[
+        :breadcrumbs="[
             {
                 link: route('projects.show', {
                     account: account.id,
@@ -14,6 +14,14 @@
                     project: project.id
                 }),
                 text: 'Message Board'
+            },
+            {
+                condition: messageBoard.archived,
+                link: route('messageBoards.archive', {
+                    account: account.id,
+                    project: project.id
+                }),
+                text: 'Archived Messages'
             }
         ]"
     >
@@ -28,10 +36,10 @@
                 },
                 {
                     link: route('move.show', {
-                        project: project.id,
                         account: account.id,
+                        project: project.id,
                         model: 'MessageBoard',
-                        id: messageBoard.id
+                        modelId: messageBoard.id
                     }),
                     iconPath:
                         'M3,19V5A2,2 0 0,1 5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19M17,12L12,7V10H8V14H12V17L17,12Z',
@@ -101,7 +109,7 @@
 
             <div class="mt-3 flex justify-between  border-b pb-3">
                 <div class="flex space-x-2">
-                    <avatar-modal :user="messageBoard.user" />
+                    <avatar-modal size="base" :user="messageBoard.user" />
                     <div class="leading-6">
                         <div class=" text-sm text-yellow-900 opacity-75 ">
                             <span v-if="messageBoard.category"
@@ -140,7 +148,7 @@
                 :trix="trix"
             />
 
-            <div class="mt-10 px-5">
+            <div class="mt-10 sm:px-10 px-5 pt-5 border-t">
                 <subscribe-section
                     :subscribers="messageBoard.subscribers"
                     model="MessageBoard"

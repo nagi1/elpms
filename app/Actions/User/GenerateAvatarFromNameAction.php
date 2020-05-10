@@ -9,10 +9,6 @@ class GenerateAvatarFromNameAction
 {
     use QueueableAction;
 
-    public function __construct()
-    {
-    }
-
     public function execute(User $user): void
     {
         $avatar = \Avatar::create($user->name)->toBase64();

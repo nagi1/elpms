@@ -12,31 +12,19 @@ use App\Actions\Project\AddPeopleToProjectAction;
 
 class CreateProjectAction
 {
-    private Account $account;
-    private array $data;
-    private Collection $users;
-
-    public function __construct(Account $account, array $data, Collection $users)
+    public function execute(Account $account, array $data, Collection $users): Project
     {
-        $this->account = $account;
-        $this->data = $data;
-        $this->users = $users;
-    }
-
-
-    public function execute(): Project
-    {
-        $project = $this->account->projects()->save(new Project(
+        $project = $account->projects()->save(new Project(
             [
-                'name' => $this->data['name'],
-                'type' => $this->data['type'],
+                'name' => $data['name'],
+                'type' => $data['type'],
             ]
         ));
 
         (new SetMessagesSortByAction)->execute($project);
-        (new AddPeopleToProjectAction($project, $this->users))->execute();
-        (new SubscribeAction)->execute($project, $this->users);
-        (new AddCategoriesToProjectAction($project, $this->account->categories->all()))->execute();
+        (new AddPeopleToProjectAction($project, $users))->execute();
+        (new AddCategoriesToProjectAction($project, $account->categories->all()))->execute();
+        (new SubscribeAction)->execute($project, $users);
         return $project;
     }
 }

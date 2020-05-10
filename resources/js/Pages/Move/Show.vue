@@ -1,19 +1,32 @@
 <template>
     <double-white-layout
-        :breadcrumps="[
+        :breadcrumbs="[
             {
                 link: route('projects.show', {
                     account: account.id,
                     project: project.id
                 }),
                 text: project.name
+            },
+            {
+                link: breadcrumbs.index.link,
+                text: breadcrumbs.index.text
+            },
+            {
+                link: breadcrumbs.model.link,
+                text: breadcrumbs.model.text
             }
         ]"
     >
         <div class="w-full h-full md:py-5 md:px-12 overflow-hidden">
             <div class="md:p-10 flex justify-center space-x-10 items-start">
+                <div class="hidden sm:block">
+                    <component :data="previewCard" :is="PreviewCardComponent" />
+                </div>
                 <div class="flex-grow h-64">
-                    <h1 class="text-3xl font-bold">Move to</h1>
+                    <h1 class="text-3xl font-bold">
+                        Move to this {{ previewCard.modelDisplayName }}
+                    </h1>
                     <div class="mt-5 pr-5">
                         <span> Choose where to put this: </span>
 
@@ -40,12 +53,7 @@
                             </LoadingButton>
 
                             <inertia-link
-                                :href="
-                                    route(`projects.show`, {
-                                        account: account.id,
-                                        project: project.id
-                                    })
-                                "
+                                :href="previewCard.path"
                                 class="rounded-full p-3 bg-white border border-gray-700 font-semibold text-sm"
                                 type="submit"
                             >
@@ -71,13 +79,20 @@ export default {
         LoadingButton
     },
 
-    props: ["account", "project", "projects", "model", "modelId"],
+    props: ["account", "project", "projects", "previewCard", "breadcrumbs"],
 
     data() {
         return {
             selectedProject: this.projects[0].id,
-            loading: false
+            loading: false,
+            PreviewCardComponent: ""
         };
+    },
+    created() {
+        this.PreviewCardComponent = () =>
+            import(
+                `@/Shared/PreviewCards/${this.previewCard.modelName}PreviewCard.vue`
+            );
     },
 
     methods: {
@@ -88,8 +103,8 @@ export default {
                 route("move.store", {
                     account: this.account.id,
                     project: this.project.id,
-                    model: this.model,
-                    id: this.modelId
+                    model: this.previewCard.modelName,
+                    modelId: this.previewCard.id
                 }),
                 {
                     selectedProject: this.selectedProject

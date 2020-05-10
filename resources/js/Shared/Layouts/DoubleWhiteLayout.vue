@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <!-- breadcrumps -->
+        <!-- breadcrumbs -->
         <div
             class="absolute top-0 max-w-3xl border flex flex-col justify-center bg-white w-full h-12 mt-1 px-3 shadow-xl"
         >
@@ -17,21 +17,26 @@
                 </svg>
 
                 <div class="flex items-center">
-                    <template v-for="(breadcrump, index) in breadcrumps">
+                    <template
+                        v-for="(breadcrumb, index) in filteredBreadcrumbs"
+                    >
                         <inertia-link
                             class="text-blue-700 underline"
                             :key="index"
-                            :href="breadcrump.link"
+                            :href="breadcrumb.link"
                             :class="{ 'font-semibold': index == 0 }"
                         >
-                            {{ breadcrump.text }}
+                            {{ breadcrumb.text }}
                         </inertia-link>
 
                         <svg
-                            v-if="index != Object.keys(breadcrumps).length - 1"
+                            v-if="
+                                index !=
+                                    Object.keys(filteredBreadcrumbs).length - 1
+                            "
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-4 fill-gray-900"
-                            :key="breadcrump.link + index"
+                            :key="breadcrumb.link + index"
                             version="1.1"
                             viewBox="0 0 24 24"
                         >
@@ -43,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <!-- breadcrumps -->
+        <!-- breadcrumbs -->
 
         <div
             class="relative panel border-2 border-gray-400  shadow-xl  max-w-4xl flex flex-col justify-center bg-white w-full py-10 mt-12 px-3  h-full overflow-hidden min-h-screen"
@@ -57,13 +62,30 @@
 import Layout from "@/Shared/Layouts/Layout";
 export default {
     props: {
-        breadcrumps: {
+        breadcrumbs: {
             type: Array,
             required: true
         }
     },
     components: {
         Layout
+    },
+
+    computed: {
+        filteredBreadcrumbs() {
+            return this.breadcrumbs.filter(breadcrumb =>
+                this.shouldShown(breadcrumb)
+            );
+        }
+    },
+    methods: {
+        shouldShown(breadcrumb) {
+            if (breadcrumb.condition === undefined || breadcrumb.condition) {
+                return true;
+            }
+
+            return false;
+        }
     }
 };
 </script>
