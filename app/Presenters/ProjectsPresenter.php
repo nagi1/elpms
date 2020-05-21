@@ -18,6 +18,8 @@ class ProjectsPresenter extends FlexiblePresenter
             'users' => $this->lazy(UsersPresenter::collection($this->whenLoaded('users'))->preset('avatarWithData')),
             'categories' => $this->lazy(CategoriesPresenter::collection($this->whenLoaded('categories'))->except('project_id')),
             'subscribers' => $this->lazy(UsersPresenter::make($this->whenLoaded('subscribers'))->preset('avatarWithData')),
+            'completedTodoItemsCount' => $this->lazy($this->meta->get('completed_todo_items_count', 0)),
+            'todoItemsCount' => $this->lazy($this->meta->get('todo_items_count', 0)),
         ];
     }
 

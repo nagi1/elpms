@@ -27,21 +27,21 @@ class DatabaseSeeder extends Seeder
         $user2 = $createUserAction->execute(factory(User::class)->raw());
 
         /** @var App\Models\Account */
-        $account = (new CreateAccountAction(['name' => 'Test Account']))->execute();
+        $account = app(CreateAccountAction::class)->execute(['name' => 'Test Account']);
 
-        $hq = (new CreateProjectAction($account, [
+        $hq = app(CreateProjectAction::class)->execute($account, [
             'name' => "{$account->name} HQ",
             'type' => Hq::class
-        ], collect([$user, $user2])))->execute();
+        ], collect([$user, $user2]));
 
-        $team = (new CreateProjectAction($account, [
+        $team = app(CreateProjectAction::class)->execute($account, [
             'name' => "Team",
             'type' => Team::class
-        ], collect([$user, $user2])))->execute();
+        ], collect([$user, $user2]));
 
-        $project = (new CreateProjectAction($account, [
+        $project = app(CreateProjectAction::class)->execute($account, [
             'name' => "Project",
             'type' => ProjectProject::class
-        ], collect([$user, $user2])))->execute();
+        ], collect([$user, $user2]));
     }
 }

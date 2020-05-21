@@ -16,7 +16,7 @@ class ArchiveableScope implements Scope
      *
      * @var array
      */
-    protected $extensions = ['Archive', 'Unarchive', 'WithArchived', 'WithoutArchived', 'OnlyArchived'];
+    protected $extensions = ['Archive', 'Unarchive', 'WithArchived', 'WithoutArchived', 'OnlyArchived', "OrderByArchived"];
 
     /**
      * Apply the scope to a given Eloquent query builder.
@@ -132,6 +132,17 @@ class ArchiveableScope implements Scope
             $builder->withoutGlobalScope($this)->whereNotNull(
                 $model->getQualifiedArchivedAtColumn()
             );
+
+            return $builder;
+        });
+    }
+
+    protected function addOrderByArchived(Builder $builder)
+    {
+        $builder->macro('orderByArchived', function (Builder $builder) {
+            $model = $builder->getModel();
+
+            $builder->withoutGlobalScope($this)->orderByDesc($model->getQualifiedArchivedAtColumn());
 
             return $builder;
         });

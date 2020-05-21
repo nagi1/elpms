@@ -7,7 +7,8 @@ use App\User;
 use App\Presenters\MessageBoardsPresenter;
 use App\Models\Project;
 use App\Models\MessageBoard;
-use App\Actions\Subscribable\SubscribeProjectSubscribersAction;
+use App\Actions\Subscription\SubscribeProjectSubscribersAction;
+
 
 class CreateMessageBoardAction
 {

@@ -15,7 +15,7 @@ class MessageBoardsPresenter extends FlexiblePresenter implements PreviewContrac
     {
         return [
             'modelName' => 'MessageBoard',
-            'modelDisplayName' => 'Message board',
+            'modelDisplayName' => $this->displayName(),
             'path' => $this->lazy($this->path()),
             'id' => $this->id,
             'title' => $this->title,

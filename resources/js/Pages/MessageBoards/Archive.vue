@@ -34,7 +34,7 @@
                     <div class="flex space-x-2 flex-grow">
                         <avatar-modal size="base" :user="messageBoard.user" />
 
-                        <a
+                        <inertia-link
                             :href="
                                 route('messageBoards.show', {
                                     account: account.id,
@@ -65,7 +65,7 @@
                                     }}&rdquo;</span
                                 >
                             </div>
-                        </a>
+                        </inertia-link>
                     </div>
                     <span
                         v-if="messageBoard.commentsCount > 0"

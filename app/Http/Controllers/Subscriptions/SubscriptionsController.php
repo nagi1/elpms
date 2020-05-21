@@ -10,7 +10,8 @@ use App\Presenters\AccountsPresenter;
 use App\Models\Project;
 use App\Models\Account;
 use App\Http\Controllers\Controller;
-use App\Actions\Subscribable\UpdateSubscribable;
+use App\Actions\Subscription\UpdateSubscriptionAction;
+
 
 class SubscriptionsController extends Controller
 {
@@ -47,7 +48,7 @@ class SubscriptionsController extends Controller
 
         $model = getModelByType($model, $modelId);
         $selectedUsers = User::findOrFail($request->selectedUsers);
-        app(UpdateSubscribable::class)->execute($model, $selectedUsers, $request->notifyNewPeople);
+        app(UpdateSubscriptionAction::class)->execute($model, $selectedUsers, $request->notifyNewPeople);
         return redirect($model->path());
     }
 }

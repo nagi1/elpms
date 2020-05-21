@@ -11,6 +11,17 @@ Route::get('/accounts')->name('chooseAccount')->uses('Accounts\ChooseAccountCont
 // index
 Route::get('/{account}')->name('index')->uses('Home\IndexController')->middleware(['auth']);
 
+// Archives
+
+// Archived todo items
+Route::get('{account}/projects/{project}/todo-lists/{todoList}/todo-items/archive')->name('todoItems.archive')->uses('TodoItems\TodoItemsArchiveIndexController');
+
+// Archived Message boards
+Route::get('{account}/projects/{project}/message-boards/archive')->name('messageBoards.archive')->uses('MessageBoards\MessageBoardsArchiveIndexController');
+
+// Archived todo lists
+Route::get('{account}/projects/{project}/todo-lists/archive')->name('todoLists.archive')->uses('TodoLists\TodoListsArchiveIndexController');
+
 // Projects
 
 // Create project
@@ -31,8 +42,7 @@ Route::put('{account}/projects/{project}/messagesSortBy')->name('projects.messag
 
 // Message Boards
 
-// Archived Message boards
-Route::get('{account}/projects/{project}/message-boards/archive')->name('messageBoards.archive')->uses('MessageBoards\MessageBoardsArchiveIndexController');
+
 
 // Create message board
 Route::get('{account}/projects/{project}/message-boards/create')->name('messageBoards.create')->uses('MessageBoards\MessageBoardsController@create')->middleware(['auth']);
@@ -56,7 +66,7 @@ Route::put('{account}/projects/{project}/message-boards/drafts/{messageBoard}/pu
 Route::post('{account}/projects/{project}/message-boards/create')->name('messageBoards.store')->uses('MessageBoards\MessageBoardsController@store');
 
 // Show message board
-Route::get('{account}/projects/{project}/message-boards/{messageBoard}')->name('messageBoards.show')->uses('MessageBoards\ShowMessageBoardsMessage');
+Route::get('{account}/projects/{project}/message-boards/{messageBoard}')->name('messageBoards.show')->uses('MessageBoards\ShowMessageBoardMessageController');
 
 // Edit message board
 Route::get('{account}/projects/{project}/message-boards/{messageBoard}/edit')->name('messageBoards.edit')->uses('MessageBoards\EditMessageBoardsController@edit');
@@ -121,3 +131,40 @@ Route::get('{account}/projects/{project}/subscriptions/{model}/{modelId}')->name
 
 // Update subscriptions
 Route::put('{account}/projects/{project}/subscriptions/{model}/{modelId}')->name('subscription.update')->uses('Subscriptions\SubscriptionsController@update');
+
+// Todo lists
+
+
+// Sort Todo lists
+Route::put('{account}/projects/{project}/todo-lists/sort')->name('todoLists.sort')->uses('TodoLists\UpdateTodoListsSortController')->middleware(['auth']);
+
+// Todo lists index
+Route::get('{account}/projects/{project}/todo-lists')->name('todoLists.index')->uses('TodoLists\TodoListsController@index')->middleware(['auth']);
+
+// Show Todo lists
+Route::get('{account}/projects/{project}/todo-lists/{todoList}')->name('todoLists.show')->uses('TodoLists\ShowTodoListsController')->middleware(['auth']);
+
+// Store Todo lists
+Route::post('{account}/projects/{project}/todo-lists')->name('todoLists.store')->uses('TodoLists\TodoListsController@store')->middleware(['auth']);
+
+// Update Todo lists
+Route::put('{account}/projects/{project}/todo-lists/{todoList}')->name('todoLists.update')->uses('TodoLists\TodoListsController@update')->middleware(['auth']);
+
+
+
+// Todo items
+
+// Sort Todo items
+Route::put('{account}/projects/{project}/todo-lists/{todoList}/todo-items/sort')->name('todoItems.sort')->uses('TodoItems\UpdateTodoItemsSortController')->middleware(['auth']);
+
+// Mark todo items
+Route::put('{account}/projects/{project}/todo-lists/{todoList}/todo-items/{todoItem}/mark')->name('todoItems.mark')->uses('TodoItems\MarkTodoItemsController')->middleware(['auth']);
+
+// Store todo items
+Route::post('{account}/projects/{project}/todo-lists/{todoList}/todo-items')->name('todoItems.store')->uses('TodoItems\TodoItemsController@store')->middleware(['auth']);
+
+// Update todo items
+Route::put('{account}/projects/{project}/todo-lists/{todoList}/todo-items/{todoItem}')->name('todoItems.update')->uses('TodoItems\TodoItemsController@update')->middleware(['auth']);
+
+// Show todo items
+Route::get('{account}/projects/{project}/todo-lists/{todoList}/todo-items/{todoItem}')->name('todoItems.show')->uses('TodoItems\ShowTodoItemsController')->middleware(['auth']);

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import LoadingButton from "@/Shared/LoadingButton";
+import LoadingButton from "@/Shared/Components/LoadingButton";
 import SimpleVueValidator from "simple-vue-validator";
 const Validator = SimpleVueValidator.Validator;
 

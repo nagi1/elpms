@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import MainHeader from "@/shared/MainHeader";
+import MainHeader from "@/shared/Components/MainHeader";
 import FlashMessage from "@/Shared/Components/FlashMessage";
 import { FadeTransition } from "vue2-transitions";
 

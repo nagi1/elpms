@@ -32,7 +32,7 @@
             </div>
 
             <div class="mt-10 md:px-10 flex flex-col space-y-4">
-                <a
+                <inertia-link
                     v-for="messageBoard in messageBoards"
                     :key="messageBoard.id"
                     class="block flex justify-between border-b pb-3 overflow-x-hidden"
@@ -80,7 +80,7 @@
                             </svg>
                         </button>
                     </div>
-                </a>
+                </inertia-link>
             </div>
         </div>
     </double-white-layout>

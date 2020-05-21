@@ -21,6 +21,10 @@ export default {
                 {
                     model: this.model.modelName,
                     modelId: this.model.id
+                },
+                {
+                    replace: true,
+                    preserveState: false
                 }
             );
         }

@@ -3,6 +3,7 @@
 namespace App\Models\Concerns;
 
 use \Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use App\Scopes\ArchiveableScope;
 
 trait ArchiveTrait
@@ -18,11 +19,26 @@ trait ArchiveTrait
         static::addGlobalScope(new ArchiveableScope);
     }
 
+    public function archiveWithoutEvents()
+    {
+        return static::withoutEvents(function () {
+            $this->archive();
+        });
+    }
+
+    public function unarchiveWithoutEvents()
+    {
+        return static::withoutEvents(function () {
+            $this->unarchive();
+        });
+    }
+
     public function archive()
     {
         $this->{$this->getQualifiedArchivedAtColumn()} = Carbon::now();
         $this->save();
         $this->updateArchiveCountMeta();
+        $this->fireModelEvent('archived');
     }
 
     public function unarchive()
@@ -30,12 +46,14 @@ trait ArchiveTrait
         $this->{$this->getQualifiedArchivedAtColumn()} = null;
         $this->save();
         $this->updateArchiveCountMeta();
+        $this->fireModelEvent('unarchived');
     }
 
     public function getArchivedCount(): int
     {
         return $this->onlyArchived()->count();
     }
+
 
     public function updateArchiveCountMeta(): void
     {

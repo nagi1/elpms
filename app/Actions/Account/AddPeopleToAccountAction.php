@@ -10,6 +10,6 @@ class AddPeopleToAccountAction
 
     public function execute(Account $account, Collection $users): void
     {
-        $account->users()->syncWithoutDetaching($users);
+        $account->users()->syncWithoutDetaching($users->pluck('id'));
     }
 }

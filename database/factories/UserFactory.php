@@ -19,7 +19,7 @@ use App\User;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'name' => $faker->firstName,
+        'name' => $faker->name,
         'title' => $faker->jobTitle,
         'company' => $faker->company,
         'email' => $faker->unique()->safeEmail,

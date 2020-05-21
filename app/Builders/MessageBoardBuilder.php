@@ -5,7 +5,7 @@ namespace App\Builders;
 use Illuminate\Database\Eloquent\Builder;
 use App\States\MessageBoard\Published;
 use App\States\MessageBoard\Draft;
-use App\Models\Comment;
+
 
 class MessageBoardBuilder extends Builder
 {

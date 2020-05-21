@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Scopes\User\MediaScope;
 use App\Models\Project;
-use App\Models\Pivots\ProjectUsers;
+use App\Models\Pivots\ProjectUser;
 use App\Models\Pivots\AccountUser;
 use App\Models\Account;
 
@@ -50,7 +50,7 @@ class User extends Authenticatable implements HasMedia
     public function projects()
     {
         return $this->belongsToMany(Project::class)
-            ->using(ProjectUsers::class)
+            ->using(ProjectUser::class)
             ->as('projectUsers')
             ->withTimestamps();
     }

@@ -1,13 +1,14 @@
 <template>
     <!-- options circule-->
-    <div class="absolute top-0 right-0 m-2">
+    <div class="absolute top-0 right-0 m-2 z-20">
         <button
             @click="open"
             class="rounded-full active:bg-gray-200 hover:bg-gray-100 border border-gray-400 bg-white p-1"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="fill-current h-6"
+                class="fill-current"
+                :class="sizeClass"
                 viewBox="0 0 36 36"
             >
                 <path
@@ -21,6 +22,13 @@
 
 <script>
 export default {
+    props: {
+        sizeClass: {
+            type: String,
+            default: "h-6"
+        }
+    },
+
     methods: {
         open() {
             this.$emit("opened");

@@ -5,10 +5,10 @@ namespace App\Actions\Project;
 use Illuminate\Support\Collection;
 use App\Models\Project;
 use App\Models\Account;
-use App\Actions\Subscribable\SubscribeAction;
+
+use App\Actions\Subscription\SubscribeAction;
 use App\Actions\Project\SetMessagesSortByAction;
 use App\Actions\Project\AddPeopleToProjectAction;
-
 
 class CreateProjectAction
 {
@@ -21,10 +21,10 @@ class CreateProjectAction
             ]
         ));
 
-        (new SetMessagesSortByAction)->execute($project);
-        (new AddPeopleToProjectAction($project, $users))->execute();
-        (new AddCategoriesToProjectAction($project, $account->categories->all()))->execute();
-        (new SubscribeAction)->execute($project, $users);
+        app(SetMessagesSortByAction::class)->execute($project);
+        app(AddPeopleToProjectAction::class)->execute($project, $users);
+        app(AddCategoriesToProjectAction::class)->execute($project, $account->categories->all());
+        app(SubscribeAction::class)->execute($project, $users);
         return $project;
     }
 }

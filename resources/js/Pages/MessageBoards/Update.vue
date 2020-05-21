@@ -125,9 +125,9 @@
 
 <script>
 import DoubleWhiteLayout from "@/Shared/Layouts/DoubleWhiteLayout";
-import LoadingButton from "@/Shared/LoadingButton";
-import Modal from "@/Shared/Components/Modal";
-import EditProjectCategories from "@/Shared/EditProjectCategories";
+import LoadingButton from "@/Shared/Components/LoadingButton";
+import Modal from "@/Shared/Partials/Modals/Modal";
+import EditProjectCategories from "@/Shared/Components/EditProjectCategories";
 
 export default {
     components: {

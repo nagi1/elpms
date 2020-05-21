@@ -10,8 +10,10 @@ Vue.mixin({ methods: { route: window.route } });
 Vue.use(InertiaApp);
 Vue.use(PortalVue);
 Vue.use(VueMeta);
-Vue.component("Avatar", () => import("@/Components/Avatar"));
-Vue.component("AvatarModal", () => import("@/Components/AvatarModal"));
+Vue.component("Avatar", () => import("@/Shared/Partials/User/Avatar"));
+Vue.component("AvatarModal", () =>
+    import("@/Shared/Partials/User/AvatarModal")
+);
 
 let app = document.getElementById("app");
 

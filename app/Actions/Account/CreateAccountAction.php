@@ -15,11 +15,16 @@ class CreateAccountAction
         $this->addCategoriesToAccountAction = $addCategoriesToAccountAction;
     }
 
-    public function execute(array $attributes): Account
+    public function execute(array $attributes, array $categories = []): Account
     {
         $account = Account::create($attributes);
 
-        $this->addCategoriesToAccountAction->execute($account, $this->defaultCategories());
+        if (empty($categories)) {
+            $categories = $this->defaultCategories();
+        }
+
+
+        $this->addCategoriesToAccountAction->execute($account, $categories);
 
         return $account;
     }

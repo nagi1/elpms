@@ -359,11 +359,11 @@
 
 <script>
 import MainWhiteLayout from "@/Shared/Layouts/MainWhiteLayout";
-import Divider from "@/Shared/Divider";
-import MessageBoardCard from "@/Components/MessageBoardCard";
-import CornerOptionsMenu from "@/Shared/CornerOptionsMenu";
+import Divider from "@/Shared/Components/Divider";
+import MessageBoardCard from "@/Pages/MessageBoards/Components/MessageBoardCard";
+import CornerOptionsMenu from "@/Shared/Partials/CornerMenu/CornerOptionsMenu";
 import CornerOptionsButton from "@/Shared/Components/CornerOptionsButton";
-import ProjectActivity from "@/Shared/Activities/ProjectActivity";
+import ProjectActivity from "@/Shared/Partials/Activities/ProjectActivity";
 
 export default {
     metaInfo: { title: "Home" },

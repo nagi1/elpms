@@ -169,7 +169,7 @@
 
 <script>
 import Layout from "@/Shared/Layouts/Layout";
-import Divider from "@/Shared/Divider";
+import Divider from "@/Shared/Components/Divider";
 import ProjectCard from "@/Shared/Components/ProjectCard";
 import NewProjectButton from "@/Shared/Components/NewProjectButton";
 

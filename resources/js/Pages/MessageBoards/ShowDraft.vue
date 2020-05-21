@@ -94,8 +94,8 @@
 
 <script>
 import DoubleWhiteLayout from "@/Shared/Layouts/DoubleWhiteLayout";
-import CornerOptionsMenu from "@/Shared/CornerOptionsMenu";
-import LoadingButton from "@/Shared/LoadingButton";
+import CornerOptionsMenu from "@/Shared/Partials/CornerMenu/CornerOptionsMenu";
+import LoadingButton from "@/Shared/Components/LoadingButton";
 
 export default {
     components: {

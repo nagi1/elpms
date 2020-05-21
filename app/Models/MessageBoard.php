@@ -36,7 +36,6 @@ class MessageBoard extends Model implements BucketContract, CommentContract, Boo
     use BoostTrait;
     use MoveTrait;
     use MetaTrait;
-    use HasStates;
     use ArchiveTrait;
     use SoftDeletes;
     use StatusTrait;

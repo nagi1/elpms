@@ -17,7 +17,7 @@ class AddPeopleToProjectAction
 
     public function execute(Project $project, Collection $users): void
     {
-        $project->users()->syncWithoutDetaching($users);
+        $project->users()->syncWithoutDetaching($users->pluck('id'));
         $this->addPeopleToAccountAction->execute($project->account, $users);
     }
 }

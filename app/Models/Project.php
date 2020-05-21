@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\States\Project\ProjectType;
 use App\Scopes\Project\OrderScope;
-use App\Models\Pivots\ProjectUsers;
+use App\Models\TodoList;
+use App\Models\Pivots\ProjectUser;
 use App\Models\MessageBoard;
 use App\Models\Concerns\MetaTrait;
 use App\Models\Account;
@@ -54,7 +55,7 @@ class Project extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
-            ->using(ProjectUsers::class)
+            ->using(ProjectUser::class)
             ->as('projectUsers')
             ->withTimestamps();
     }
@@ -72,5 +73,10 @@ class Project extends Model
     public function messageBoards(): HasMany
     {
         return $this->hasMany(MessageBoard::class);
+    }
+
+    public function todoLists(): HasMany
+    {
+        return $this->hasMany(TodoList::class);
     }
 }

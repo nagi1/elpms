@@ -23,9 +23,9 @@ class CategoriesController extends Controller
         return redirect()->back();
     }
 
-    public function destroy(Category $category)
+    public function destroy(Category $category, DeleteCategoryAction $deleteCategoryAction)
     {
-        (new DeleteCategoryAction($category))->execute();
+        $deleteCategoryAction->execute($category);
         return redirect()->back();
     }
 
@@ -39,9 +39,9 @@ class CategoriesController extends Controller
         ]);
 
         if ($request->modelType == "project") {
-            (new AddCategoriesToProjectAction(Project::findOrFail($request->modelId), $category))->execute();
+            app(AddCategoriesToProjectAction::class)->execute(Project::findOrFail($request->modelId), $category);
         } else if ($request->modelType == "account") {
-            (new AddCategoriesToAccountAction(Account::findOrFail($request->modelId), $category))->execute();
+            app(AddCategoriesToAccountAction::class)->execute(Account::findOrFail($request->modelId), $category);
         }
 
         return redirect()->back();

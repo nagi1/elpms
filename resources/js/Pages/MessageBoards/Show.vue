@@ -161,10 +161,10 @@
 
 <script>
 import DoubleWhiteLayout from "@/Shared/Layouts/DoubleWhiteLayout";
-import CornerOptionsMenu from "@/Shared/CornerOptionsMenu";
-import LoadingButton from "@/Shared/LoadingButton";
-import CommentSection from "@/Shared/Comments/CommentSection";
-import Boosts from "@/Shared/Boosts/Boosts";
+import CornerOptionsMenu from "@/Shared/Partials/CornerMenu/CornerOptionsMenu";
+import LoadingButton from "@/Shared/Components/LoadingButton";
+import CommentSection from "@/Shared/Partials/Comments/CommentSection";
+import Boosts from "@/Shared/Partials/Boosts/Boosts";
 import ArchivedStatusCard from "@/Shared/Components/ArchivedStatusCard";
 
 export default {
@@ -175,8 +175,8 @@ export default {
         CommentSection,
         Boosts,
         ArchivedStatusCard,
-        AvatarModal: () => import("@/Components/AvatarModal"),
-        SubscribeSection: () => import("@/Shared/Subscribe/SubscribeSection")
+        SubscribeSection: () =>
+            import("@/Shared/Partials/Subscriptions/SubscribeSection")
     },
 
     props: ["account", "project", "messageBoard", "trix"],

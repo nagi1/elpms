@@ -1,10 +1,16 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Actions\Project;
+
+
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\Category;
+use App\User;
+use App\Models\TodoList;
+use App\Models\Pivots\Assignable;
+use App\Actions\Project\CreateProjectAction;
+use App\Actions\Account\CreateAccountAction;
 
 class CreateProjectActionTest extends TestCase
 {
@@ -13,7 +19,7 @@ class CreateProjectActionTest extends TestCase
 
 
     /** @test */
-    public function it_creates_an_account()
+    public function it_create_project_with_all_associate_actions()
     {
         app(CreateAccountAction::class)->execute([
             'name' => 'Test Account'
@@ -27,25 +33,23 @@ class CreateProjectActionTest extends TestCase
     /** @test */
     public function it_create_account_and_associate_default_categories_to_it()
     {
-        $defaultCategories = [
-            new Category(['icon' => '😎', 'name' => 'test category 1']),
-            new Category(['icon' => '😀', 'name' => 'test category 2']),
+        $category = [['name' => 'test category', 'icon' => ':smile:']];
+        $account = app(CreateAccountAction::class)->execute(['name' => 'Test account'], $category);
+        $users = factory(User::class, 3)->create();
+        $projectAttributes = [
+            'name' => 'Test project',
+            'type' => 'team',
         ];
-        app(CreateAccountAction::class)->execute([
-            'id' => 1,
-            'name' => 'Test Account'
-        ], $defaultCategories);
+        $project = app(CreateProjectAction::class)->execute($account, $projectAttributes, $users);
+        $todoList =  $project->todoLists()->save(new TodoList(['name' => 'name', 'user_id' => $users->first()->id]));
 
-        $this->assertDatabaseHas('categories', [
-            'account_id' => 1,
-            'icon' => '😎',
-            'name' => 'test category 1'
-        ]);
+        $todoList->whenDoneNotify($users);
+        dd($todoList->notifiedWhenDone()->first()->assignable);
 
-        $this->assertDatabaseHas('categories', [
-            'account_id' => 1,
-            'icon' => '😀',
-            'name' => 'test category 2'
-        ]);
+        $this->assertDatabaseHas('projects', $projectAttributes);
+        $this->assertEquals(['sortBy' => 'created_at'], $project->meta->messageBoard);
+        $this->assertEquals($project->users->pluck('id'), $users->pluck('id'));
+        $this->assertEquals($category[0]['name'], $project->categories()->first()->name);
+        $this->assertCount(3, $project->subscribers);
     }
 }

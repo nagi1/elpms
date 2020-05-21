@@ -7,8 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use App\Presenters\UsersPresenter;
-use App\Observers\AccountObserver;
-use App\Models\Account;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -65,6 +64,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Account::observe(AccountObserver::class);
     }
 }

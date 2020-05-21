@@ -18,12 +18,13 @@
 
 
     {{-- Trix Assets --}}
-    @if (in_array(request()->route()->getName(), ['messageBoards.create', 'messageBoards.edit', 'messageBoards.show']))
+    {{-- @if (in_array(request()->route()->getName(), ['messageBoards.create', 'messageBoards.edit', 'messageBoards.show', 'todoLists.index',
+    'todoLists.show', 'todoItems.show'])) --}}
     <script>
         window.csrf = @json(csrf_token())
     </script>
     @trixassets
-    @endif
+    {{-- @endif --}}
 
     <script src="{{ mix('/js/app.js') }}" defer></script>
 

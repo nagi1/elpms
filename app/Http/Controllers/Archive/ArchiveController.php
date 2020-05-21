@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Account;
 use App\Http\Controllers\Controller;
-use App\Actions\Archiveable\ArchiveAction;
+use App\Actions\Archive\ArchiveAction;
+
 
 class ArchiveController extends Controller
 {

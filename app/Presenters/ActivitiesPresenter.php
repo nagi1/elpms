@@ -32,9 +32,9 @@ class ActivitiesPresenter extends FlexiblePresenter
         }
 
         if ($date->isCurrentYear()) {
-            return $date->format('dddd, D MMM');
+            return $date->format('D, j M');
         }
 
-        return $date->format('dddd, D MMM, YYYY');
+        return $date->format('D, j M, Y');
     }
 }

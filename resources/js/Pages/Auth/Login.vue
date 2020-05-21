@@ -61,10 +61,10 @@
 </template>
 
 <script>
-import LoadingButton from "@/Shared/LoadingButton";
-import Divider from "@/Shared/Divider";
-import Logo from "@/Shared/Logo";
-import TextInput from "@/Shared/TextInput";
+import LoadingButton from "@/Shared/Components/LoadingButton";
+import Divider from "@/Shared/Components/Divider";
+import Logo from "@/Shared/Components/Logo";
+import TextInput from "@/Shared/Components/TextInput";
 
 export default {
     metaInfo: { title: "Login" },

@@ -224,10 +224,10 @@
 <script>
 import DoubleWhiteLayout from "@/Shared/Layouts/DoubleWhiteLayout";
 import SelectInput from "@/Shared/Components/SelectInput";
-import CornerOptionsMenu from "@/Shared/CornerOptionsMenu";
-import Modal from "@/Shared/Components/Modal";
-import EditProjectCategories from "@/Shared/EditProjectCategories";
-import SortMessagesModal from "@/Shared/SortMessagesModal";
+import CornerOptionsMenu from "@/Shared/Partials/CornerMenu/CornerOptionsMenu";
+import Modal from "@/Shared/Partials/Modals/Modal";
+import EditProjectCategories from "@/Shared/Components/EditProjectCategories";
+import SortMessagesModal from "@/Shared/Partials/Modals/SortMessagesModal";
 
 export default {
     components: {

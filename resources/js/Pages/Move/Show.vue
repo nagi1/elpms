@@ -70,7 +70,7 @@
 <script>
 import DoubleWhiteLayout from "@/Shared/Layouts/DoubleWhiteLayout";
 import SelectInput from "@/Shared/Components/SelectInput";
-import LoadingButton from "@/Shared/LoadingButton";
+import LoadingButton from "@/Shared/Components/LoadingButton";
 
 export default {
     components: {
@@ -91,7 +91,7 @@ export default {
     created() {
         this.PreviewCardComponent = () =>
             import(
-                `@/Shared/PreviewCards/${this.previewCard.modelName}PreviewCard.vue`
+                `@/Shared/Partials/PreviewCards/${this.previewCard.modelName}PreviewCard.vue`
             );
     },
 

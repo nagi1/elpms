@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateTodoListsTable extends Migration
 {
@@ -15,6 +15,14 @@ class CreateTodoListsTable extends Migration
     {
         Schema::create('todo_lists', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('project_id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('name');
+            $table->string('status');
+            $table->schemalessAttributes('meta');
+            $table->string('order_column');
+            $table->softDeletes();
+            $table->timestamp('archived_at', 0)->nullable();
             $table->timestamps();
         });
     }
