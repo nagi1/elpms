@@ -21,6 +21,7 @@ use App\Models\Contracts\ArchiveContract;
 use App\Models\Concerns\StatusTrait;
 use App\Models\Concerns\MoveTrait;
 use App\Models\Concerns\MetaTrait;
+use App\Models\Concerns\HillChartTrait;
 use App\Models\Concerns\CommentTrait;
 use App\Models\Concerns\BoostTrait;
 use App\Models\Concerns\ArchiveTrait;
@@ -41,6 +42,7 @@ class TodoList extends Model implements BucketContract, CommentContract, MoveCon
     use Subscribable;
     use SortableTrait;
     use BoostTrait;
+    use HillChartTrait;
 
 
     protected $dispatchesEvents = [
@@ -52,12 +54,16 @@ class TodoList extends Model implements BucketContract, CommentContract, MoveCon
 
     protected $touches = ['trixRichText'];
 
-    protected $with = ['project'];
 
     public $sortable = [
         'order_column_name' => 'order_column',
         'sort_when_creating' => true,
     ];
+
+    public function getContentAttribute()
+    {
+        return optional($this->trixRichText->first())->content;
+    }
 
     protected function registerStates(): void
     {
@@ -107,13 +113,14 @@ class TodoList extends Model implements BucketContract, CommentContract, MoveCon
 
     public function previewCard(): array
     {
-        return [];
+        $modelPresenter = getModelPresenter($this);
+        return $modelPresenter::make($this->load(['todoItems.trixRichText', 'todoItems.assignedTo.media', 'todoItems.todoList']))->preset('previewCard')->get();
     }
 
     public function path(): string
     {
         return route('todoLists.show', [
-            'account' => $this->project->account_id,
+            'account' => session('account_id', fn () => $this->project->account_id),
             'project' => $this->project_id,
             'todoList' => $this->id
         ]);
@@ -121,6 +128,9 @@ class TodoList extends Model implements BucketContract, CommentContract, MoveCon
 
     public function indexPath(): string
     {
-        return '';
+        return route('todoLists.index', [
+            'account' => session('account_id', fn () => $this->project->account_id),
+            'project' => $this->project_id,
+        ]);
     }
 }

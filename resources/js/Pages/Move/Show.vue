@@ -35,7 +35,7 @@
                             v-model="selectedProject"
                         >
                             <option
-                                v-for="project in projects"
+                                v-for="project in filteredProjects"
                                 :key="project.id"
                                 :value="project.id"
                                 >{{ project.name }}</option
@@ -85,7 +85,10 @@ export default {
         return {
             selectedProject: this.projects[0].id,
             loading: false,
-            PreviewCardComponent: ""
+            PreviewCardComponent: "",
+            filteredProjects: this.projects.filter(
+                project => project.id !== this.project.id
+            )
         };
     },
     created() {

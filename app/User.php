@@ -27,7 +27,7 @@ class User extends Authenticatable implements HasMedia
 
     protected $guarded = [];
 
-
+    protected $with = ['media'];
     public function registerMediaCollections(): void
     {
         $this

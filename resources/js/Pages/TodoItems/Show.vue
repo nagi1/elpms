@@ -45,6 +45,7 @@
                 }"
             />
             <corner-option-archive :model="todoItem" />
+            <corner-option-trash :model="todoItem" />
         </corner-options-menu>
 
         <div class="w-full h-full md:py-5 sm:px-20 overflow-hidden">
@@ -215,7 +216,7 @@
                 />
             </div>
 
-            <event-section
+            <change-event-section
                 :model="todoItem.modelName"
                 :events="todoItem.events"
             />
@@ -254,7 +255,7 @@ export default {
         Boosts,
         ArchivedStatusCard,
         AvatarLabel: () => import("@/Shared/Partials/User/AvatarLabel"),
-        TodoItemForm: () => import("@/Shared/Partials/TodoLists/TodoItemForm"),
+        TodoItemForm: () => import("@/Shared/Partials/TodoItems/TodoItemForm"),
 
         SubscribeSection: () =>
             import("@/Shared/Partials/Subscriptions/SubscribeSection"),
@@ -262,10 +263,13 @@ export default {
             import("@/Shared/Partials/CornerMenu/CornerOptionsMenu"),
         CornerOptionArchive: () =>
             import("@/Shared/Partials/CornerMenu/CornerOptionArchive"),
+        CornerOptionTrash: () =>
+            import("@/Shared/Partials/CornerMenu/CornerOptionTrash"),
         CornerOptionItem: () =>
             import("@/Shared/Partials/CornerMenu/CornerOptionItem"),
         TodoListItem: () => import("@/Shared/Partials/TodoLists/TodoListItem"),
-        EventSection: () => import("@/Shared/Partials/Events/EventSection")
+        ChangeEventSection: () =>
+            import("@/Shared/Partials/ChangeEvents/ChangeEventSection")
     },
 
     props: [

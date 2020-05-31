@@ -6,7 +6,7 @@
         </h2>
         <div
             :class="{ 'timeline-left': isRight }"
-            class="timeline-container relative sm:w-1/2 space-y-5"
+            class="timeline-container relative sm:w-1/2 space-y-7"
         >
             <div
                 v-for="activity in activitiesInDay.activities"

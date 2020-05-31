@@ -12,24 +12,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Contracts\MoveContract;
-use App\Models\Contracts\EventContract;
 use App\Models\Contracts\CommentContract;
+use App\Models\Contracts\ChangeEventContract;
+use App\Models\Contracts\BucketContract;
 use App\Models\Contracts\BoostContract;
+use App\Models\Contracts\ArchiveContract;
 use App\Models\Concerns\StatusTrait;
 use App\Models\Concerns\MoveTrait;
 use App\Models\Concerns\MetaTrait;
-use App\Models\Concerns\EventTrait;
 use App\Models\Concerns\CommentTrait;
+use App\Models\Concerns\ChangeEventTrait;
 use App\Models\Concerns\BoostTrait;
 use App\Models\Concerns\AssignableTrait;
 use App\Models\Concerns\ArchiveTrait;
 use App\Events\TodoItem\TodoItemUnarchivedEvent;
 use App\Events\TodoItem\TodoItemArchivedEvent;
 use App\Builders\TodoItemBuilder;
-use App\Actions\TodoList\UpdateTodoMetaCounters;
-use App\Actions\TodoList\UpdateArchivedTodoMetaCounters;
 
-class TodoItem extends Model implements CommentContract, MoveContract, Sortable, BoostContract, EventContract
+class TodoItem extends Model implements CommentContract, MoveContract, Sortable, BoostContract, ChangeEventContract, ArchiveContract
 {
     use HasTrixRichText;
     use CommentTrait;
@@ -43,7 +43,7 @@ class TodoItem extends Model implements CommentContract, MoveContract, Sortable,
     use SortableTrait;
     use AssignableTrait;
     use BoostTrait;
-    use EventTrait;
+    use ChangeEventTrait;
 
     protected $dispatchesEvents = [
         'archived' =>  TodoItemArchivedEvent::class,
@@ -52,7 +52,7 @@ class TodoItem extends Model implements CommentContract, MoveContract, Sortable,
 
     protected $guarded = [];
 
-    protected $touches = ['trixRichText'];
+    protected $touches = ['trixRichText', 'todoList'];
 
     protected $dates = [
         'completed_at', 'starts_at', 'ends_at'
@@ -63,7 +63,6 @@ class TodoItem extends Model implements CommentContract, MoveContract, Sortable,
         'sort_when_creating' => true,
     ];
 
-    protected $with = ['todoList.project'];
 
 
     protected static function booted()
@@ -77,8 +76,6 @@ class TodoItem extends Model implements CommentContract, MoveContract, Sortable,
     {
         $this->registerStatus();
     }
-
-
 
     public static function query(): TodoItemBuilder
     {
@@ -105,6 +102,11 @@ class TodoItem extends Model implements CommentContract, MoveContract, Sortable,
         return 'To-do';
     }
 
+    public function getContentAttribute()
+    {
+        return optional($this->trixRichText->first())->content;
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -117,14 +119,16 @@ class TodoItem extends Model implements CommentContract, MoveContract, Sortable,
 
     public function previewCard(): array
     {
-        return [];
+        $modelPresenter = getModelPresenter($this);
+        return $modelPresenter::make($this->load(['trixRichText', 'assignedTo.media',  'todoList']))->preset('previewCard')->get();
     }
 
     public function path(): string
     {
         return route('todoItems.show', [
-            'account' => $this->todoList->project->account_id,
-            'project' => $this->todoList->project_id,
+
+            'account' => session('account_id', fn () => $this->todoList->project->account_id),
+            'project' => session('project_id', fn () => $this->todoList->project_id),
             'todoList' => $this->todo_list_id,
             'todoItem' => $this->id
         ]);
@@ -132,25 +136,9 @@ class TodoItem extends Model implements CommentContract, MoveContract, Sortable,
 
     public function indexPath(): string
     {
-        return '';
-    }
-
-    public function markAsComplete(): void
-    {
-        $this->update([
-            'completed_at' => now()
+        return route('todoLists.index', [
+            'account' => session('account_id', fn () => $this->project->account_id),
+            'project' => session('project_id', fn () =>  $this->todoList->project_id),
         ]);
-        (new UpdateTodoMetaCounters($this->todoList))->execute();
-        (new UpdateArchivedTodoMetaCounters($this->todoList))->execute();
-    }
-
-    public function markAsUncompleted(): void
-    {
-        $this->update([
-            'completed_at' => null,
-        ]);
-
-        (new UpdateTodoMetaCounters($this->todoList))->execute();
-        (new UpdateArchivedTodoMetaCounters($this->todoList))->execute();
     }
 }

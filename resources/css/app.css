@@ -1,4 +1,5 @@
 /* Reset */
+@import "../fonts/graphik/graphik.css";
 @import "tailwindcss/base";
 @import "reset";
 @import "defaults";

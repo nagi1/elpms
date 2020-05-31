@@ -9,14 +9,34 @@
     >
         <input type="hidden" name="_method" v-if="mode == 'edit'" value="PUT" />
         <input type="hidden" name="_token" :value="csrf" />
-        <input
-            type="text"
-            name="name"
-            v-model="name"
-            ref="name"
-            class="appearance-none placeholder-gray-600 font-bold text-lg border-none p-2"
-            placeholder="Name this list..."
-        />
+        <input type="hidden" name="color" :value="color" />
+        <div class="flex items-center space-x-2">
+            <color-picker
+                shapes="circles"
+                :swatches="[
+                    '#2d3748',
+                    '#e53e3e',
+                    '#ed8936',
+                    '#ecc94b',
+                    '#48bb78',
+                    '#4fd1c5',
+                    '#4299e1',
+                    '#667eea',
+                    '#805ad5',
+                    '#d53f8c'
+                ]"
+                v-model="color"
+                popover-x="right"
+            />
+            <input
+                type="text"
+                name="name"
+                v-model="name"
+                ref="name"
+                class="appearance-none placeholder-gray-600 font-bold text-lg border-none p-2"
+                placeholder="Name this list..."
+            />
+        </div>
         <div
             class="mx-1 mt-1 font-semibold transition transition-all duration-100 ease-in-out text-red-600"
         >
@@ -51,8 +71,12 @@
 
 <script>
 import SimpleVueValidator from "simple-vue-validator";
+import "vue-swatches/dist/vue-swatches.css";
 const Validator = SimpleVueValidator.Validator;
 export default {
+    components: {
+        ColorPicker: () => import("vue-swatches")
+    },
     mixins: [SimpleVueValidator.mixin],
     props: ["trix", "mode", "todoList"],
 
@@ -80,6 +104,7 @@ export default {
             isTrixShown: false,
             csrf: window.csrf,
             name: "",
+            color: "#48bb78",
             action: route("todoLists.store", {
                 account: this.$page.account.id,
                 project: this.$page.project.id

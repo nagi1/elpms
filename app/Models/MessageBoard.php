@@ -46,14 +46,17 @@ class MessageBoard extends Model implements BucketContract, CommentContract, Boo
 
     protected $touches = ['trixRichText'];
 
-    protected $with = ['project'];
-
     protected function registerStates(): void
     {
         $this->registerStatus();
         $this->addState('state', MessageBoardState::class)
             ->default(Published::class)
             ->allowTransition(Draft::class, Published::class, DraftToPublished::class);
+    }
+
+    public function getContentAttribute()
+    {
+        return optional($this->trixRichText->first())->content;
     }
 
     public static function query(): MessageBoardBuilder
@@ -84,7 +87,7 @@ class MessageBoard extends Model implements BucketContract, CommentContract, Boo
     public function path(): string
     {
         return route('messageBoards.show', [
-            'account' => $this->project->account_id,
+            'account' => session('account_id', fn () => $this->project->account_id),
             'project' => $this->project_id,
             'messageBoard' => $this->id
         ]);
@@ -93,7 +96,7 @@ class MessageBoard extends Model implements BucketContract, CommentContract, Boo
     public function indexPath(): string
     {
         return route('messageBoards.index', [
-            'account' => $this->project->account_id,
+            'account' => session('account_id', fn () => $this->project->account_id),
             'project' => $this->project_id,
         ]);
     }

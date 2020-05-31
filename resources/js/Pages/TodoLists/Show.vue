@@ -27,6 +27,7 @@
     >
         <corner-options-menu>
             <corner-option-archive :model="todoList" />
+            <corner-option-trash :model="todoList" />
         </corner-options-menu>
 
         <div class="w-full h-full md:py-5 sm:px-20 overflow-hidden">
@@ -116,6 +117,8 @@ export default {
             import("@/Shared/Partials/CornerMenu/CornerOptionsMenu"),
         CornerOptionArchive: () =>
             import("@/Shared/Partials/CornerMenu/CornerOptionArchive"),
+        CornerOptionTrash: () =>
+            import("@/Shared/Partials/CornerMenu/CornerOptionTrash"),
         CornerOptionItem: () =>
             import("@/Shared/Partials/CornerMenu/CornerOptionItem"),
         TodoListItem: () => import("@/Shared/Partials/TodoLists/TodoListItem")

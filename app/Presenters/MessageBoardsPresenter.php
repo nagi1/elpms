@@ -16,40 +16,29 @@ class MessageBoardsPresenter extends FlexiblePresenter implements PreviewContrac
         return [
             'modelName' => 'MessageBoard',
             'modelDisplayName' => $this->displayName(),
-            'path' => $this->lazy($this->path()),
+            'path' => fn () => $this->path(),
             'id' => $this->id,
             'title' => $this->title,
-            'category' => $this->lazy(CategoriesPresenter::make($this->whenLoaded('category'))->only('id', 'fullName')),
-            'shortDate' => $this->shortDate($this->created_at),
-            'user' => $this->lazy(UsersPresenter::make($this->whenLoaded('user'))->preset('avatarWithData')),
-            'trixRichText' => $this->lazy($this->trixRichText->first()->content),
-            'excerpt' => $this->lazy($this->excerpt()),
-            'cardExcerpt' => $this->lazy($this->excerpt(30)),
-            'updated_at' => $this->lazy($this->shortDate($this->updated_at)),
-            'archived' => $this->shortDate($this->archived_at),
-            'comments' => $this->lazy(CommentsPresenter::collection($this->whenLoaded('comments'))),
-            'commentsCount' => $this->lazy($this->meta->get('comments_count')),
-            'boosts' => $this->lazy(BoostsPresenter::collection($this->whenLoaded('boosts'))),
-            'subscribers' => $this->lazy(UsersPresenter::make($this->whenLoaded('subscribers'))->preset('avatarWithData')),
+            'category' => fn () => CategoriesPresenter::make($this->whenLoaded('category'))->only('id', 'fullName'),
+            'shortDate' => shortDate($this->created_at),
+            'user' => fn () => UsersPresenter::make($this->whenLoaded('user'))->preset('avatarWithData'),
+            'trixRichText' => fn () => $this->content,
+            'excerpt' => fn () => $this->excerpt(),
+            'cardExcerpt' => fn () => $this->excerpt(30),
+            'updated_at' => fn () => shortDate($this->updated_at),
+            'archived' => shortDate($this->archived_at),
+            'comments' => fn () => CommentsPresenter::collection($this->whenLoaded('comments')),
+            'commentsCount' => fn () => $this->meta->get('comments_count'),
+            'boosts' => fn () => BoostsPresenter::collection($this->whenLoaded('boosts')),
+            'subscribers' => fn () => UsersPresenter::make($this->whenLoaded('subscribers'))->preset('avatarWithData'),
+            'trashedAtDate' => fn () => $this->deleted_at,
+            'trashed' => fn () => shortDate($this->deleted_at),
         ];
-    }
-
-    private function shortDate(?Carbon $date = null): string
-    {
-        if (is_null($date)) {
-            return '';
-        }
-
-        if ($date->isToday()) {
-            return $date->diffForHumans();
-        }
-
-        return $date->format('M j, g:ia');
     }
 
     private function excerpt($limit = 100): string
     {
-        return Str::limit(strip_tags($this->trixRichText->first()->content), $limit, '');
+        return Str::limit(strip_tags($this->content), $limit, '');
     }
 
     public function presetCard()
@@ -69,7 +58,7 @@ class MessageBoardsPresenter extends FlexiblePresenter implements PreviewContrac
 
     public function presetPreviewCard()
     {
-        return $this->only('id', 'title', 'cardExcerpt', 'user', 'modelName', 'modelDisplayName', 'path');
+        return $this->only('id', 'title', 'cardExcerpt', 'user', 'modelName', 'modelDisplayName', 'path', 'trashed', 'trashedAtDate');
     }
 
     public function presetSubscribers()

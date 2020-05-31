@@ -12,6 +12,7 @@ use App\Scopes\Project\OrderScope;
 use App\Models\TodoList;
 use App\Models\Pivots\ProjectUser;
 use App\Models\MessageBoard;
+use App\Models\HillChartUpdate;
 use App\Models\Concerns\MetaTrait;
 use App\Models\Account;
 use App\Builders\ProjectBuilder;
@@ -31,6 +32,14 @@ class Project extends Model
     protected $casts = [
         'pinned' => 'boolean',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::retrieved(function (Project $project) {
+            session(['project_id' => $project->id]);
+        });
+    }
 
     protected static function booted()
     {
@@ -78,5 +87,33 @@ class Project extends Model
     public function todoLists(): HasMany
     {
         return $this->hasMany(TodoList::class);
+    }
+
+    public function hillChartUpdates(): HasMany
+    {
+        return $this->hasMany(HillChartUpdate::class);
+    }
+
+    public function events(): HasMany
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    public function toggleHillChart(?bool $state = null): void
+    {
+        if (is_null($state)) {
+            $currentState = $this->meta->get('hillChart', false);
+
+            $this->meta->set([
+                'hillChart' => $currentState ? false : true
+            ]);
+
+            $this->save();
+
+            return;
+        }
+
+        $this->meta->set('hillChart', $state);
+        $this->save();
     }
 }

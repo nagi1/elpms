@@ -22,11 +22,16 @@ class CreateTodoListAction
         $this->attributes = $attributes;
         $this->project = $project;
         $this->user = $user;
+    }
+
+    public function prepareAttributes()
+    {
         $this->mergeUser();
     }
 
     public function execute(): TodoList
     {
+        $this->prepareAttributes();
         $todoList = $this->project
             ->todoLists()
             ->save(new TodoList($this->attributes));

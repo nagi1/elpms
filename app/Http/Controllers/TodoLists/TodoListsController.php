@@ -20,14 +20,15 @@ class TodoListsController extends Controller
 {
     public function index(Account $account, Project $project)
     {
+        // dd(ProjectsPresenter::make($project->load(['users.media']))->only('id', 'name', 'users', 'completedTodoItemsCount', 'todoItemsCount', 'hillChart')->get());
         return Inertia::render('TodoLists/Index', [
             'account' => AccountsPresenter::make($account)->preset('basic')->get(),
-            'project' => ProjectsPresenter::make($project->load(['users.media']))->only('id', 'name', 'users', 'completedTodoItemsCount', 'todoItemsCount')->get(),
+            'project' => ProjectsPresenter::make($project->load(['users.media']))->only('id', 'name', 'users', 'completedTodoItemsCount', 'todoItemsCount', 'hillChart')->get(),
             'trix' => trixEditorForModel(TodoList::class, 'details'),
             'todoItemTrix' => trixEditorForModel(TodoItem::class, 'notes'),
-            'todoLists' => TodoListsPresenter::collection($project->todoLists()->withoutArchived()->with(['trixRichText', 'user.media', 'todoItems.user.media', 'todoItems' => function ($query) {
+            'todoLists' => TodoListsPresenter::collection($project->todoLists()->withoutArchived()->latest()->with(['trixRichText',  'todoItems' => function ($query) {
                 return $query->withoutArchived()->orderedByUncompleted()->ordered();
-            }, 'todoItems.trixRichText', 'todoItems.assignedTo.media', 'todoItems.notifiedWhenDone.media'])->ordered()->get())->get(),
+            },  'todoItems.trixRichText', 'todoItems.assignedTo.media', 'todoItems.notifiedWhenDone.media'])->ordered()->get())->get(),
             'archivedCount' => $project->todoLists()->onlyArchived()->count(),
 
         ]);
@@ -39,6 +40,7 @@ class TodoListsController extends Controller
 
         (new CreateTodoListAction($project, [
             'name' => $request->name,
+            'color' => $request->color,
             'todolist-trixFields' => $request->get('todolist-trixFields'),
             'attachment-todolist-trixFields' => $request->get('attachment-todolist-trixFields'),
         ]))->execute();

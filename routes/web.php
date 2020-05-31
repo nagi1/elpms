@@ -1,16 +1,5 @@
 <?php
 
-// Auth
-Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->middleware('guest');
-Route::post('login')->name('login.attempt')->uses('Auth\LoginController@login')->middleware('guest');
-Route::post('logout')->name('logout')->uses('Auth\LoginController@logout')->middleware(['auth']);
-
-// Choose account
-Route::get('/accounts')->name('chooseAccount')->uses('Accounts\ChooseAccountController')->middleware('auth');
-
-// index
-Route::get('/{account}')->name('index')->uses('Home\IndexController')->middleware(['auth']);
-
 // Archives
 
 // Archived todo items
@@ -22,27 +11,9 @@ Route::get('{account}/projects/{project}/message-boards/archive')->name('message
 // Archived todo lists
 Route::get('{account}/projects/{project}/todo-lists/archive')->name('todoLists.archive')->uses('TodoLists\TodoListsArchiveIndexController');
 
-// Projects
-
-// Create project
-Route::post('{account}/projects')->name('projects.store')->uses('Projects\ProjectsController@store');
-
-// Show project
-Route::get('{account}/projects/{project}')->name('projects.show')->uses('Projects\ProjectsController@show');
-
-// Rename project
-Route::post('{account}/projects/{project}/rename')->name('projects.rename')->uses('Projects\RenameProjectController');
-
-// Pin project
-Route::post('{account}/projects/{project}/pin')->name('projects.pin')->uses('Projects\PinProjectController');
-
-// Message boards default sort
-Route::put('{account}/projects/{project}/messagesSortBy')->name('projects.messagesSortBy')->uses('MessageBoards\MessageBoardsSortByController');
 
 
 // Message Boards
-
-
 
 // Create message board
 Route::get('{account}/projects/{project}/message-boards/create')->name('messageBoards.create')->uses('MessageBoards\MessageBoardsController@create')->middleware(['auth']);
@@ -87,6 +58,31 @@ Route::put('categories/{category}')->name('categories.update')->uses('Categories
 Route::delete('categories/{category}')->name('categories.destroy')->uses('Categories\CategoriesController@destroy');
 
 
+
+
+// Hill Chart
+
+// Enable/Disable
+Route::put('{account}/projects/{project}/hillChart')->name('hillCharts.enable')->uses('TodoLists\HillChartController@update');
+
+// Post Update
+Route::post('{account}/projects/{project}/hillChart')->name('hillCharts.update')->uses('TodoLists\HillChartController@store');
+
+// update index
+Route::get('{account}/projects/{project}/hillChart/updates')->name('hillCharts.index')->uses('TodoLists\HillChartController@index');
+
+
+// Delete update
+Route::delete('{account}/projects/{project}/hillChart/updates/{hillChartUpdate}')->name('hillChartsUpdates.delete')->uses('TodoLists\HillChartController@destroy');
+
+// Edit Update
+Route::put('{account}/projects/{project}/hillChart/updates/{hillChartUpdate}')->name('hillChartsUpdates.update')->uses('TodoLists\EditHillChartUpdateController');
+
+
+// show update
+Route::get('{account}/projects/{project}/hillChart/updates/{hillChartUpdate}')->name('hillChartsUpdates.show')->uses('TodoLists\ShowHillChartUpdateController');
+
+
 // Comments
 
 // Stor comment
@@ -120,6 +116,13 @@ Route::post('{account}/projects/{project}/move/{model}/{modelId}')->name('move.s
 
 // Archive
 Route::post('{account}/projects/{project}/archive')->name('archive.store')->uses('Archive\ArchiveController@store');
+
+
+// Trash
+Route::post('{account}/projects/{project}/trash')->name('trash.store')->uses('Trash\TrashController@store');
+
+// Trash index
+Route::get('{account}/projects/{project}/trash')->name('trash.index')->uses('Trash\TrashIndexController');
 
 // Subscriptions
 
@@ -168,3 +171,41 @@ Route::put('{account}/projects/{project}/todo-lists/{todoList}/todo-items/{todoI
 
 // Show todo items
 Route::get('{account}/projects/{project}/todo-lists/{todoList}/todo-items/{todoItem}')->name('todoItems.show')->uses('TodoItems\ShowTodoItemsController')->middleware(['auth']);
+
+
+// Schedule
+
+// Schedule index
+Route::get('{account}/projects/{project}/schedule')->name('schedule.index')->uses('Schedule\ScheduleController@index')->middleware(['auth']);
+
+// Schedule index
+Route::post('{account}/projects/{project}/schedule')->name('events.store')->uses('Events\EventsController@store')->middleware(['auth']);
+
+
+// Projects
+
+// Create project
+Route::post('{account}/projects')->name('projects.store')->uses('Projects\ProjectsController@store');
+
+// Show project
+Route::get('{account}/projects/{project}')->name('projects.show')->uses('Projects\ProjectsController@show');
+
+// Rename project
+Route::post('{account}/projects/{project}/rename')->name('projects.rename')->uses('Projects\RenameProjectController');
+
+// Pin project
+Route::post('{account}/projects/{project}/pin')->name('projects.pin')->uses('Projects\PinProjectController');
+
+// Message boards default sort
+Route::put('{account}/projects/{project}/messagesSortBy')->name('projects.messagesSortBy')->uses('MessageBoards\MessageBoardsSortByController');
+
+// Auth
+Route::get('login')->name('login')->uses('Auth\LoginController@showLoginForm')->middleware('guest');
+Route::post('login')->name('login.attempt')->uses('Auth\LoginController@login')->middleware('guest');
+Route::post('logout')->name('logout')->uses('Auth\LoginController@logout')->middleware(['auth']);
+
+// Choose account
+Route::get('/accounts')->name('chooseAccount')->uses('Accounts\ChooseAccountController')->middleware('auth');
+
+// index
+Route::get('/{account}')->name('index')->uses('Home\IndexController')->middleware(['auth']);

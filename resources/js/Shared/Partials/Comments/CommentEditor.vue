@@ -105,7 +105,18 @@ export default {
                 if (!input.value) {
                     input.focus();
                 } else {
+                    // console.log(
+                    //     this.$refs.formElement.elements.namedItem(
+                    //         "comment-trixFields[content]"
+                    //     )
+                    // );
                     this.$refs.formElement.submit();
+                    // const input = this.$refs.formElement.elements.namedItem(
+                    //     "comment-trixFields[content]"
+                    // );
+                    // this.$inertia.post(this.action, {
+                    //     [input.name]: input.value
+                    // });
                 }
             });
         }

@@ -94,6 +94,25 @@
                     messageBoard.archived ? "Unarchive" : "Archive"
                 }}</span>
             </inertia-link>
+            <inertia-link
+                href=""
+                @click.prevent="trash"
+                class="flex items-center transition-all duration-200 ease-in-out space-x-2 hover:bg-silver-200 text-white px-3 py-2"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="fill-white h-6"
+                    version="1.1"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        d="M3 3H21V7H3V3M4 21V8H20V21H4M14 14V11H10V14H7L12 19L17 14H14Z"
+                    />
+                </svg>
+                <span class="font-medium">{{
+                    messageBoard.trashed ? "Put it into trash" : "Restore"
+                }}</span>
+            </inertia-link>
         </corner-options-menu>
 
         <div class="w-full h-full md:py-5 sm:px-20 overflow-hidden">
@@ -195,6 +214,18 @@ export default {
         archive() {
             this.$inertia.post(
                 route("archive.store", {
+                    account: this.account.id,
+                    project: this.project.id
+                }),
+                {
+                    model: "MessageBoard",
+                    modelId: this.messageBoard.id
+                }
+            );
+        },
+        trash() {
+            this.$inertia.post(
+                route("trash.store", {
                     account: this.account.id,
                     project: this.project.id
                 }),

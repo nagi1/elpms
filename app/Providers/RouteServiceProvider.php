@@ -30,9 +30,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        Route::bind('messageBoard', function ($value) {
+            return \App\Models\MessageBoard::withTrashed()->where('id', $value)->firstOrFail();
+        });
     }
 
     /**

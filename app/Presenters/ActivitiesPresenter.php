@@ -16,25 +16,8 @@ class ActivitiesPresenter extends FlexiblePresenter
             'data' => $this->lazy($this->getExtraProperty('data')),
             'user' => $this->lazy(UsersPresenter::make($this->whenLoaded('causer'))->preset('avatarWithData')),
             'time' => $this->created_at->format('g:ia'),
-            'day' => $this->dayFormat($this->created_at),
+            'day' => dayFormat($this->created_at),
             'created_at' => $this->created_at,
         ];
-    }
-
-    private function dayFormat(Carbon $date)
-    {
-        if ($date->isToday()) {
-            return 'Today';
-        }
-
-        if ($date->isYesterday()) {
-            return 'Yesterday';
-        }
-
-        if ($date->isCurrentYear()) {
-            return $date->format('D, j M');
-        }
-
-        return $date->format('D, j M, Y');
     }
 }

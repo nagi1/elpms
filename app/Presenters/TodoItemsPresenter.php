@@ -12,30 +12,32 @@ class TodoItemsPresenter extends FlexiblePresenter
     {
         return [
             'modelName' => 'TodoItem',
-            'modelDisplayName' => $this->displayName(),
-            'path' => $this->path(),
+            'modelDisplayName' => fn () => $this->displayName(),
+            'path' => fn () => $this->path(),
             'id' => $this->id,
             'description' => $this->description,
-            'completed' => shortDate($this->completed_at),
-            'todoList' => $this->lazy(['id' => $this->todo_list_id]),
-            'startsAt' => $this->formatDate($this->starts_at),
-            'endsAt' => $this->formatDate($this->ends_at),
-            'startsAtDate' => optional($this->starts_at)->format('Y-m-d'),
-            'endsAtDate' => optional($this->ends_at)->format('Y-m-d'),
-            'trixRichText' => $this->lazy(optional($this->trixRichText->first())->content),
-            'excerpt' => $this->lazy(excerpt(optional($this->trixRichText->first())->content, 30)),
-            'archived' => shortDate($this->archived_at),
-            'order' => $this->order_column,
-            'assignedTo' => $this->lazy(UsersPresenter::collection($this->whenLoaded('assignedTo'))),
-            'whenDoneNotify' => $this->lazy(UsersPresenter::collection($this->whenLoaded('notifiedWhenDone'))),
-            'updated_at' => $this->lazy(shortDate($this->updated_at)),
-            'comments' => $this->lazy(CommentsPresenter::collection($this->whenLoaded('comments'))),
-            'commentsCount' => $this->lazy($this->meta->get('comments_count')),
-            'boosts' => $this->lazy(BoostsPresenter::collection($this->whenLoaded('boosts'))),
-            'subscribers' => $this->lazy(UsersPresenter::make($this->whenLoaded('subscribers'))->preset('avatarWithData')),
-            'user' => $this->lazy(UsersPresenter::make($this->whenLoaded('user'))->preset('avatarWithData')),
-            'createdAt' => $this->lazy(shortDate($this->created_at)),
-            'events' => $this->lazy(EventPresenter::collection($this->whenLoaded('events'))),
+            'completed' => fn () => shortDate($this->completed_at),
+            'todoList' => fn () => TodoListsPresenter::make($this->whenLoaded('todoList'))->only('id', 'name', 'path'),
+            'startsAt' => fn () => $this->formatDate($this->starts_at),
+            'endsAt' => fn () => $this->formatDate($this->ends_at),
+            'startsAtDate' => fn () => optional($this->starts_at)->format('Y-m-d'),
+            'endsAtDate' => fn () => optional($this->ends_at)->format('Y-m-d'),
+            'trixRichText' => fn () => optional($this->content),
+            'excerpt' => fn () => excerpt($this->content, 30),
+            'archived' => fn () => shortDate($this->archived_at),
+            'order' => fn () => $this->order_column,
+            'assignedTo' => fn () => UsersPresenter::collection($this->whenLoaded('assignedTo')),
+            'whenDoneNotify' => fn () => UsersPresenter::collection($this->whenLoaded('notifiedWhenDone')),
+            'updated_at' => fn () => shortDate($this->updated_at),
+            'comments' => fn () => CommentsPresenter::collection($this->whenLoaded('comments')),
+            'commentsCount' => fn () => $this->meta->get('comments_count'),
+            'boosts' => fn () => BoostsPresenter::collection($this->whenLoaded('boosts')),
+            'subscribers' => fn () => UsersPresenter::make($this->whenLoaded('subscribers'))->preset('avatarWithData'),
+            'user' => fn () => UsersPresenter::make($this->whenLoaded('user'))->preset('avatarWithData'),
+            'createdAt' => fn () => shortDate($this->created_at),
+            'events' => fn () => ChangeEventPresenter::collection($this->whenLoaded('changeEvents')),
+            'trashedAtDate' => fn () => $this->deleted_at,
+            'trashed' => fn () => shortDate($this->deleted_at),
 
         ];
     }
@@ -51,9 +53,24 @@ class TodoItemsPresenter extends FlexiblePresenter
         return $this->except('whenDoneNotify', 'trixRichText', 'todoList', 'order');
     }
 
+    public function presetSummary()
+    {
+        return $this->only('id', 'description', 'completed', 'path', 'excerpt', 'endsAt', 'startsAt', 'assignedTo', 'todoList');
+    }
+
     public function presetShow()
     {
         return $this->except('todoList', 'order', 'excerpt');
+    }
+
+    public function presetSubscribers()
+    {
+        return $this->only('subscribers');
+    }
+
+    public function presetPreviewCard()
+    {
+        return $this->only('id', 'description', 'completed', 'path', 'excerpt', 'endsAt', 'startsAt', 'assignedTo', 'todoList', 'modelName', 'modelDisplayName', 'trashed', 'trashedAtDate', 'user');
     }
 
     public function formatDate(?Carbon $date = null)

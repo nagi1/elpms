@@ -28,5 +28,6 @@ class TodoListArchivedEvent
         });
         (new UpdateArchivedTodoMetaCounters($this->todoList))->execute();
         (new UpdateTodoMetaCounters($this->todoList))->execute();
+        $this->todoList->disableHillChartPoint();
     }
 }

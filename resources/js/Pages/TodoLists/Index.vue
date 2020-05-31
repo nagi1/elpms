@@ -11,22 +11,17 @@
         ]"
     >
         <corner-options-menu>
-            <inertia-link
-                href="#"
-                class="flex items-center transition-all duration-200 ease-in-out space-x-2 hover:bg-silver-200 text-white px-3 py-2"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="fill-white h-6"
-                    version="1.1"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        d="M17,18L12,15.82L7,18V5H17M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z"
-                    />
-                </svg>
-                <span class="font-medium">Set up Hill Chart</span>
-            </inertia-link>
+            <corner-option-item
+                @click.native="hillChart = true"
+                :item="{
+                    type: 'a',
+                    iconPath:
+                        'M9.96,11.31C10.82,8.1 11.5,6 13,6C14.5,6 15.18,8.1 16.04,11.31C17,14.92 18.1,19 22,19V17C19.8,17 19,14.54 17.97,10.8C17.08,7.46 16.15,4 13,4C9.85,4 8.92,7.46 8.03,10.8C7.03,14.54 6.2,17 4,17V2H2V22H22V20H4V19C7.9,19 9,14.92 9.96,11.31Z',
+                    text: project.hillChart
+                        ? 'Hill Chart settings'
+                        : 'Set up Hill Chart'
+                }"
+            />
         </corner-options-menu>
 
         <div class="w-full h-full md:py-5 sm:px-12 overflow-hidden">
@@ -118,7 +113,18 @@
                 </div>
             </div>
 
+            <div v-if="project.hillChart" class="mt-10">
+                <hill-chart-section :todoLists="todoLists" />
+            </div>
             <div class="mt-10 md:px-10 flex flex-col space-y-5">
+                <collapse-transition :duration="200">
+                    <todo-list-form
+                        @closed="showCreateList = false"
+                        v-if="showCreateList"
+                        mode="new"
+                        :trix="trix"
+                    />
+                </collapse-transition>
                 <draggable
                     tag="div"
                     :list="dragList"
@@ -133,21 +139,13 @@
                         :todoList="todoList"
                     />
                 </draggable>
-                <collapse-transition :duration="200">
-                    <todo-list-form
-                        @closed="showCreateList = false"
-                        v-if="showCreateList"
-                        mode="new"
-                        :trix="trix"
-                    />
-                </collapse-transition>
             </div>
 
             <div
+                v-if="archivedCount > 0"
                 class="w-full mt-5 flex justify-center pt-3 border-t border-gray-400 items-center text-center"
             >
                 <inertia-link
-                    v-if="archivedCount > 0"
                     class="leading-5 tracking-wide text-sm flex space-x-1 items-center"
                     :href="
                         route('todoLists.archive', {
@@ -174,26 +172,35 @@
             </div>
         </div>
 
-        <modal @close="hillChart = false" :open="hillChart"> </modal>
+        <hill-chart-modal
+            :enabled="project.hillChart"
+            :todoLists="todoLists"
+            @close="hillChart = false"
+            :open="hillChart"
+        />
     </double-white-layout>
 </template>
 
 <script>
 import DoubleWhiteLayout from "@/Shared/Layouts/DoubleWhiteLayout";
 import CornerOptionsMenu from "@/Shared/Partials/CornerMenu/CornerOptionsMenu";
-import Modal from "@/Shared/Partials/Modals/Modal";
 import PieChart from "@/Shared/Components/PieChart";
 import { CollapseTransition } from "vue2-transitions";
 
 export default {
     components: {
         DoubleWhiteLayout,
+        ResizeObserver,
         CornerOptionsMenu,
-        Modal,
         PieChart,
         CollapseTransition,
+        HillChartSection: () =>
+            import("@/Shared/Partials/HillCharts/HillChartSection"),
+        HillChartModal: () => import("@/Shared/Partials/Modals/HillChartModal"),
         TodoListForm: () => import("@/Shared/Partials/TodoLists/TodoListForm"),
         TodoListItem: () => import("@/Shared/Partials/TodoLists/TodoListItem"),
+        CornerOptionItem: () =>
+            import("@/Shared/Partials/CornerMenu/CornerOptionItem"),
         draggable: () => import("vuedraggable")
     },
 
@@ -209,6 +216,7 @@ export default {
     data() {
         return {
             hillChart: false,
+
             dragList: this.todoLists,
             showCreateList: false
         };

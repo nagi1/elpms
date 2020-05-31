@@ -18,6 +18,7 @@ class CreateTodoListsTable extends Migration
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('user_id');
             $table->string('name');
+            $table->string('color')->default('#2da562');
             $table->string('status');
             $table->schemalessAttributes('meta');
             $table->string('order_column');

@@ -23,7 +23,7 @@ class ShowTodoItemsController extends Controller
         return Inertia::render('TodoItems/Show', [
             'account' => AccountsPresenter::make($account)->preset('basic')->get(),
             'project' => ProjectsPresenter::make($project->load(['users.media']))->only('id', 'name', 'users')->get(),
-            'todoItem' => TodoItemsPresenter::make($todoItem->load(['trixRichText', 'user.media', 'assignedTo.media', 'notifiedWhenDone.media', 'comments.user.media', 'comments.boosts.user.media', 'comments.trixRichText', 'boosts.user.media', 'subscribers.media', 'events.user.media', 'events.boosts']))->preset('show')->get(),
+            'todoItem' => TodoItemsPresenter::make($todoItem->load(['trixRichText', 'user.media', 'assignedTo.media', 'notifiedWhenDone.media', 'comments.user.media', 'comments.boosts.user.media', 'comments.trixRichText', 'boosts.user.media', 'subscribers.media', 'changeEvents.user.media', 'changeEvents.boosts']))->preset('show')->get(),
             'todoList' => TodoListsPresenter::make($todoList)->only('id', 'name')->get(),
             'commentsTrix' => trixEditorForModel(Comment::class),
             'todoItemTrix' => trixEditorForModel(TodoItem::class),

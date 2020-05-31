@@ -14,6 +14,7 @@ class IndexController extends Controller
 {
     public function __invoke(Account $account)
     {
+        session(['account_id' => $account->id]);
         return Inertia::render(
             'Index/Index',
             [

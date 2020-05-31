@@ -115,42 +115,15 @@
             />
 
             <!-- card -->
-            <a
-                href="#"
-                class="card h-45 sm:h-64 shadow border border-gray-400 p-2 flex flex-col"
-            >
-                <h2
-                    class="font-bold text-sm text-center border-b pb-1 border-gray-400"
-                >
-                    To-dos
-                </h2>
-
-                <!-- card-inner -->
-                <div
-                    class="card-inner flex flex-col justify-center items-center mt-1 h-full"
-                >
-                    <div
-                        class="rounded-full h-20 w-20 flex items-center justify-center bg-green-500"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="fill-current text-white h-10"
-                            viewBox="0 0 512 512"
-                        >
-                            <path
-                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                            />
-                        </svg>
-                    </div>
-                    <p
-                        class="mt-3 hidden sm:block text-center text-sm leading-tight tracking-tight"
-                    >
-                        Make lists of work that needs to get done, assign items,
-                        set due dates, and discuss.
-                    </p>
-                </div>
-                <!-- /card-inner -->
-            </a>
+            <todoLists-card
+                :link="
+                    route('todoLists.index', {
+                        account: $page.account.id,
+                        project: $page.project.id
+                    })
+                "
+                :todoLists="todoLists"
+            />
             <!-- /card -->
             <!-- card -->
             <a
@@ -353,7 +326,7 @@
             <span class="divider"></span>
         </h2>
 
-        <project-activity :activities="activities" class="mt-8" />
+        <project-activity :activities="activities" class="mt-8 sm:px-5" />
     </main-white-layout>
 </template>
 
@@ -367,20 +340,22 @@ import ProjectActivity from "@/Shared/Partials/Activities/ProjectActivity";
 
 export default {
     metaInfo: { title: "Home" },
-    props: ["account", "project", "messageBoards", "activities"],
+    props: ["account", "project", "messageBoards", "activities", "todoLists"],
     components: {
         Divider,
         MessageBoardCard,
         MainWhiteLayout,
         CornerOptionsMenu,
         CornerOptionsButton,
-        ProjectActivity
+        ProjectActivity,
+        TodoListsCard: () => import("@/Shared/Partials/TodoLists/TodoListsCard")
     },
     data() {
         return {
             options: false
         };
     },
+
     methods: {
         openOptions() {
             this.options = true;

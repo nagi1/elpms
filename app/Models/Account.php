@@ -12,6 +12,15 @@ use App\Models\Category;
 class Account extends Model
 {
     protected $guarded = [];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::retrieved(function (Account $account) {
+            session(['account_id' => $account->id]);
+        });
+    }
+
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);

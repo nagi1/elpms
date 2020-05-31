@@ -1,0 +1,77 @@
+@font-face {
+    font-family: "Graphik";
+    src: url("../fonts/graphik/Graphik-Thin.eot");
+    src: local("Graphik Thin"), local("Graphik-Thin"),
+        url("../fonts/graphik/Graphik-Thin.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/graphik/Graphik-Thin.woff2") format("woff2"),
+        url("../fonts/graphik/Graphik-Thin.woff") format("woff"),
+        url("../fonts/graphik/Graphik-Thin.ttf") format("truetype");
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Graphik";
+    src: url("../fonts/graphik/Graphik-Medium.eot");
+    src: local("Graphik Medium"), local("Graphik-Medium"),
+        url("../fonts/graphik/Graphik-Medium.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/graphik/Graphik-Medium.woff2") format("woff2"),
+        url("../fonts/graphik/Graphik-Medium.woff") format("woff"),
+        url("../fonts/graphik/Graphik-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Graphik";
+    src: url("../fonts/graphik/Graphik-Semibold.eot");
+    src: local("Graphik Semibold"), local("Graphik-Semibold"),
+        url("../fonts/graphik/Graphik-Semibold.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/graphik/Graphik-Semibold.woff2") format("woff2"),
+        url("../fonts/graphik/Graphik-Semibold.woff") format("woff"),
+        url("../fonts/graphik/Graphik-Semibold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Graphik";
+    src: url("../fonts/graphik/Graphik-Light.eot");
+    src: local("Graphik Light"), local("Graphik-Light"),
+        url("../fonts/graphik/Graphik-Light.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/graphik/Graphik-Light.woff2") format("woff2"),
+        url("../fonts/graphik/Graphik-Light.woff") format("woff"),
+        url("../fonts/graphik/Graphik-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* @font-face {
+    font-family: "Graphik";
+    src: url("../fonts/graphik/Graphik-Bold.eot");
+    src: local("Graphik Bold"), local("Graphik-Bold"),
+        url("../fonts/graphik/Graphik-Bold.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/graphik/Graphik-Bold.woff2") format("woff2"),
+        url("../fonts/graphik/Graphik-Bold.woff") format("woff"),
+        url("../fonts/graphik/Graphik-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+} */
+
+@font-face {
+    font-family: "Graphik";
+    src: url("../fonts/graphik/Graphik-Regular.eot");
+    src: local("Graphik Regular"), local("Graphik-Regular"),
+        url("../fonts/graphik/Graphik-Regular.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/graphik/Graphik-Regular.woff2") format("woff2"),
+        url("../fonts/graphik/Graphik-Regular.woff") format("woff"),
+        url("../fonts/graphik/Graphik-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}

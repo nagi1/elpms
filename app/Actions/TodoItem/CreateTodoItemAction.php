@@ -4,6 +4,7 @@ namespace App\Actions\TodoItem;
 
 
 use App\User;
+use App\Presenters\TodoItemsPresenter;
 use App\Models\TodoList;
 use App\Models\TodoItem;
 use App\Actions\TodoList\UpdateTodoMetaCounters;
@@ -38,6 +39,17 @@ class CreateTodoItemAction extends AbstractTodoItemAction
         (new UpdateTodoMetaCounters($this->todoList))->execute();
         (new UpdateArchivedTodoMetaCounters($this->todoList))->execute();
 
+        $this->logActivity($todoItem);
+
         return $todoItem;
+    }
+
+    private function logActivity($todoItem)
+    {
+        activity("project-{$this->todoList->project_id}")
+            ->performedOn($todoItem)
+            ->causedBy($this->user)
+            ->withProperties(['action' => 'CreateTodoItem', 'data' => TodoItemsPresenter::make($todoItem->load(['trixRichText', 'assignedTo.media']))->preset('summary')->get()])
+            ->log('On :subject.todoList.name :causer.name added a new todo called :subject.description');
     }
 }

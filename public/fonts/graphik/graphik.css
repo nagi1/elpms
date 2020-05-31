@@ -1,0 +1,71 @@
+@font-face {
+    font-family: "Graphik";
+    src: url("Graphik-Medium.eot");
+    src: local("Graphik Medium"), local("Graphik-Medium"),
+        url("Graphik-Medium.eot?#iefix") format("embedded-opentype"),
+        url("Graphik-Medium.woff2") format("woff2"),
+        url("Graphik-Medium.woff") format("woff"),
+        url("Graphik-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Graphik";
+    src: url("Graphik-Semibold.eot");
+    src: local("Graphik Semibold"), local("Graphik-Semibold"),
+        url("Graphik-Semibold.eot?#iefix") format("embedded-opentype"),
+        url("Graphik-Semibold.woff2") format("woff2"),
+        url("Graphik-Semibold.woff") format("woff"),
+        url("Graphik-Semibold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Graphik";
+    src: url("Graphik-RegularItalic.eot");
+    src: local("Graphik Regular Italic"), local("Graphik-RegularItalic"),
+        url("Graphik-RegularItalic.eot?#iefix") format("embedded-opentype"),
+        url("Graphik-RegularItalic.woff2") format("woff2"),
+        url("Graphik-RegularItalic.woff") format("woff"),
+        url("Graphik-RegularItalic.ttf") format("truetype");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Graphik";
+    src: url("Graphik-Light.eot");
+    src: local("Graphik Light"), local("Graphik-Light"),
+        url("Graphik-Light.eot?#iefix") format("embedded-opentype"),
+        url("Graphik-Light.woff2") format("woff2"),
+        url("Graphik-Light.woff") format("woff"),
+        url("Graphik-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Graphik";
+    src: url("Graphik-Bold.eot");
+    src: local("Graphik Bold"), local("Graphik-Bold"),
+        url("Graphik-Bold.eot?#iefix") format("embedded-opentype"),
+        url("Graphik-Bold.woff2") format("woff2"),
+        url("Graphik-Bold.woff") format("woff"),
+        url("Graphik-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Graphik";
+    src: url("Graphik-Regular.eot");
+    src: local("Graphik Regular"), local("Graphik-Regular"),
+        url("Graphik-Regular.eot?#iefix") format("embedded-opentype"),
+        url("Graphik-Regular.woff2") format("woff2"),
+        url("Graphik-Regular.woff") format("woff"),
+        url("Graphik-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}

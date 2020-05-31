@@ -33,13 +33,14 @@
             <dragging-handler v-if="!singleView" />
 
             <div class="flex items-center space-x-2">
+                <!-- #96d2b1 -->
                 <pie-chart
                     :percent="archived ? archivedPiePercentage : piePercentage"
                     :stroke-width="10"
                     label=" "
                     label-small=" "
-                    color="#2da562"
-                    outerColor="#96d2b1"
+                    :color="todoList.color"
+                    :outerColor="lightenColor(todoList.color, 50)"
                     class="self-end"
                     :class="{
                         'h-6 w-6': !singleView,
@@ -132,9 +133,9 @@ export default {
     props: ["todoItem"],
     components: {
         CollapseTransition,
-        TodoItemForm: () => import("@/Shared/Partials/TodoLists/TodoItemForm"),
+        TodoItemForm: () => import("@/Shared/Partials/TodoItems/TodoItemForm"),
         TodoListForm: () => import("@/Shared/Partials/TodoLists/TodoListForm"),
-        TodoItem: () => import("@/Shared/Partials/TodoLists/TodoItem"),
+        TodoItem: () => import("@/Shared/Partials/TodoItems/TodoItem"),
         DraggingHandler: () => import("@/Shared/Components/DraggingHandler"),
 
         PieChart: () => import("@/Shared/Components/PieChart"),

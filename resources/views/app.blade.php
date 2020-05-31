@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full background-primary">
+<html class="h-full background-primary font-sans">
 
 <head>
     <meta charset="utf-8">
@@ -30,7 +30,7 @@
 
 </head>
 
-<body class="font-sans leading-none text-primary antialiased">
+<body class="leading-none text-primary antialiased">
     @inertia
 </body>
 

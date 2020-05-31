@@ -1,7 +1,8 @@
+Hill charts
+- What models being tracked?
+- Points.
+- Updates.
 
-Message board
-- title
-- body
-- category
-- user_id
-- project_id
+Approach 1: Create model for all of them
+* HillChart model have many HillChartPoints and many HillChartUpdates
+* HillChartPoints = the model being tracked
