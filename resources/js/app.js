@@ -3,7 +3,12 @@ import VueMeta from "vue-meta";
 import PortalVue from "portal-vue";
 import Loading from "@/Shared/Components/Loading";
 import { InertiaApp } from "@inertiajs/inertia-vue";
+import VueConfirmDialog from "vue-confirm-dialog";
+import VueTextareaAutosize from "vue-textarea-autosize";
 
+Vue.use(VueTextareaAutosize);
+Vue.use(VueConfirmDialog);
+Vue.component("vue-confirm-dialog", VueConfirmDialog.default);
 Vue.component("loading", Loading);
 Vue.config.productionTip = false;
 Vue.mixin({ methods: { route: window.route } });
@@ -12,6 +17,17 @@ Vue.use(PortalVue);
 Vue.use(VueMeta);
 Vue.mixin({
     methods: {
+        containsOnlyEmojis(text) {
+            const ranges = [
+                "\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]",
+                " " // Also allow spaces
+            ].join("|");
+
+            const removeEmoji = str => str.replace(new RegExp(ranges, "g"), "");
+
+            return !removeEmoji(text).length;
+        },
+
         lightenColor(col, amt) {
             let usePound = false;
 

@@ -12,52 +12,10 @@
     >
         <div class="w-full h-full md:py-5 sm:px-12 overflow-hidden">
             <div
-                class="flex flex-col md:flex-row items-center justify-between  md:border-b-2 border-black pb-4"
+                class="flex flex-col md:flex-row items-center justify-center  md:border-b-2 border-black pb-4"
             >
                 <!-- title -->
-                <h1 class="text-3xl font-bold md:hidden">Schedule</h1>
-                <div
-                    class="w-full justify-center md:justify-between flex space-x-2 md:space-x-0 items-center mt-3"
-                >
-                    <!-- button -->
-                    <button
-                        @click="showEventForm = true"
-                        class="flex items-center rounded-full py-2 px-3 bg-blue-600 text-white text-sm  space-x-1"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="fill-current text-white h-4"
-                            version="1.1"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                d="M20 14H14V20H10V14H4V10H10V4H14V10H20V14Z"
-                            />
-                        </svg>
-                        <span class="tracking-tight">New event</span>
-                    </button>
-                    <!-- title -->
-                    <h1 class="text-3xl hidden md:block font-bold">
-                        Schedule
-                    </h1>
-
-                    <!-- button -->
-                    <div
-                        class="flex items-center rounded-full py-2 px-3 bg-blue-500 text-white text-sm hidden md:flex space-x-1 invisible"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="fill-current text-white h-5"
-                            version="1.1"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                d="M20 14H14V20H10V14H4V10H10V4H14V10H20V14Z"
-                            />
-                        </svg>
-                        <span class="tracking-tight">New message</span>
-                    </div>
-                </div>
+                <h1 class="text-3xl font-bold ">Schedule</h1>
             </div>
 
             <div class="mt-10 md:px-10 flex flex-col flex-grow space-y-10">
@@ -122,6 +80,7 @@ export default {
     data() {
         return {
             showDate: new Date(),
+
             showEvents: [],
             selectedDate: {},
             initEvents: this.events.map(event => ({
@@ -168,7 +127,7 @@ export default {
                 currentDay = [
                     {
                         date: this.formatDate(new Date(date)),
-                        events: []
+                        events: this.eventsForDate(date)
                     }
                 ];
             }

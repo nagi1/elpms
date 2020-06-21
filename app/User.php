@@ -7,6 +7,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Overtrue\LaravelSubscribe\Traits\Subscriber;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Cmgmyr\Messenger\Traits\Messagable;
 use App\Scopes\User\MediaScope;
 use App\Models\Project;
 use App\Models\Pivots\ProjectUser;
@@ -19,6 +20,7 @@ class User extends Authenticatable implements HasMedia
     use Notifiable;
     use InteractsWithMedia;
     use Subscriber;
+    use Messagable;
 
 
     protected $casts = [

@@ -11,7 +11,8 @@ Route::get('{account}/projects/{project}/message-boards/archive')->name('message
 // Archived todo lists
 Route::get('{account}/projects/{project}/todo-lists/archive')->name('todoLists.archive')->uses('TodoLists\TodoListsArchiveIndexController');
 
-
+// Archived todo items
+Route::get('{account}/projects/{project}/events/{event}/archive')->name('events.archive')->uses('TodoItems\TodoItemsArchiveIndexController');
 
 // Message Boards
 
@@ -178,8 +179,39 @@ Route::get('{account}/projects/{project}/todo-lists/{todoList}/todo-items/{todoI
 // Schedule index
 Route::get('{account}/projects/{project}/schedule')->name('schedule.index')->uses('Schedule\ScheduleController@index')->middleware(['auth']);
 
-// Schedule index
+
+
+// Chat
+
+// Chat index
+Route::get('{account}/projects/{project}/chat')->name('chat.index')->uses('Chat\ChatController@index')->middleware(['auth']);
+
+
+
+// Questionnaires
+
+// Questionnaire index
+Route::get('{account}/projects/{project}/questionnaires')->name('questionnaires.index')->uses('Questionnaires\QuestionnairesController@index')->middleware(['auth']);
+
+// Create Questionnaire
+Route::get('{account}/projects/{project}/questionnaires/create')->name('questionnaires.create')->uses('Questionnaires\QuestionnairesController@create')->middleware(['auth']);
+
+
+//Events
+
+// Create new event
 Route::post('{account}/projects/{project}/schedule')->name('events.store')->uses('Events\EventsController@store')->middleware(['auth']);
+
+
+// Update event
+Route::put('{account}/projects/{project}/events/{event}')->name('events.update')->uses('Events\EditEventsController@update')->middleware(['auth']);
+
+
+// Show event
+Route::get('{account}/projects/{project}/events/{event}')->name('events.show')->uses('Events\ShowEventsController')->middleware(['auth']);
+
+
+
 
 
 // Projects

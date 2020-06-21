@@ -111,7 +111,7 @@ class PrepareEventAttributesAction
             'assignedTo' => $this->prepareUsers($attributes['assignedTo']),
             'event-trixFields' => empty($attributes['event-trixFields']) ? null : $attributes['event-trixFields'],
             'attachment-event-trixFields' => empty($attributes['attachment-event-trixFields']) ? null : $attributes['attachment-event-trixFields'],
-            'notifiedUsers' => strToBool($attributes['notifyUsers']) ? collect() : $this->prepareUsers($attributes['notifiedUsers'])
+            'notifiedUsers' =>  strToBool($attributes['notifyUsers']) ? collect() : $this->prepareUsers($attributes['notifiedUsers'])
         ]);
     }
 }

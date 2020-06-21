@@ -22,7 +22,7 @@ class TodoItemsPresenter extends FlexiblePresenter
             'endsAt' => fn () => $this->formatDate($this->ends_at),
             'startsAtDate' => fn () => optional($this->starts_at)->format('Y-m-d'),
             'endsAtDate' => fn () => optional($this->ends_at)->format('Y-m-d'),
-            'trixRichText' => fn () => optional($this->content),
+            'trixRichText' => fn () => $this->content,
             'excerpt' => fn () => excerpt($this->content, 30),
             'archived' => fn () => shortDate($this->archived_at),
             'order' => fn () => $this->order_column,

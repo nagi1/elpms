@@ -10,6 +10,11 @@
         <input type="hidden" name="_method" v-if="mode == 'edit'" value="PUT" />
         <input type="hidden" name="_token" :value="csrf" />
         <input type="hidden" name="color" :value="color" />
+        <input
+            type="hidden"
+            name="applyOnOccurrences"
+            :value="applyOnOccurrences"
+        />
 
         <div class="flex items-end space-x-3 pb-3 border-b border-gray-300">
             <color-picker
@@ -214,7 +219,21 @@
             </div>
         </div>
 
-        <div class="mt-10">
+        <input
+            v-if="mode == 'edit'"
+            type="hidden"
+            name="notifyUsers"
+            :value="false"
+        />
+
+        <input
+            v-if="mode == 'edit'"
+            type="hidden"
+            name="notifiedUsers"
+            :value="[]"
+        />
+
+        <div v-if="mode !== 'edit'" class="mt-10">
             <div class="flex flex-col space-y-3">
                 <label class="flex items-center space-x-2" for="dontNotify">
                     <input
@@ -262,8 +281,8 @@
                 Never mind
             </button>
         </div>
-
         <select-notified-users-modal
+            v-if="mode !== 'edit'"
             :users="project.subscribers"
             :open="showNotifyUsersModal"
             @close="closeNotifyUsersModal"
@@ -361,14 +380,16 @@ export default {
             if (value === "forever") {
                 this.repeatUntil = null;
             } else {
-                this.repeatUntil = timeSolver.getString(
-                    new Date(),
-                    "YYYY-MM-DD"
-                );
+                if (this.repeatUntil == null) {
+                    this.repeatUntil = timeSolver.getString(
+                        new Date(),
+                        "YYYY-MM-DD"
+                    );
+                }
             }
         }
     },
-    mounted() {
+    created() {
         if (!this.csrf) {
             this.$inertia.reload();
         }
@@ -376,10 +397,35 @@ export default {
         if (this.mode === "edit") {
             this.showTrix();
             this.$nextTick(() => {
+                const startsAtDate = new Date(this.event.startsAtDatetime);
+                const endsAtDate = new Date(this.event.endsAtDatetime);
                 const trix = document.querySelector("trix-editor");
+
                 trix.innerHTML = this.event.trixRichText;
                 this.name = this.event.name;
                 this.assignedTo = this.event.assignedTo.map(user => user.id);
+
+                this.color = this.event.color;
+                this.startsAtDate = timeSolver.getString(
+                    startsAtDate,
+                    "YYYY-MM-DD"
+                );
+                this.endsAtDate = timeSolver.getString(
+                    endsAtDate,
+                    "YYYY-MM-DD"
+                );
+                this.startsAtTime = timeSolver.getString(
+                    startsAtDate,
+                    "HH:mm:ss"
+                );
+                this.endsAtTime = timeSolver.getString(endsAtDate, "HH:mm:ss");
+                this.repeatPeriod = this.event.repeatSettings.repeatPeriod;
+                this.repeatUntil = timeSolver.getString(
+                    new Date(this.event.repeatSettings.repeatUntil),
+                    "YYYY-MM-DD"
+                );
+                this.repeat = this.event.repeatSettings.repeat;
+                this.allDay = Boolean(this.event.allDay);
             });
             this.action = route("events.update", {
                 account: this.$page.account.id,
@@ -410,6 +456,7 @@ export default {
             notifiedUsers: [],
             allDay: false,
             repeat: "no",
+            applyOnOccurrences: false,
             startsAtDate: timeSolver.getString(new Date(), "YYYY-MM-DD"),
             startsAtTime: timeSolver.getString(new Date(), "HH:mm:ss"),
             endsAtDate: timeSolver.getString(new Date(), "YYYY-MM-DD"),
@@ -504,7 +551,27 @@ export default {
             this.prepareUsers();
             this.$validate().then(success => {
                 if (success) {
-                    this.$refs.formElement.submit();
+                    if (this.mode === "edit") {
+                        this.$confirm({
+                            message: `Do you also want this changes to apply to occurrences?`,
+                            button: {
+                                no: "No",
+                                yes: "Yes"
+                            },
+                            callback: confirm => {
+                                if (confirm) {
+                                    this.applyOnOccurrences = true;
+                                } else {
+                                    this.applyOnOccurrences = false;
+                                }
+                                setTimeout(() => {
+                                    this.$refs.formElement.submit();
+                                }, 200);
+                            }
+                        });
+                    } else {
+                        this.$refs.formElement.submit();
+                    }
                 }
             });
         }

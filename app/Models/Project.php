@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Spatie\ModelStates\HasStates;
 use Overtrue\LaravelSubscribe\Traits\Subscribable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
+use Cmgmyr\Messenger\Models\Thread;
 use App\User;
 use App\States\Project\ProjectType;
 use App\Scopes\Project\OrderScope;
@@ -97,6 +99,12 @@ class Project extends Model
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
+    }
+
+    public function chat(): Thread
+    {
+        return Thread::where('subject', "project-{$this->id}")
+            ->first();
     }
 
     public function toggleHillChart(?bool $state = null): void

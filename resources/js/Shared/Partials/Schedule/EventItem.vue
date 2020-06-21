@@ -2,7 +2,11 @@
     <div class="flex flex-col space-y-5">
         <div class="flex flex-col pt-2 space-y-2">
             <div class="flex items-start space-x-2">
-                <span class="font-medium text-lg">{{ event.title }}</span>
+                <inertia-link
+                    :href="event.data.path"
+                    class="font-medium text-lg"
+                    >{{ event.title }}</inertia-link
+                >
                 <div class="flex items-center space-x-1">
                     <avatar-modal
                         v-for="user in event.data.assignedTo"

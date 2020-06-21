@@ -51,7 +51,7 @@
         <!-- breadcrumbs -->
 
         <div
-            class="relative panel border-2 border-gray-400  shadow-xl  max-w-4xl flex flex-col justify-center bg-white w-full py-10 mt-12 px-3  h-full overflow-x-hidden"
+            class="relative panel border-2 border-gray-400  shadow-xl  max-w-4xl flex flex-col justify-center bg-white w-full py-10 mt-12 px-3  h-screen overflow-x-hidden"
         >
             <slot />
         </div>

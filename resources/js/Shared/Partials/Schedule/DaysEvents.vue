@@ -5,7 +5,7 @@
             :key="day.date"
             class="flex flex-col space-y-5  sm:space-x-10 sm:flex-row sm:space-y-0 items-start"
         >
-            <div class="flex-grow-0 mt-5 flex-shrink-0 w-32 font-semibold">
+            <div class="flex-grow-0 mt-5 flex-shrink-0 w-35 font-semibold">
                 {{ day.date }}
             </div>
             <div class="flex-grow space-y-3 divide-y divide-gray-400 w-full">

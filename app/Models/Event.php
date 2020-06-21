@@ -107,12 +107,11 @@ class Event extends Model implements BucketContract, MoveContract, BoostContract
 
     public function path(): string
     {
-        return '';
-        // return route('todoLists.show', [
-        //     'account' => session('account_id', fn () => $this->project->account_id),
-        //     'project' => $this->project_id,
-        //     'todoList' => $this->id
-        // ]);
+        return route('events.show', [
+            'account' => session('account_id', fn () => $this->project->account_id),
+            'project' => $this->project_id,
+            'event' => $this->id
+        ]);
     }
 
 

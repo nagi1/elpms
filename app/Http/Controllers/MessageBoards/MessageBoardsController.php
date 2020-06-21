@@ -20,7 +20,9 @@ class MessageBoardsController extends Controller
 {
     public function index(Account $account, Project $project)
     {
+
         $category = request()->query('categoryId');
+
         return Inertia::render('MessageBoards/Index', [
             'account' => AccountsPresenter::make($account)->preset('basic')->get(),
             'project' => ProjectsPresenter::make($project->load(['categories']))->only('id', 'name', 'categories', 'MessageBoardMeta')->get(),

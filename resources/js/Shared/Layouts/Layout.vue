@@ -14,6 +14,7 @@
             </fade-transition>
         </article>
         <portal-target name="modals"></portal-target>
+        <vue-confirm-dialog></vue-confirm-dialog>
     </main>
 </template>
 

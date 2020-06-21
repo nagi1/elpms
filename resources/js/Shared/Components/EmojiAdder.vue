@@ -20,7 +20,7 @@
 
         <scale-transition>
             <div
-                class="absolute z-10 border w-56 rounded-lg p-4 rounded bg-white shadow mt-2"
+                class="absolute bottom-0 right-0 z-10 border w-56 rounded-lg p-4 rounded bg-white shadow mt-2"
                 v-on-clickaway="close"
                 v-if="open"
             >
@@ -43,13 +43,22 @@
 import { mixin as clickaway } from "vue-clickaway";
 import { ScaleTransition } from "vue2-transitions";
 export default {
+    props: {
+        emojiList: {
+            type: Array,
+            default: () => []
+        }
+    },
     components: {
         ScaleTransition
     },
     mixins: [clickaway],
     data() {
         return {
-            emojis: ["😀", "😂", "😎"],
+            emojis:
+                this.emojiList.length === 0
+                    ? ["😀", "😂", "😎"]
+                    : this.emojiList,
             open: false
         };
     },
