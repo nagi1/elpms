@@ -1,79 +1,55 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# ELPMS: Basecamp clone made with Laravel
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## Why
 
-## About Laravel
+Recreating Basecamp from scratch using Laravel and VueJS. Staying away from the boring API approach. 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Modern problems require modern solutions.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Screenshots
 
-## Laravel Sponsors
+![image](https://user-images.githubusercontent.com/16584220/192132862-2fe8ee7d-761d-4de4-aec4-77421039990f.png)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
-- [云软科技](http://www.yunruan.ltd/)
+![image](https://user-images.githubusercontent.com/16584220/192132881-4ee048df-d72c-4eb8-91d4-832d8bd46406.png)
 
-## Contributing
+![image](https://user-images.githubusercontent.com/16584220/192132885-a092efb3-0a27-44a6-84e3-a3b86e072fb0.png)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+![image](https://user-images.githubusercontent.com/16584220/192132900-370cb59b-0abb-46e4-8f20-6afee8f0b448.png)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+![image](https://user-images.githubusercontent.com/16584220/192132904-1f222eac-5362-4b70-a134-74e42e53daf8.png)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+![image](https://user-images.githubusercontent.com/16584220/192132909-ade9829d-2544-4de2-b0fa-9023ae89bc33.png)
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+![image](https://user-images.githubusercontent.com/16584220/192132921-b2ce5acd-1f9c-494f-95c4-19a0294532df.png)
+
+![image](https://user-images.githubusercontent.com/16584220/192132944-9d50978b-3f2c-45ec-9066-be763c12431b.png)
+
+
+![image](https://user-images.githubusercontent.com/16584220/192132955-0b9b9c6a-606d-4612-807b-3db05bd0cdcd.png)
+
+![image](https://user-images.githubusercontent.com/16584220/192132971-ee7141b6-5409-4eb8-8523-e4db7fa1a9ac.png)
+
+
+![image](https://user-images.githubusercontent.com/16584220/192132975-89278469-2a10-4d59-afc3-74e2a7170e33.png)
+
+
+![image](https://user-images.githubusercontent.com/16584220/192132979-ccc252f1-f105-4852-98fd-ea7b78aa9461.png)
+
+
+![image](https://user-images.githubusercontent.com/16584220/192132984-5eb0d7d0-58e6-4f36-8093-684be2d7a94f.png)
+
+![image](https://user-images.githubusercontent.com/16584220/192132987-19a6b448-e5c5-4b04-a7c0-6ffcb5316966.png)
+
+![image](https://user-images.githubusercontent.com/16584220/192132995-fdb4b743-1304-4320-a536-ee8ce9d83993.png)
+
+
+![image](https://user-images.githubusercontent.com/16584220/192133016-6a3cec08-501e-4d07-96b1-f08c5fec3a40.png)
+
